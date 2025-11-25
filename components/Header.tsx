@@ -28,10 +28,10 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
             <nav className="container mx-auto px-6 py-6">
-                <div className="flex items-center justify-between">
+                <div className="grid grid-cols-[1fr_auto] md:grid-cols-3 items-center">
                     {/* Logo */}
-                    <Link href="/" className="group flex items-center gap-4">
-                        <div className="relative w-10 h-10">
+                    <Link href="/" className="group flex items-center gap-2 md:gap-4 justify-self-start">
+                        <div className="relative w-8 h-8 md:w-10 md:h-10 flex-shrink-0">
                             <img
                                 src="/logo.svg"
                                 alt="Studio 1947 Logo"
@@ -39,22 +39,22 @@ export default function Header() {
                             />
                         </div>
                         <div className="flex flex-col">
-                            <div className="flex items-center gap-2">
-                                <span className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
+                            <div className="flex items-center gap-1.5 md:gap-2 whitespace-nowrap">
+                                <span className="text-lg md:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
                                     Local Design
                                 </span>
-                                <span className={`text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                                <span className={`text-lg md:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
                                     {activeText}
                                 </span>
                             </div>
-                            <span className="text-xs tracking-extra-wide text-gray-500 uppercase">
+                            <span className="text-[10px] md:text-xs tracking-extra-wide text-gray-500 uppercase whitespace-nowrap">
                                 An initiative by Studio 1947
                             </span>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-12">
+                    <div className="hidden md:flex items-center gap-12 justify-self-center">
                         <Link
                             href="/challenges"
                             className="text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200 uppercase"
@@ -82,7 +82,7 @@ export default function Header() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 justify-self-end">
                         <Link
                             href="/submit"
                             className="hidden sm:block px-6 py-2 border-2 border-gray-900 text-gray-900 text-sm font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase"
