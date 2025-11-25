@@ -16,7 +16,14 @@ export default function Header() {
             <nav className="container mx-auto px-6 py-6">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="group">
+                    <Link href="/" className="group flex items-center gap-4">
+                        <div className="relative w-10 h-10">
+                            <img
+                                src="/logo.svg"
+                                alt="Studio 1947 Logo"
+                                className="w-full h-full object-contain animate-spin-slow"
+                            />
+                        </div>
                         <div className="flex flex-col">
                             <span className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
                                 DESIGN ARCHIVES

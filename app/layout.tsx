@@ -19,6 +19,9 @@ export const metadata: Metadata = {
         description: "Design challenges and community platform",
         type: "website",
     },
+    icons: {
+        icon: '/logo.svg',
+    },
 };
 
 import ScrollToTop from "@/components/ScrollToTop";
