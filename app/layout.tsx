@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     },
 };
 
+import ScrollToTop from "@/components/ScrollToTop";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -30,6 +32,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${inter.variable} font-sans antialiased`}>
                 {children}
+                <ScrollToTop />
             </body>
         </html>
     );

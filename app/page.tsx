@@ -84,15 +84,15 @@ export default function Home() {
                                     fill
                                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute bottom-0 left-0 right-0 p-6 md:pl-64 text-white transform translate-y-0 opacity-100 md:translate-y-full md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
                                     <p className="text-xs uppercase tracking-extra-wide mb-2">Featured Challenge</p>
                                     <h3 className="text-xl font-bold">Sustainable Brand Identity 2024</h3>
                                 </div>
                             </div>
 
                             {/* Floating Stats Cards */}
-                            <div className="absolute -bottom-8 -left-8 bg-white border-2 border-gray-900 p-6 shadow-lg animate-scale-in hover-lift">
+                            <div className="relative mt-4 md:absolute md:mt-0 md:-bottom-8 md:-left-8 bg-white border-2 border-gray-900 p-6 shadow-lg animate-scale-in hover-lift w-full md:w-auto">
                                 <div className="flex items-center gap-3">
                                     <div className="p-3 border border-gray-900">
                                         <Users className="w-6 h-6 text-gray-900" />
@@ -104,7 +104,7 @@ export default function Home() {
                                 </div>
                             </div>
 
-                            <div className="absolute -top-8 -right-8 bg-gray-900 text-white p-6 shadow-lg animate-scale-in hover-lift" style={{ animationDelay: '0.2s' }}>
+                            <div className="absolute top-4 right-4 md:-top-8 md:-right-8 bg-gray-900 text-white p-6 shadow-lg animate-scale-in hover-lift" style={{ animationDelay: '0.2s' }}>
                                 <div className="flex items-center gap-3">
                                     <div className="p-3 border border-white">
                                         <Award className="w-6 h-6" />

@@ -3,8 +3,9 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { mockChallenges } from '@/data/challenges';
+import ChallengeActions from '@/components/ChallengeActions';
 import {
-    Calendar, Users, Eye, MapPin, Clock, Award, Share2, Download
+    Calendar, Users, Eye, MapPin, Clock, Award, Download
 } from 'lucide-react';
 
 export default function ChallengePage({ params }: { params: { id: string } }) {
@@ -183,19 +184,7 @@ export default function ChallengePage({ params }: { params: { id: string } }) {
                         <div className="space-y-6">
                             {/* Action Card */}
                             <div className="border-2 border-gray-900 p-6 sticky top-24">
-                                <div className="space-y-4">
-                                    <button className="w-full px-8 py-4 bg-gray-900 text-white font-medium tracking-wide hover:bg-gray-800 transition-all duration-300 uppercase text-sm">
-                                        Participate Now
-                                    </button>
-                                    <button className="w-full px-8 py-4 border-2 border-gray-900 text-gray-900 font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase text-sm flex items-center justify-center gap-2">
-                                        <Download className="w-4 h-4" />
-                                        Download Brief
-                                    </button>
-                                    <button className="w-full px-8 py-4 border-2 border-gray-200 text-gray-700 font-medium tracking-wide hover:border-gray-900 transition-all duration-300 uppercase text-sm flex items-center justify-center gap-2">
-                                        <Share2 className="w-4 h-4" />
-                                        Share
-                                    </button>
-                                </div>
+                                <ChallengeActions challengeId={challenge.id} />
 
                                 <div className="mt-8 pt-8 border-t border-gray-200 space-y-6">
                                     <div className="flex items-start gap-3">

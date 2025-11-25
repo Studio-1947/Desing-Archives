@@ -1,7 +1,16 @@
+"use client";
+
 import Link from 'next/link';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Header() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
             <nav className="container mx-auto px-6 py-6">
@@ -18,7 +27,7 @@ export default function Header() {
                         </div>
                     </Link>
 
-                    {/* Navigation */}
+                    {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-12">
                         <Link
                             href="/challenges"
@@ -58,11 +67,59 @@ export default function Header() {
                         <button
                             className="p-2 md:hidden hover:bg-gray-100 transition-colors duration-200"
                             aria-label="Menu"
+                            onClick={toggleMenu}
                         >
-                            <Menu className="w-6 h-6 text-gray-900" />
+                            {isMenuOpen ? (
+                                <X className="w-6 h-6 text-gray-900" />
+                            ) : (
+                                <Menu className="w-6 h-6 text-gray-900" />
+                            )}
                         </button>
                     </div>
                 </div>
+
+                {/* Mobile Menu */}
+                {isMenuOpen && (
+                    <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 py-6 px-6 shadow-lg animate-fade-in">
+                        <div className="flex flex-col gap-6">
+                            <Link
+                                href="/challenges"
+                                className="text-lg font-medium tracking-wide text-gray-900 hover:text-gray-600 transition-colors duration-200 uppercase"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Challenges
+                            </Link>
+                            <Link
+                                href="/archives"
+                                className="text-lg font-medium tracking-wide text-gray-900 hover:text-gray-600 transition-colors duration-200 uppercase"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Archives
+                            </Link>
+                            <Link
+                                href="/community"
+                                className="text-lg font-medium tracking-wide text-gray-900 hover:text-gray-600 transition-colors duration-200 uppercase"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Community
+                            </Link>
+                            <Link
+                                href="/about"
+                                className="text-lg font-medium tracking-wide text-gray-900 hover:text-gray-600 transition-colors duration-200 uppercase"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                About
+                            </Link>
+                            <Link
+                                href="/submit"
+                                className="text-lg font-medium tracking-wide text-gray-900 hover:text-gray-600 transition-colors duration-200 uppercase"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Submit Work
+                            </Link>
+                        </div>
+                    </div>
+                )}
             </nav>
         </header>
     );
