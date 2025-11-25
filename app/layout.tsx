@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "Design Archives - Challenges, Community & Portfolio",
+    title: "Local Design - Community & Archives",
     description: "Join design challenges, showcase your work, and connect with the creative community. Rooted in local wisdom, designed for global impact.",
     keywords: ["Design", "Challenges", "Portfolio", "Community", "Graphic Design", "UI/UX", "Brand Identity"],
     authors: [{ name: "Studio 1947" }],

@@ -2,10 +2,24 @@
 
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [activeText, setActiveText] = useState('Community');
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsAnimating(true);
+            setTimeout(() => {
+                setActiveText(prev => prev === 'Community' ? 'Archives' : 'Community');
+                setIsAnimating(false);
+            }, 500); // Wait for fade out animation to complete
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -25,11 +39,16 @@ export default function Header() {
                             />
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
-                                DESIGN ARCHIVES
-                            </span>
+                            <div className="flex items-center gap-2">
+                                <span className="text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
+                                    Local Design
+                                </span>
+                                <span className={`text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                                    {activeText}
+                                </span>
+                            </div>
                             <span className="text-xs tracking-extra-wide text-gray-500 uppercase">
-                                by Studio 1947
+                                An initiative by Studio 1947
                             </span>
                         </div>
                     </Link>
