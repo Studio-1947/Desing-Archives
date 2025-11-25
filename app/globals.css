@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .minimal-card {
+    @apply bg-white border border-gray-200 hover:border-gray-900 transition-all duration-300;
+  }
+
+  .card-hover-minimal {
+    @apply transition-all duration-300 hover:shadow-lg;
+  }
+
+  .gradient-text-elegant {
+    @apply bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent;
+  }
+
+  .btn-primary-minimal {
+    @apply relative px-8 py-3 bg-gray-900 text-white font-medium tracking-wide uppercase text-sm transition-all duration-300 overflow-hidden active:scale-95;
+  }
+
+  .btn-secondary-minimal {
+    @apply relative px-8 py-3 bg-transparent text-gray-900 font-medium tracking-wide border-2 border-gray-900 uppercase text-sm overflow-hidden transition-all duration-300 hover:bg-gray-900 hover:text-white active:scale-95;
+  }
+
+  .btn-underline {
+    @apply relative inline-flex items-center gap-2 text-sm font-medium tracking-wide uppercase text-gray-900 transition-all duration-300;
+  }
+
+  .btn-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gray-900 transition-all duration-300;
+  }
+
+  .btn-underline:hover::after {
+    @apply w-full;
+  }
+
+  .btn-magnetic {
+    @apply relative px-8 py-3 border-2 border-gray-900 text-gray-900 font-medium tracking-wide uppercase text-sm transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-none;
+  }
+
+  .btn-ripple {
+    @apply relative px-8 py-3 bg-gray-900 text-white font-medium tracking-wide uppercase text-sm overflow-hidden transition-all duration-300 hover:bg-gray-800;
+  }
+
+  .btn-border-draw {
+    @apply relative px-8 py-3 bg-transparent text-gray-900 font-medium tracking-wide uppercase text-sm border-2 border-gray-900 transition-all duration-300 hover:bg-gray-900 hover:text-white;
+  }
+
+  .input-field-minimal {
+    @apply w-full px-4 py-3 border-2 border-gray-200 focus:border-gray-900 focus:outline-none transition-all duration-200 bg-white;
+  }
+
+  .section-divider {
+    @apply border-t border-gray-200 my-16;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+}
