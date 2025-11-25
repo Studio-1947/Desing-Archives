@@ -20,7 +20,13 @@ export const metadata: Metadata = {
         type: "website",
     },
     icons: {
-        icon: '/logo.svg',
+        icon: [
+            { url: '/logo.svg', type: 'image/svg+xml' },
+        ],
+        shortcut: ['/logo.svg'],
+        apple: [
+            { url: '/logo.svg', type: 'image/svg+xml' },
+        ],
     },
 };
 
