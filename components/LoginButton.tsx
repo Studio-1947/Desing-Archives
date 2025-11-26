@@ -1,31 +1,10 @@
 'use client';
 
-import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
 
 export default function LoginButton() {
-    const { login, user, logout } = useAuth();
-
-    const handleSuccess = async (credentialResponse: any) => {
-        try {
-            const res = await fetch('http://localhost:5000/api/auth/google', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token: credentialResponse.credential }),
-            });
-
-            if (!res.ok) {
-                throw new Error('Failed to authenticate with backend');
-            }
-
-            const data = await res.json();
-            login(data.token);
-        } catch (error) {
-            console.error('Login failed', error);
-        }
-    };
+    const { user, logout } = useAuth();
 
     if (user) {
         return (
@@ -46,14 +25,11 @@ export default function LoginButton() {
     }
 
     return (
-        <GoogleLogin
-            onSuccess={handleSuccess}
-            onError={() => {
-                console.log('Login Failed');
-            }}
-            useOneTap
-            theme="outline"
-            shape="circle"
-        />
+        <Link
+            href="/login"
+            className="text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200 uppercase"
+        >
+            Log In
+        </Link>
     );
 }
