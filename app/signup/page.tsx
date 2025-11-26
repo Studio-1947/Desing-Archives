@@ -6,6 +6,8 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
+import AnimatedLogo from '@/components/AnimatedLogo';
+import BackButton from '@/components/BackButton';
 
 export default function SignupPage() {
     const [name, setName] = useState('');
@@ -81,10 +83,12 @@ export default function SignupPage() {
                 }}
             />
 
+            <BackButton />
+
             <div className="w-full max-w-md p-8 relative z-10 animate-fade-in">
                 <div className="text-center mb-12">
-                    <div className="inline-block border border-gray-900 px-3 py-1 mb-6">
-                        <span className="text-xs uppercase tracking-extra-wide font-medium">Studio 1947</span>
+                    <div className="flex justify-center mb-6">
+                        <AnimatedLogo center />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">Join the Community</h1>
                     <p className="text-gray-500">Create an account to start submitting work.</p>
