@@ -8,6 +8,12 @@ import {
     Calendar, Users, Eye, MapPin, Clock, Award, Download
 } from 'lucide-react';
 
+export async function generateStaticParams() {
+    return mockChallenges.map((challenge) => ({
+        id: challenge.id,
+    }));
+}
+
 export default function ChallengePage({ params }: { params: { id: string } }) {
     const challenge = mockChallenges.find(c => c.id === params.id);
 
