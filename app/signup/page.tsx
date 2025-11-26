@@ -88,7 +88,7 @@ export default function SignupPage() {
             <div className="w-full max-w-md p-8 relative z-10 animate-fade-in">
                 <div className="text-center mb-12">
                     <div className="flex justify-center mb-6">
-                        <AnimatedLogo center />
+                        <AnimatedLogo />
                     </div>
                     <h1 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight">Join the Community</h1>
                     <p className="text-gray-500">Create an account to start submitting work.</p>

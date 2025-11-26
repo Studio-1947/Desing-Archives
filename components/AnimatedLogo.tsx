@@ -33,9 +33,11 @@ export default function AnimatedLogo({ className = "", center = false }: { class
                     <span className="text-lg md:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
                         Local Design
                     </span>
-                    <span className={`text-lg md:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                        {activeText}
-                    </span>
+                    <div className="relative h-7 md:h-8 w-[100px] md:w-[130px] overflow-hidden">
+                        <span className={`absolute top-0 left-0 text-lg md:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                            {activeText}
+                        </span>
+                    </div>
                 </div>
                 <span className="text-[10px] md:text-xs tracking-extra-wide text-gray-500 uppercase whitespace-nowrap">
                     An initiative by Studio 1947
