@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import LoginButton from './LoginButton';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -83,6 +84,7 @@ export default function Header() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-4 justify-self-end">
+                        <LoginButton />
                         <Link
                             href="/submit"
                             className="hidden sm:block px-6 py-2 border-2 border-gray-900 text-gray-900 text-sm font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase"

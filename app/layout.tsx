@@ -32,6 +32,8 @@ export const metadata: Metadata = {
 
 import ScrollToTop from "@/components/ScrollToTop";
 
+import { AuthProvider } from "@/context/AuthContext";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -40,8 +42,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${inter.variable} font-sans antialiased`}>
-                {children}
-                <ScrollToTop />
+                <AuthProvider>
+                    {children}
+                    <ScrollToTop />
+                </AuthProvider>
             </body>
         </html>
     );
