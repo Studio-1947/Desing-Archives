@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AnimatedLogo({ className = "", center = false }: { className?: string, center?: boolean }) {
     const [activeText, setActiveText] = useState('Community');
@@ -22,10 +23,11 @@ export default function AnimatedLogo({ className = "", center = false }: { class
     return (
         <Link href="/" className={`group flex items-center gap-2 md:gap-4 ${className}`}>
             <div className="relative w-8 h-8 md:w-10 md:h-10 flex-shrink-0">
-                <img
+                <Image
                     src="/logo.svg"
                     alt="Studio 1947 Logo"
-                    className="w-full h-full object-contain animate-spin-slow"
+                    fill
+                    className="object-contain animate-spin-slow"
                 />
             </div>
             <div className={`flex flex-col ${center ? 'items-center' : 'items-start'}`}>

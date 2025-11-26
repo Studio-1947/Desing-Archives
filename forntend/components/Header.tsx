@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import LoginButton from './LoginButton';
@@ -34,10 +35,11 @@ export default function Header() {
                     {/* Logo */}
                     <Link href="/" className="group flex items-center gap-1.5 md:gap-2 justify-self-start">
                         <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-                            <img
+                            <Image
                                 src="/logo.svg"
                                 alt="Studio 1947 Logo"
-                                className="w-full h-full object-contain animate-spin-slow"
+                                fill
+                                className="object-contain animate-spin-slow"
                             />
                         </div>
                         <div className="flex flex-col">

@@ -20,7 +20,7 @@ export default function PrivacyPage() {
                         <section className="mb-12">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
                             <p className="text-gray-700 leading-relaxed mb-4">
-                                Welcome to Studio 1947 ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy.
+                                Welcome to Studio 1947 (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your personal information and your right to privacy.
                                 If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us.
                             </p>
                             <p className="text-gray-700 leading-relaxed">
