@@ -77,4 +77,18 @@
   .hover-scale {
     @apply transition-transform duration-300 hover:scale-105;
   }
+
+  @keyframes grid-flow {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 60px 60px;
+    }
+  }
+
+  .animate-grid-flow {
+    animation: grid-flow 20s linear infinite;
+  }
 }

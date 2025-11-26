@@ -6,6 +6,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { GoogleLogin } from '@react-oauth/google';
+import InteractiveGridBackground from '@/components/InteractiveGridBackground';
 import AnimatedLogo from '@/components/AnimatedLogo';
 import BackButton from '@/components/BackButton';
 
@@ -75,13 +76,8 @@ export default function SignupPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-white relative overflow-hidden">
-            {/* Minimal Background Grid */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                style={{
-                    backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)',
-                    backgroundSize: '40px 40px'
-                }}
-            />
+            {/* Interactive Background Grid */}
+            <InteractiveGridBackground />
 
             <BackButton />
 
