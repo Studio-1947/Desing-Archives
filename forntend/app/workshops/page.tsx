@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import InteractiveGridBackground from '@/components/InteractiveGridBackground';
@@ -5,8 +8,11 @@ import { ArrowRight, CheckCircle2, Users, Lightbulb, PenTool, Presentation, Shar
 import Link from 'next/link';
 import Image from 'next/image';
 import TimeFeatureCard from '@/components/TimeFeatureCard';
+import WorkshopApplicationModal from '@/components/WorkshopApplicationModal';
 
 export default function WorkshopPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const curriculum = [
         {
             day: "Day 1",
@@ -107,13 +113,13 @@ export default function WorkshopPage() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                                <Link
-                                    href="#register"
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
                                     className="btn-primary-minimal inline-flex items-center gap-2 rounded-full px-10 py-4"
                                 >
                                     <span>Join the Cohort</span>
                                     <ArrowRight className="w-4 h-4" />
-                                </Link>
+                                </button>
                                 <Link
                                     href="#curriculum"
                                     className="btn-secondary-minimal rounded-full px-10 py-4 bg-white/50 hover:bg-white"
@@ -323,13 +329,13 @@ export default function WorkshopPage() {
                                     To join, simply provide a brief 100-150 word note explaining how this workshop can positively impact you.
                                     Feel free to express yourself in your native language.
                                 </p>
-                                <Link
-                                    href="/submit"
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
                                     className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold tracking-wide uppercase hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1 rounded-sm"
                                 >
                                     <span>Apply Now</span>
                                     <ArrowRight className="w-5 h-5 ml-2" />
-                                </Link>
+                                </button>
                             </div>
 
                             <p className="text-sm opacity-60 uppercase tracking-widest">
@@ -341,6 +347,11 @@ export default function WorkshopPage() {
             </main>
 
             <Footer className="bg-white/80 backdrop-blur-md mt-24 relative z-10" />
+
+            <WorkshopApplicationModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 }
