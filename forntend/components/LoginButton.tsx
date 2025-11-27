@@ -9,6 +9,7 @@ import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
 export default function LoginButton() {
     const { user, logout } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
+    const [imageError, setImageError] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -31,14 +32,21 @@ export default function LoginButton() {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center gap-2 group focus:outline-none"
                 >
-                    <Image
-                        src={user.picture}
-                        alt={user.name}
-                        width={32}
-                        height={32}
-                        className="rounded-full border border-gray-200 group-hover:border-gray-400 transition-colors object-cover"
-                        unoptimized
-                    />
+                    {user.picture && !imageError ? (
+                        <Image
+                            src={user.picture}
+                            alt={user.name}
+                            width={32}
+                            height={32}
+                            className="rounded-full border border-gray-200 group-hover:border-gray-400 transition-colors object-cover"
+                            unoptimized
+                            onError={() => setImageError(true)}
+                        />
+                    ) : (
+                        <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-600 font-medium text-xs group-hover:border-gray-400 transition-colors">
+                            {user.name ? user.name.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
+                        </div>
+                    )}
                     <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
 
