@@ -4,6 +4,7 @@ import InteractiveGridBackground from '@/components/InteractiveGridBackground';
 import { ArrowRight, CheckCircle2, Users, Lightbulb, PenTool, Presentation, Share2, Calendar, Globe, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import TimeFeatureCard from '@/components/TimeFeatureCard';
 
 export default function WorkshopPage() {
     const curriculum = [
@@ -129,14 +130,7 @@ export default function WorkshopPage() {
                     <div className="container mx-auto px-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
                             {/* Feature 1 */}
-                            <div className="space-y-4 group">
-                                <div className="text-7xl font-bold text-gray-900 group-hover:scale-110 transition-transform duration-300">
-                                    24
-                                </div>
-                                <p className="text-sm font-medium text-gray-800 leading-relaxed max-w-[150px] mx-auto">
-                                    hours Live and interactive Sessions
-                                </p>
-                            </div>
+                            <TimeFeatureCard />
 
                             {/* Feature 2 */}
                             <div className="space-y-4 group">
@@ -275,7 +269,7 @@ export default function WorkshopPage() {
                                     </p>
                                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-900">
                                         <Clock className="w-4 h-4" />
-                                        <span>24 Hours Live Sessions</span>
+                                        <span>24 Hours (5h/day + 4h Customizable)</span>
                                     </div>
                                 </div>
                             </div>
