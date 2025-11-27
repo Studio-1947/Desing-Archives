@@ -44,10 +44,10 @@ export default function Header() {
                         </div>
                         <div className="flex flex-col">
                             <div className="flex items-center gap-1.5 md:gap-2 whitespace-nowrap">
-                                <span className="text-lg md:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
+                                <span className="text-base md:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
                                     Local Design
                                 </span>
-                                <span className={`text-lg md:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                                <span className={`text-base md:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
                                     {activeText}
                                 </span>
                             </div>
@@ -111,7 +111,9 @@ export default function Header() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-4 justify-self-end">
-                        <LoginButton />
+                        <div className="hidden md:block">
+                            <LoginButton />
+                        </div>
                         <Link
                             href="/submit"
                             className="hidden sm:block px-6 py-2 border-2 border-gray-900 text-gray-900 text-sm font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase"
@@ -199,6 +201,9 @@ export default function Header() {
                             >
                                 Submit Work
                             </Link>
+                            <div className="pt-4 border-t border-gray-100">
+                                <LoginButton />
+                            </div>
                         </div>
                     </div>
                 )}
