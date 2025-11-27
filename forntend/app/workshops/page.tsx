@@ -10,32 +10,38 @@ export default function WorkshopPage() {
         {
             day: "Day 1",
             title: "Intro of Design",
-            description: "Expressing human emotions through basic design elements and understanding the limitations and delimitations of language and representation."
+            description: "Expressing human emotions through basic design elements and understanding the limitations and delimitations of language and representation.",
+            image: "/Indian Art.png"
         },
         {
             day: "Day 2",
             title: "Functionality & Limitation of Expression",
-            description: "Anatomy of typography and basic understanding of typesetting in crafting layouts. Typography and Minimal design."
+            description: "Anatomy of typography and basic understanding of typesetting in crafting layouts. Typography and Minimal design.",
+            image: "/Image by Gatis Marcinkevics.png"
         },
         {
             day: "Day 3",
             title: "Emotion & Typography",
-            description: "Practicing typography in Illustrator. Understanding how type conveys emotion."
+            description: "Practicing typography in Illustrator. Understanding how type conveys emotion.",
+            image: "/Image by Debby Hudson.png"
         },
         {
             day: "Day 4",
             title: "Empathy",
-            description: "What is empathy, and how does it help in design? Influence of Culture and Nature in Design. Listening & not listening in individual and collective discourse. Inclusive Design. Identifying problems."
+            description: "What is empathy, and how does it help in design? Influence of Culture and Nature in Design. Listening & not listening in individual and collective discourse. Inclusive Design. Identifying problems.",
+            image: "/Family Head.png"
         },
         {
             day: "Day 5-7",
             title: "Approaching Challenges",
-            description: "Framing problem statements and approaching through design. Mentorship on developing individual projects and guidance for design tools and softwares."
+            description: "Framing problem statements and approaching through design. Mentorship on developing individual projects and guidance for design tools and softwares.",
+            image: "/Image by Daniel Minárik.png"
         },
         {
             day: "Day 8",
             title: "Wrap Up",
-            description: "Presenting individual projects and reflections. Portfolio making and marketing your design work. + Feedbacks"
+            description: "Presenting individual projects and reflections. Portfolio making and marketing your design work. + Feedbacks",
+            image: "/Various Indian Spices.png"
         }
     ];
 
@@ -277,18 +283,30 @@ export default function WorkshopPage() {
                             <div className="md:w-2/3">
                                 <div className="space-y-8">
                                     {curriculum.map((item, index) => (
-                                        <div key={index} className="group border-b border-gray-200 pb-8 last:border-0 hover:pl-4 transition-all duration-300">
-                                            <div className="flex flex-col sm:flex-row gap-4 sm:items-baseline mb-3">
-                                                <span className="text-sm font-bold tracking-widest uppercase text-gray-400 group-hover:text-gray-900 transition-colors">
-                                                    {item.day}
-                                                </span>
-                                                <h3 className="text-2xl font-bold text-gray-900">
-                                                    {item.title}
-                                                </h3>
+                                        <div key={index} className="group flex flex-col md:flex-row gap-8 items-start border-b border-gray-200 pb-12 last:border-0 transition-all duration-300">
+                                            {/* Image */}
+                                            <div className="w-full md:w-48 h-48 relative overflow-hidden bg-gray-100 shrink-0 border border-gray-200">
+                                                <Image
+                                                    src={item.image}
+                                                    alt={item.title}
+                                                    fill
+                                                    className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                                                />
                                             </div>
-                                            <p className="text-gray-600 pl-0 sm:pl-20 leading-relaxed">
-                                                {item.description}
-                                            </p>
+                                            {/* Content */}
+                                            <div className="flex-1 space-y-3">
+                                                <div className="flex flex-col sm:flex-row gap-4 sm:items-baseline">
+                                                    <span className="text-sm font-bold tracking-widest uppercase text-gray-400 group-hover:text-gray-900 transition-colors">
+                                                        {item.day}
+                                                    </span>
+                                                    <h3 className="text-2xl font-bold text-gray-900">
+                                                        {item.title}
+                                                    </h3>
+                                                </div>
+                                                <p className="text-gray-600 leading-relaxed">
+                                                    {item.description}
+                                                </p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
