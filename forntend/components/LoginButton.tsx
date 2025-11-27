@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
+import Image from 'next/image';
 import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
 
 export default function LoginButton() {
@@ -30,10 +31,13 @@ export default function LoginButton() {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center gap-2 group focus:outline-none"
                 >
-                    <img
+                    <Image
                         src={user.picture}
                         alt={user.name}
-                        className="w-8 h-8 rounded-full border border-gray-200 group-hover:border-gray-400 transition-colors object-cover"
+                        width={32}
+                        height={32}
+                        className="rounded-full border border-gray-200 group-hover:border-gray-400 transition-colors object-cover"
+                        unoptimized
                     />
                     <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
