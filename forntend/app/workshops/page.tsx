@@ -96,7 +96,7 @@ export default function WorkshopPage() {
                             </h1>
 
                             <p className="text-xl md:text-3xl text-gray-800 mb-12 font-light max-w-3xl mx-auto leading-relaxed">
-                                "If I'm capable of designing, so are you 🙌"
+                                &quot;If I&apos;m capable of designing, so are you 🙌&quot;
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -200,8 +200,8 @@ export default function WorkshopPage() {
                             <div className="relative h-[600px] border-2 border-gray-900 p-4 bg-white">
                                 <div className="relative h-full w-full overflow-hidden bg-gray-900">
                                     <Image
-                                        src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80"
-                                        alt="Design Workshop"
+                                        src="/rabida_about.png"
+                                        alt="Rabiul Islam (Rabi)"
                                         fill
                                         className="object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
                                     />
@@ -225,7 +225,7 @@ export default function WorkshopPage() {
                         <div className="text-center mb-16">
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Who is this for?</h2>
                             <p className="text-gray-600 max-w-2xl mx-auto">
-                                Whether you're a beginner or looking to sharpen your skills, this workshop is designed for diverse backgrounds.
+                                Whether you&apos;re a beginner or looking to sharpen your skills, this workshop is designed for diverse backgrounds.
                             </p>
                         </div>
 
@@ -328,7 +328,7 @@ export default function WorkshopPage() {
                 </section>
             </main>
 
-            <Footer />
+            <Footer className="bg-white/80 backdrop-blur-md mt-24 relative z-10" />
         </div>
     );
 }
