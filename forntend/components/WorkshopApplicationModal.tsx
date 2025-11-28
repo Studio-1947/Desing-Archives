@@ -101,7 +101,7 @@ export default function WorkshopApplicationModal({ isOpen, onClose }: WorkshopAp
                             </div>
                             <h4 className="text-2xl font-bold text-gray-900 mb-2">Application Sent!</h4>
                             <p className="text-gray-600">
-                                Thank you for applying. We'll review your note and get back to you shortly.
+                                Thank you for applying. We&apos;ll review your note and get back to you shortly.
                             </p>
                         </div>
                     ) : (
