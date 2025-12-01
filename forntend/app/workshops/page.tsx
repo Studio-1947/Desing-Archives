@@ -12,6 +12,7 @@ import WorkshopApplicationModal from '@/components/WorkshopApplicationModal';
 
 export default function WorkshopPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState<'standard' | 'fast-track'>('standard');
 
     const curriculum = [
         {
@@ -49,6 +50,33 @@ export default function WorkshopPage() {
             title: "Wrap Up",
             description: "Presenting individual projects and reflections. Portfolio making and marketing your design work. + Feedbacks",
             image: "/Various Indian Spices.png"
+        }
+    ];
+
+    const fastTrackCurriculum = [
+        {
+            day: "09:00 AM - 11:00 AM",
+            title: "Deconstructing Design",
+            description: "Understanding the core grammar of visual language. Breaking down complex visuals into fundamental elements.",
+            image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            day: "11:30 AM - 01:30 PM",
+            title: "Typography as Voice",
+            description: "How type influences perception and emotion. Mastering the subtle art of choosing the right typeface.",
+            image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            day: "02:30 PM - 04:30 PM",
+            title: "The Art of Storytelling",
+            description: "Weaving narratives into your design solutions. Creating designs that speak and connect.",
+            image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80"
+        },
+        {
+            day: "05:00 PM - 07:00 PM",
+            title: "Rapid Execution",
+            description: "From concept to final output in record time. Tools and techniques for high-speed, high-quality delivery.",
+            image: "https://images.unsplash.com/photo-1499591934245-40b55745b905?auto=format&fit=crop&w=800&q=80"
         }
     ];
 
@@ -275,40 +303,73 @@ export default function WorkshopPage() {
                                     </p>
                                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-900">
                                         <Clock className="w-4 h-4" />
-                                        <span>24 Hours (5h/day + 4h Customizable)</span>
+                                        <span>
+                                            {activeTab === 'standard'
+                                                ? "24 Hours (5h/day + 4h Customizable)"
+                                                : "1 Day (8 Hours Intensive)"}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="md:w-2/3">
-                                <div className="space-y-8">
-                                    {curriculum.map((item, index) => (
-                                        <div key={index} className="group flex flex-col md:flex-row gap-8 items-start border-b border-gray-200 pb-12 last:border-0 transition-all duration-300">
-                                            {/* Image */}
-                                            <div className="w-full md:w-48 h-48 relative overflow-hidden bg-gray-100 shrink-0 border border-gray-200">
-                                                <Image
-                                                    src={item.image}
-                                                    alt={item.title}
-                                                    fill
-                                                    className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
-                                                />
-                                            </div>
-                                            {/* Content */}
-                                            <div className="flex-1 space-y-3">
-                                                <div className="flex flex-col sm:flex-row gap-4 sm:items-baseline">
-                                                    <span className="text-sm font-bold tracking-widest uppercase text-gray-400 group-hover:text-gray-900 transition-colors">
-                                                        {item.day}
-                                                    </span>
-                                                    <h3 className="text-2xl font-bold text-gray-900">
-                                                        {item.title}
-                                                    </h3>
+                                <div className="flex flex-col gap-8 mb-12">
+                                    <div className="flex gap-8 border-b border-gray-200">
+                                        <button
+                                            onClick={() => setActiveTab('standard')}
+                                            className={`pb-4 text-lg font-medium transition-all duration-300 relative ${activeTab === 'standard'
+                                                ? 'text-gray-900'
+                                                : 'text-gray-400 hover:text-gray-600'
+                                                }`}
+                                        >
+                                            Standard Curriculum
+                                            {activeTab === 'standard' && (
+                                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900" />
+                                            )}
+                                        </button>
+                                        <button
+                                            onClick={() => setActiveTab('fast-track')}
+                                            className={`pb-4 text-lg font-medium transition-all duration-300 relative ${activeTab === 'fast-track'
+                                                ? 'text-gray-900'
+                                                : 'text-gray-400 hover:text-gray-600'
+                                                }`}
+                                        >
+                                            Fast Track (1 Day)
+                                            {activeTab === 'fast-track' && (
+                                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gray-900" />
+                                            )}
+                                        </button>
+                                    </div>
+
+                                    <div className="space-y-8">
+                                        {(activeTab === 'standard' ? curriculum : fastTrackCurriculum).map((item, index) => (
+                                            <div key={index} className="group flex flex-col md:flex-row gap-8 items-start border-b border-gray-200 pb-12 last:border-0 transition-all duration-300">
+                                                {/* Image */}
+                                                <div className="w-full md:w-48 h-48 relative overflow-hidden bg-gray-100 shrink-0 border border-gray-200">
+                                                    <Image
+                                                        src={item.image}
+                                                        alt={item.title}
+                                                        fill
+                                                        className="object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0"
+                                                    />
                                                 </div>
-                                                <p className="text-gray-600 leading-relaxed">
-                                                    {item.description}
-                                                </p>
+                                                {/* Content */}
+                                                <div className="flex-1 space-y-3">
+                                                    <div className="flex flex-col sm:flex-row gap-4 sm:items-baseline">
+                                                        <span className="text-sm font-bold tracking-widest uppercase text-gray-400 group-hover:text-gray-900 transition-colors">
+                                                            {item.day}
+                                                        </span>
+                                                        <h3 className="text-2xl font-bold text-gray-900">
+                                                            {item.title}
+                                                        </h3>
+                                                    </div>
+                                                    <p className="text-gray-600 leading-relaxed">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
