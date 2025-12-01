@@ -36,10 +36,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Versatility', weight: 20, description: 'How well the identity works across different mediums and scales.' }
       ],
       schedule: [
-        { phase: 'Submission Opens', date: '2024-01-15' },
-        { phase: 'Submission Closes', date: '2024-12-31' },
-        { phase: 'Judging Period', date: '2025-01-01 - 2025-01-15' },
-        { phase: 'Winners Announced', date: '2025-01-20' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-01-15 - 2024-06-30' },
+        { phase: 'Phase 2: Final Design', date: '2024-07-01 - 2024-12-31' },
+        { phase: 'Final Judging', date: '2025-01-01 - 2025-01-15' },
+        { phase: 'Winners Announced', date: '2025-01-20' },
+        { phase: 'Award Distribution', date: '2025-01-25' }
       ]
     },
     rules: [
@@ -89,10 +90,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Presentation', weight: 10, description: 'Clarity and storytelling in the case study.' }
       ],
       schedule: [
-        { phase: 'Submission Opens', date: '2024-02-01' },
-        { phase: 'Submission Closes', date: '2024-11-30' },
+        { phase: 'Phase 1: Draft & Planning', date: '2024-02-01 - 2024-06-30' },
+        { phase: 'Phase 2: Final Design', date: '2024-07-01 - 2024-11-30' },
         { phase: 'Community Voting', date: '2024-12-01 - 2024-12-10' },
-        { phase: 'Results', date: '2024-12-15' }
+        { phase: 'Results', date: '2024-12-15' },
+        { phase: 'Award Distribution', date: '2024-12-20' }
       ]
     },
     rules: [
@@ -133,7 +135,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Modernity', weight: 20, description: 'Contemporary interpretation.' }
       ],
       schedule: [
-        { phase: 'Submission Deadline', date: '2024-12-15' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-03-01 - 2024-07-31' },
+        { phase: 'Phase 2: Final Design', date: '2024-08-01 - 2024-12-15' },
+        { phase: 'Final Judging', date: '2024-12-16 - 2024-12-25' },
+        { phase: 'Winners Announced', date: '2024-12-30' },
+        { phase: 'Award Distribution', date: '2025-01-05' }
       ]
     },
     rules: ['Original artwork only.', 'Must include festival dates and location placeholders.'],
@@ -167,7 +173,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Technical Quality', weight: 30, description: 'Precision of curves and spacing.' }
       ],
       schedule: [
-        { phase: 'Submission Deadline', date: '2025-03-31' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-12-01 - 2025-01-31' },
+        { phase: 'Phase 2: Final Design', date: '2025-02-01 - 2025-03-31' },
+        { phase: 'Final Judging', date: '2025-04-01 - 2025-04-10' },
+        { phase: 'Winners Announced', date: '2025-04-15' },
+        { phase: 'Award Distribution', date: '2025-04-20' }
       ]
     },
     rules: ['Must support at least one Indian script.', 'Open source license preferred.'],
@@ -201,7 +211,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Empathy', weight: 30, description: 'Sensitive handling of the subject.' }
       ],
       schedule: [
-        { phase: 'Submission Deadline', date: '2024-12-20' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-04-01 - 2024-08-31' },
+        { phase: 'Phase 2: Final Design', date: '2024-09-01 - 2024-12-20' },
+        { phase: 'Final Judging', date: '2024-12-21 - 2024-12-30' },
+        { phase: 'Winners Announced', date: '2025-01-05' },
+        { phase: 'Award Distribution', date: '2025-01-10' }
       ]
     },
     rules: ['Must address a real social issue.', 'Respectful representation required.'],
@@ -235,7 +249,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Sound Design', weight: 20, description: 'Audio integration.' }
       ],
       schedule: [
-        { phase: 'Submission Deadline', date: '2025-01-31' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-05-01 - 2024-09-30' },
+        { phase: 'Phase 2: Final Design', date: '2024-10-01 - 2025-01-31' },
+        { phase: 'Final Judging', date: '2025-02-01 - 2025-02-10' },
+        { phase: 'Winners Announced', date: '2025-02-15' },
+        { phase: 'Award Distribution', date: '2025-02-20' }
       ]
     },
     rules: ['Duration must be exactly 30 seconds.', 'Royalty-free music only.'],
@@ -269,7 +287,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Local Flavor', weight: 30, description: 'Reflection of local culture.' }
       ],
       schedule: [
-        { phase: 'Submission Deadline', date: '2024-10-31' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-01-01 - 2024-05-31' },
+        { phase: 'Phase 2: Final Design', date: '2024-06-01 - 2024-10-31' },
+        { phase: 'Final Judging', date: '2024-11-01 - 2024-11-10' },
+        { phase: 'Winners Announced', date: '2024-11-15' },
+        { phase: 'Award Distribution', date: '2024-11-20' }
       ]
     },
     rules: ['Must be a real local business.', 'Redesign must be significantly different.'],
@@ -302,7 +324,11 @@ export const mockChallenges: Challenge[] = [
         { title: 'Execution', weight: 50, description: 'Quality of the final output.' }
       ],
       schedule: [
-        { phase: 'Submission Deadline', date: '2024-12-31' }
+        { phase: 'Phase 1: Draft & Planning', date: '2024-06-01 - 2024-09-30' },
+        { phase: 'Phase 2: Final Design', date: '2024-10-01 - 2024-12-31' },
+        { phase: 'Final Judging', date: '2025-01-01 - 2025-01-10' },
+        { phase: 'Winners Announced', date: '2025-01-15' },
+        { phase: 'Award Distribution', date: '2025-01-20' }
       ]
     },
     rules: ['Standard competition rules apply.'],
