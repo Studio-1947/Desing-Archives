@@ -30,6 +30,19 @@ export interface Challenge {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   tags: string[];
   location?: string;
+  overview: {
+    brief: string;
+    deliverables: string[];
+    criteria: { title: string; weight: number; description: string }[];
+    schedule: { phase: string; date: string }[];
+  };
+  rules: string[];
+  assets: {
+    name: string;
+    type: 'pdf' | 'zip' | 'fig' | 'img';
+    url: string;
+    size: string;
+  }[];
 }
 
 export interface Participant {

@@ -34,13 +34,13 @@ export default function ChallengeActions({ challengeId }: ChallengeActionsProps)
             >
                 Participate Now
             </Link>
-            <button
+            {/* <button
                 onClick={handleDownload}
                 className="w-full px-8 py-4 border-2 border-gray-900 text-gray-900 font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase text-sm flex items-center justify-center gap-2"
             >
                 <Download className="w-4 h-4" />
                 Download Brief
-            </button>
+            </button> */}
             <button
                 onClick={handleShare}
                 className="w-full px-8 py-4 border-2 border-gray-200 text-gray-700 font-medium tracking-wide hover:border-gray-900 transition-all duration-300 uppercase text-sm flex items-center justify-center gap-2"
