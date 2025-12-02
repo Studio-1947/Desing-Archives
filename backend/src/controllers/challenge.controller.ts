@@ -6,7 +6,8 @@ const challengeService = new ChallengeService();
 export class ChallengeController {
   async getAllChallenges(req: Request, res: Response) {
     try {
-      const challenges = await challengeService.getAllChallenges();
+      const { type } = req.query;
+      const challenges = await challengeService.getAllChallenges(type as string);
       res.json(challenges);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching challenges', error });

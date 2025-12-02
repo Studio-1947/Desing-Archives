@@ -16,6 +16,7 @@ export interface Challenge {
   description: string;
   shortDescription: string;
   status: ChallengeStatus;
+  type?: 'standard' | 'student';
   category: ChallengeCategory[];
   organizer: string;
   organizerLogo?: string;
@@ -34,7 +35,7 @@ export interface Challenge {
     brief: string;
     deliverables: string[];
     criteria: { title: string; weight: number; description: string }[];
-    schedule: { phase: string; date: string }[];
+    schedule: { phase: string; date: string; objectives: string[]; deliverables: string[] }[];
   };
   rules: string[];
   assets: {

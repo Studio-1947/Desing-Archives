@@ -5,30 +5,36 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChallengeCard from '@/components/ChallengeCard';
 import { Search } from 'lucide-react';
-import { ChallengeStatus, ChallengeCategory } from '@/types';
+import { Challenge, ChallengeStatus, ChallengeCategory } from '@/types';
 
-export default function ChallengesPage() {
-    const [challenges, setChallenges] = useState<any[]>([]);
+export default function ChallengesPage({ searchParams }: { searchParams: { type?: string } }) {
+    const [challenges, setChallenges] = useState<Challenge[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState<ChallengeStatus | 'all'>('all');
     const [selectedCategory, setSelectedCategory] = useState<ChallengeCategory | 'all'>('all');
 
     useEffect(() => {
-        fetchChallenges();
-    }, []);
+        const fetchChallenges = async () => {
+            try {
+                const typeParam = searchParams?.type ? `?type=${searchParams.type}` : '';
+                const res = await fetch(`http://localhost:5000/api/challenges${typeParam}`);
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    setChallenges(data);
+                } else {
+                    console.error('Expected array of challenges but got:', data);
+                    setChallenges([]);
+                }
+            } catch (error) {
+                console.error('Error fetching challenges:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const fetchChallenges = async () => {
-        try {
-            const res = await fetch('http://localhost:5000/api/challenges');
-            const data = await res.json();
-            setChallenges(data);
-        } catch (error) {
-            console.error('Error fetching challenges:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+        fetchChallenges();
+    }, [searchParams?.type]);
 
     const categories: (ChallengeCategory | 'all')[] = [
         'all',
@@ -61,7 +67,7 @@ export default function ChallengesPage() {
                 {/* Page Header */}
                 <div className="mb-16 animate-fade-in">
                     <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-                        Design Challenges
+                        {searchParams?.type === 'student' ? 'Student Challenges' : 'Design Challenges'}
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl">
                         Discover and participate in design challenges that celebrate creativity,

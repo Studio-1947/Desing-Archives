@@ -74,7 +74,7 @@ export default function Header() {
                                     All Challenges
                                 </Link>
                                 <Link
-                                    href="/challenges/student"
+                                    href="/challenges?type=student"
                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 uppercase tracking-wide"
                                 >
                                     Student
@@ -157,7 +157,7 @@ export default function Header() {
                                             All Challenges
                                         </Link>
                                         <Link
-                                            href="/challenges/student"
+                                            href="/challenges?type=student"
                                             className="text-base font-medium tracking-wide text-gray-600 hover:text-gray-900 uppercase"
                                             onClick={() => setIsMenuOpen(false)}
                                         >

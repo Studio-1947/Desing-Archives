@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Challenge, ChallengeStatus, ChallengeCategory } from '@/types';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/context/ToastContext';
 
 interface ChallengeFormProps {
     initialData?: Partial<Challenge>;
@@ -11,6 +12,7 @@ interface ChallengeFormProps {
 
 export default function ChallengeForm({ initialData, isEditing = false }: ChallengeFormProps) {
     const router = useRouter();
+    const { showToast } = useToast();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<Partial<Challenge>>({
         title: '',
@@ -39,8 +41,9 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, type } = e.target;
+        const val = type === 'number' ? Number(value) : value;
+        setFormData(prev => ({ ...prev, [name]: val }));
     };
 
     const handleArrayChange = (e: React.ChangeEvent<HTMLInputElement>, field: 'tags' | 'rules' | 'category') => {
@@ -71,9 +74,10 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
 
             router.push('/admin/challenges');
             router.refresh();
+            showToast('Challenge saved successfully', 'success');
         } catch (error) {
             console.error('Error saving challenge:', error);
-            alert('Failed to save challenge');
+            showToast('Failed to save challenge', 'error');
         } finally {
             setLoading(false);
         }
@@ -139,7 +143,6 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-wide text-gray-900">Status</label>
                         <select
                             name="status"
                             value={formData.status}
@@ -149,6 +152,19 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
                             <option value="active">Active</option>
                             <option value="upcoming">Upcoming</option>
                             <option value="archived">Archived</option>
+                        </select>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-wide text-gray-900">Type</label>
+                        <select
+                            name="type"
+                            value={formData.type || 'standard'}
+                            onChange={handleChange}
+                            className="input-field-minimal"
+                        >
+                            <option value="standard">Standard</option>
+                            <option value="student">Student</option>
                         </select>
                     </div>
 
@@ -321,37 +337,63 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
                 <div className="space-y-4">
                     <label className="text-xs font-bold uppercase tracking-wide text-gray-900">Schedule</label>
                     {formData.overview?.schedule?.map((item, index) => (
-                        <div key={index} className="flex gap-4 p-4 border border-gray-200 bg-gray-50">
-                            <input
-                                placeholder="Phase Name"
-                                value={item.phase}
-                                onChange={(e) => {
-                                    const newSchedule = [...(formData.overview?.schedule || [])];
-                                    newSchedule[index] = { ...item, phase: e.target.value };
-                                    setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule } }));
-                                }}
-                                className="input-field-minimal flex-1"
-                            />
-                            <input
-                                placeholder="Date / Duration"
-                                value={item.date}
-                                onChange={(e) => {
-                                    const newSchedule = [...(formData.overview?.schedule || [])];
-                                    newSchedule[index] = { ...item, date: e.target.value };
-                                    setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule } }));
-                                }}
-                                className="input-field-minimal flex-1"
-                            />
+                        <div key={index} className="flex flex-col gap-4 p-4 border border-gray-200 bg-gray-50 relative">
                             <button
                                 type="button"
                                 onClick={() => {
                                     const newSchedule = formData.overview?.schedule?.filter((_, i) => i !== index);
                                     setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule || [] } }));
                                 }}
-                                className="text-red-500 hover:text-red-700 px-2"
+                                className="absolute top-2 right-2 text-red-500 hover:text-red-700"
                             >
                                 ×
                             </button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <input
+                                    placeholder="Phase Name"
+                                    value={item.phase}
+                                    onChange={(e) => {
+                                        const newSchedule = [...(formData.overview?.schedule || [])];
+                                        newSchedule[index] = { ...item, phase: e.target.value };
+                                        setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule } }));
+                                    }}
+                                    className="input-field-minimal"
+                                />
+                                <input
+                                    placeholder="Date / Duration"
+                                    value={item.date}
+                                    onChange={(e) => {
+                                        const newSchedule = [...(formData.overview?.schedule || [])];
+                                        newSchedule[index] = { ...item, date: e.target.value };
+                                        setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule } }));
+                                    }}
+                                    className="input-field-minimal"
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <textarea
+                                    placeholder="Objectives (one per line)"
+                                    value={item.objectives?.join('\n')}
+                                    onChange={(e) => {
+                                        const newSchedule = [...(formData.overview?.schedule || [])];
+                                        newSchedule[index] = { ...item, objectives: e.target.value.split('\n').filter(Boolean) };
+                                        setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule } }));
+                                    }}
+                                    className="input-field-minimal"
+                                    rows={3}
+                                />
+                                <textarea
+                                    placeholder="Deliverables (one per line)"
+                                    value={item.deliverables?.join('\n')}
+                                    onChange={(e) => {
+                                        const newSchedule = [...(formData.overview?.schedule || [])];
+                                        newSchedule[index] = { ...item, deliverables: e.target.value.split('\n').filter(Boolean) };
+                                        setFormData(prev => ({ ...prev, overview: { ...prev.overview!, schedule: newSchedule } }));
+                                    }}
+                                    className="input-field-minimal"
+                                    rows={3}
+                                />
+                            </div>
                         </div>
                     ))}
                     <button
@@ -360,7 +402,7 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
                             ...prev,
                             overview: {
                                 ...prev.overview!,
-                                schedule: [...(prev.overview?.schedule || []), { phase: '', date: '' }]
+                                schedule: [...(prev.overview?.schedule || []), { phase: '', date: '', objectives: [], deliverables: [] }]
                             }
                         }))}
                         className="text-sm font-bold text-gray-900 hover:underline"

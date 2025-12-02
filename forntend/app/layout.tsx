@@ -33,6 +33,7 @@ export const metadata: Metadata = {
 import ScrollToTop from "@/components/ScrollToTop";
 
 import { AuthProvider } from "@/context/AuthContext";
+import { ToastProvider } from "@/context/ToastContext";
 
 export default function RootLayout({
     children,
@@ -43,8 +44,10 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${inter.variable} font-sans antialiased`}>
                 <AuthProvider>
-                    {children}
-                    <ScrollToTop />
+                    <ToastProvider>
+                        {children}
+                        <ScrollToTop />
+                    </ToastProvider>
                 </AuthProvider>
             </body>
         </html>

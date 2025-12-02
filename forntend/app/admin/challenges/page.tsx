@@ -4,10 +4,15 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Challenge } from '@/types';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
+import Modal from '@/components/ui/Modal';
+import { useToast } from '@/context/ToastContext';
 
 export default function AdminChallengesPage() {
     const [challenges, setChallenges] = useState<Challenge[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [challengeToDelete, setChallengeToDelete] = useState<string | null>(null);
+    const { showToast } = useToast();
 
     useEffect(() => {
         fetchChallenges();
@@ -20,26 +25,37 @@ export default function AdminChallengesPage() {
             setChallenges(data);
         } catch (error) {
             console.error('Error fetching challenges:', error);
+            showToast('Failed to fetch challenges', 'error');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this challenge?')) return;
+    const confirmDelete = (id: string) => {
+        setChallengeToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleDelete = async () => {
+        if (!challengeToDelete) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/challenges/${id}`, {
+            const res = await fetch(`http://localhost:5000/api/challenges/${challengeToDelete}`, {
                 method: 'DELETE',
             });
 
             if (res.ok) {
-                setChallenges(challenges.filter(c => c.id !== id));
+                setChallenges(challenges.filter(c => c.id !== challengeToDelete));
+                showToast('Challenge deleted successfully', 'success');
             } else {
-                alert('Failed to delete challenge');
+                showToast('Failed to delete challenge', 'error');
             }
         } catch (error) {
             console.error('Error deleting challenge:', error);
+            showToast('Error deleting challenge', 'error');
+        } finally {
+            setIsDeleteModalOpen(false);
+            setChallengeToDelete(null);
         }
     };
 
@@ -103,7 +119,7 @@ export default function AdminChallengesPage() {
                                         <Edit size={18} />
                                     </Link>
                                     <button
-                                        onClick={() => handleDelete(challenge.id)}
+                                        onClick={() => confirmDelete(challenge.id)}
                                         className="inline-flex p-2 text-gray-400 hover:text-red-600 transition-colors duration-200"
                                         title="Delete"
                                     >
@@ -115,6 +131,32 @@ export default function AdminChallengesPage() {
                     </tbody>
                 </table>
             </div>
+
+            <Modal
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
+                title="Delete Challenge"
+            >
+                <div className="space-y-4">
+                    <p className="text-gray-600">
+                        Are you sure you want to delete this challenge? This action cannot be undone.
+                    </p>
+                    <div className="flex justify-end gap-3">
+                        <button
+                            onClick={() => setIsDeleteModalOpen(false)}
+                            className="btn-secondary-minimal"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleDelete}
+                            className="bg-red-600 text-white px-4 py-2 text-sm font-bold uppercase tracking-wide hover:bg-red-700 transition-colors"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

@@ -20,7 +20,12 @@ export default function Home() {
         try {
             const res = await fetch('http://localhost:5000/api/challenges');
             const data = await res.json();
-            setChallenges(data);
+            if (Array.isArray(data)) {
+                setChallenges(data);
+            } else {
+                console.error('Expected array of challenges but got:', data);
+                setChallenges([]);
+            }
         } catch (error) {
             console.error('Error fetching challenges:', error);
         } finally {

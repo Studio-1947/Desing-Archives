@@ -4,6 +4,7 @@ export interface Challenge {
   description: string;
   shortDescription: string;
   status: 'active' | 'upcoming' | 'archived';
+  type?: string;
   category: string[];
   organizer: string;
   prizePool: number;

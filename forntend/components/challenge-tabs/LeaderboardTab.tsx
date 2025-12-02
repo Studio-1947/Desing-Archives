@@ -1,20 +1,57 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Challenge } from '@/types';
 
 interface LeaderboardTabProps {
     challenge: Challenge;
 }
 
+interface Submission {
+    id: string;
+    totalScore: number;
+    creativity: number;
+    technical: number;
+    adherence: number;
+    user: {
+        name: string;
+        picture: string | null;
+    };
+}
+
 export default function LeaderboardTab({ challenge }: LeaderboardTabProps) {
-    // Mock leaderboard data extended for design context
-    const topParticipants = [
-        { rank: 1, name: 'Priya Sharma', score: 98.5, creativity: 99, technical: 98, adherence: 98, submissions: 12 },
-        { rank: 2, name: 'Arjun Patel', score: 96.8, creativity: 95, technical: 97, adherence: 98, submissions: 9 },
-        { rank: 3, name: 'Ananya Reddy', score: 95.2, creativity: 96, technical: 94, adherence: 95, submissions: 15 },
-        { rank: 4, name: 'Rohan Mehta', score: 94.7, creativity: 94, technical: 95, adherence: 95, submissions: 8 },
-        { rank: 5, name: 'Kavya Iyer', score: 93.1, creativity: 92, technical: 93, adherence: 94, submissions: 11 },
-    ];
+    const [leaderboard, setLeaderboard] = useState<Submission[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchLeaderboard = async () => {
+            try {
+                const res = await fetch(`http://localhost:5000/api/challenges/${challenge.id}/leaderboard`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setLeaderboard(data);
+                }
+            } catch (error) {
+                console.error('Error fetching leaderboard:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchLeaderboard();
+    }, [challenge.id]);
+
+    if (loading) {
+        return <div className="text-center py-12">Loading leaderboard...</div>;
+    }
+
+    if (leaderboard.length === 0) {
+        return (
+            <div className="text-center py-12 text-gray-500">
+                No submissions yet. Be the first to submit!
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-8">
@@ -41,27 +78,31 @@ export default function LeaderboardTab({ challenge }: LeaderboardTabProps) {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                            {topParticipants.map((participant) => (
-                                <tr key={participant.rank} className="hover:bg-gray-50 transition-colors duration-200">
+                            {leaderboard.map((submission, index) => (
+                                <tr key={submission.id} className="hover:bg-gray-50 transition-colors duration-200">
                                     <td className="py-4 px-6">
-                                        <div className={`inline-flex items-center justify-center w-8 h-8 font-bold text-sm rounded-full ${participant.rank <= 3 ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600'
+                                        <div className={`inline-flex items-center justify-center w-8 h-8 font-bold text-sm rounded-full ${index < 3 ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600'
                                             }`}>
-                                            {participant.rank}
+                                            {index + 1}
                                         </div>
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-xs font-bold">
-                                                {participant.name.charAt(0)}
+                                            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-xs font-bold overflow-hidden">
+                                                {submission.user.picture ? (
+                                                    <img src={submission.user.picture} alt={submission.user.name} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    submission.user.name.charAt(0)
+                                                )}
                                             </div>
-                                            <span className="font-medium text-gray-900">{participant.name}</span>
+                                            <span className="font-medium text-gray-900">{submission.user.name}</span>
                                         </div>
                                     </td>
-                                    <td className="py-4 px-6 text-center text-gray-600">{participant.creativity}</td>
-                                    <td className="py-4 px-6 text-center text-gray-600">{participant.technical}</td>
-                                    <td className="py-4 px-6 text-center text-gray-600">{participant.adherence}</td>
+                                    <td className="py-4 px-6 text-center text-gray-600">{submission.creativity}</td>
+                                    <td className="py-4 px-6 text-center text-gray-600">{submission.technical}</td>
+                                    <td className="py-4 px-6 text-center text-gray-600">{submission.adherence}</td>
                                     <td className="py-4 px-6 text-right font-bold text-gray-900 text-lg">
-                                        {participant.score}
+                                        {submission.totalScore}
                                     </td>
                                 </tr>
                             ))}

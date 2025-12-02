@@ -7,19 +7,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Submission {
+  id          String   @id @default(uuid())
+  challengeId String
+  userId      String
+  creativity  Int
+  technical   Int
+  adherence   Int
+  totalScore  Float
+  fileUrl     String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id          String       @id @default(uuid())
+  email       String       @unique
+  password    String?
+  name        String
+  picture     String?
+  role        String       @default("user")
+  submissions Submission[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
 model Challenge {
-  id                String   @id @default(uuid())
+  id                String       @id @default(uuid())
   title             String
   description       String
   shortDescription  String
   status            String
+  type              String       @default("standard")
   category          String[]
   organizer         String
   prizePool         Int
   currency          String
-  totalParticipants Int      @default(0)
-  totalViews        Int      @default(0)
-  totalSubmissions  Int      @default(0)
+  totalParticipants Int          @default(0)
+  totalViews        Int          @default(0)
+  totalSubmissions  Int          @default(0)
   startDate         String
   endDate           String
   imageUrl          String
@@ -31,17 +61,8 @@ model Challenge {
   rules             String[]
   assets            Json[]
 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-}
+  submissions       Submission[]
 
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String?
-  name      String
-  picture   String?
-  role      String   @default("user")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
 }

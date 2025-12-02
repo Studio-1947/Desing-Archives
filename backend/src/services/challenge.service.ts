@@ -2,8 +2,9 @@ import prisma from '../config/prisma';
 import { Challenge } from '../types/challenge.types';
 
 export class ChallengeService {
-  async getAllChallenges(): Promise<Challenge[]> {
-    const challenges = await prisma.challenge.findMany();
+  async getAllChallenges(type?: string): Promise<Challenge[]> {
+    const where: any = type ? { type } : {};
+    const challenges = await prisma.challenge.findMany({ where });
     return challenges as unknown as Challenge[];
   }
 
@@ -15,11 +16,32 @@ export class ChallengeService {
   }
 
   async createChallenge(challengeData: Omit<Challenge, 'id'>): Promise<Challenge> {
+    const {
+      title, description, shortDescription, status, type, category, organizer,
+      prizePool, currency, startDate, endDate, imageUrl, difficulty, tags,
+      location, overview, rules, assets
+    } = challengeData;
+
     const challenge = await prisma.challenge.create({
       data: {
-        ...challengeData,
-        overview: challengeData.overview as any,
-        assets: challengeData.assets as any
+        title,
+        description,
+        shortDescription,
+        status,
+        type: type || 'standard',
+        category,
+        organizer,
+        prizePool: Number(prizePool) || 0,
+        currency,
+        startDate,
+        endDate,
+        imageUrl,
+        difficulty,
+        tags,
+        location,
+        overview: overview as any,
+        rules,
+        assets: assets as any
       }
     });
     return challenge as unknown as Challenge;
