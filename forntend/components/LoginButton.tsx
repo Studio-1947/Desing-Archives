@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import Image from 'next/image';
-import { User, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { User, Settings, LogOut, ChevronDown, LayoutDashboard } from 'lucide-react';
 
 export default function LoginButton() {
     const { user, logout } = useAuth();
@@ -56,6 +56,17 @@ export default function LoginButton() {
                             <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
                             <p className="text-xs text-gray-500 truncate">{user.email}</p>
                         </div>
+
+                        {user.role === 'admin' && (
+                            <Link
+                                href="/admin/challenges"
+                                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                <LayoutDashboard className="w-4 h-4" />
+                                Admin Panel
+                            </Link>
+                        )}
 
                         <Link
                             href="/profile"

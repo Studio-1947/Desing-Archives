@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/error.middleware';
 import challengeRoutes from './routes/challenge.routes';
 import transcriptionRoutes from './routes/transcription.routes';
 import authRoutes from './routes/auth.routes';
+import prisma from './config/prisma';
 
 dotenv.config();
 
@@ -33,5 +34,16 @@ app.use('/api/v1/transcribe', transcriptionRoutes);
 
 // Error handling
 app.use(errorHandler);
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
+
+process.on('SIGTERM', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
 
 export default app;

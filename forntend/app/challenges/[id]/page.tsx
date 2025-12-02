@@ -2,31 +2,38 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { mockChallenges } from '@/data/challenges';
 import ChallengeTabs from '@/components/ChallengeTabs';
 import ChallengeActions from '@/components/ChallengeActions';
 import {
     Calendar, Users, Eye, MapPin, Clock, Award, Download
 } from 'lucide-react';
+import { Challenge } from '@/types';
 
-export async function generateStaticParams() {
-    return mockChallenges.map((challenge) => ({
-        id: challenge.id,
-    }));
+async function getChallenge(id: string): Promise<Challenge | null> {
+    try {
+        const res = await fetch(`http://localhost:5000/api/challenges/${id}`, {
+            cache: 'no-store'
+        });
+
+        if (!res.ok) {
+            return null;
+        }
+
+        return res.json();
+    } catch (error) {
+        console.error('Error fetching challenge:', error);
+        return null;
+    }
 }
 
-export default function ChallengePage({ params }: { params: { id: string } }) {
-    const challenge = mockChallenges.find(c => c.id === params.id);
+export default async function ChallengePage({ params }: { params: { id: string } }) {
+    const challenge = await getChallenge(params.id);
 
     if (!challenge) {
         notFound();
     }
 
-    if (!challenge) {
-        notFound();
-    }
-
-    const statusColors = {
+    const statusColors: Record<string, string> = {
         active: 'border-gray-900 text-gray-900',
         upcoming: 'border-gray-500 text-gray-500',
         archived: 'border-gray-300 text-gray-400',
@@ -52,7 +59,7 @@ export default function ChallengePage({ params }: { params: { id: string } }) {
                                 <span className={`px-3 py-1 bg-white border text-xs font-bold tracking-wide uppercase ${statusColors[challenge.status]}`}>
                                     {challenge.status}
                                 </span>
-                                {challenge.category.map((cat) => (
+                                {challenge.category.map((cat: string) => (
                                     <span
                                         key={cat}
                                         className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold tracking-wide uppercase"

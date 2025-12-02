@@ -1,189 +1,54 @@
+import prisma from '../config/prisma';
 import { Challenge } from '../types/challenge.types';
-
-// In a real application, this would be a database model
-const challenges: Challenge[] = [
-  {
-    id: '1',
-    title: 'Sustainable Brand Identity Challenge 2024',
-    description: 'Create a comprehensive brand identity for an eco-conscious startup. Design a logo, color palette, typography system, and brand guidelines that reflect sustainability and modern design principles. Your work should communicate environmental responsibility while maintaining visual appeal and market competitiveness.',
-    shortDescription: 'Design a complete brand identity for a sustainable startup',
-    status: 'active',
-    category: ['Brand Identity', 'Graphic Design'],
-    organizer: 'Studio 1947',
-    prizePool: 25000,
-    currency: 'INR',
-    totalParticipants: 847,
-    totalViews: 5234,
-    totalSubmissions: 1421,
-    startDate: '2024-01-15',
-    endDate: '2024-12-31',
-    imageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80',
-    difficulty: 'Intermediate',
-    tags: ['branding', 'sustainability', 'logo-design', 'visual-identity'],
-    location: 'Delhi, India',
-  },
-  {
-    id: '2',
-    title: 'Mobile App UI/UX Redesign Competition',
-    description: 'Reimagine the user experience for a popular food delivery app. Focus on improving navigation, reducing cognitive load, and creating delightful micro-interactions. Submissions should include user research, wireframes, high-fidelity mockups, and a clickable prototype.',
-    shortDescription: 'Redesign a food delivery app with better UX',
-    status: 'active',
-    category: ['UI/UX Design', 'Product Design'],
-    organizer: 'Design Community India',
-    prizePool: 50000,
-    currency: 'INR',
-    totalParticipants: 1256,
-    totalViews: 8934,
-    totalSubmissions: 2341,
-    startDate: '2024-02-01',
-    endDate: '2024-11-30',
-    imageUrl: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80',
-    difficulty: 'Advanced',
-    tags: ['mobile-design', 'ux-research', 'prototyping', 'user-interface'],
-    location: 'Mumbai, India',
-  },
-  {
-    id: '3',
-    title: 'Cultural Festival Poster Design Challenge',
-    description: 'Design a series of posters for a traditional Indian cultural festival. Blend contemporary design aesthetics with cultural heritage. Create visually striking posters that honor tradition while appealing to modern audiences. Submit 3 poster designs in different sizes.',
-    shortDescription: 'Create modern posters for traditional cultural festival',
-    status: 'active',
-    category: ['Graphic Design', 'Illustration'],
-    organizer: 'Rajkamal Prakashan',
-    prizePool: 15000,
-    currency: 'INR',
-    totalParticipants: 634,
-    totalViews: 3892,
-    totalSubmissions: 987,
-    startDate: '2024-03-01',
-    endDate: '2024-12-15',
-    imageUrl: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80',
-    difficulty: 'Beginner',
-    tags: ['poster-design', 'cultural-design', 'typography', 'illustration'],
-    location: 'Jaipur, India',
-  },
-  {
-    id: '4',
-    title: 'Typography Exploration: Indian Scripts',
-    description: 'Explore the beauty of Indian scripts through modern typography design. Create a typeface or typographic artwork that celebrates Devanagari, Tamil, Bengali, or other Indian scripts. Focus on readability, cultural authenticity, and contemporary application.',
-    shortDescription: 'Design modern typography using Indian scripts',
-    status: 'upcoming',
-    category: ['Typography', 'Graphic Design'],
-    organizer: 'Type Foundry Collective',
-    prizePool: 30000,
-    currency: 'INR',
-    totalParticipants: 0,
-    totalViews: 2156,
-    totalSubmissions: 0,
-    startDate: '2024-12-01',
-    endDate: '2025-03-31',
-    imageUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80',
-    difficulty: 'Advanced',
-    tags: ['typography', 'indian-scripts', 'typeface-design', 'devanagari'],
-    location: 'Bangalore, India',
-  },
-  {
-    id: '5',
-    title: 'Social Impact Campaign Design',
-    description: 'Create a visual campaign for a social cause of your choice. Design posters, social media graphics, and promotional materials that drive awareness and action. Your work should be emotionally compelling, visually cohesive, and culturally sensitive.',
-    shortDescription: 'Design a complete visual campaign for social impact',
-    status: 'active',
-    category: ['Graphic Design', 'Brand Identity'],
-    organizer: 'Impact Design Network',
-    prizePool: 20000,
-    currency: 'INR',
-    totalParticipants: 523,
-    totalViews: 4123,
-    totalSubmissions: 876,
-    startDate: '2024-04-01',
-    endDate: '2024-12-20',
-    imageUrl: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&q=80',
-    difficulty: 'Intermediate',
-    tags: ['social-impact', 'campaign-design', 'visual-communication', 'advocacy'],
-    location: 'Kolkata, India',
-  },
-  {
-    id: '6',
-    title: 'Motion Graphics: Brand Story Animation',
-    description: 'Create a 30-second motion graphics piece that tells a brand story. Use animation, typography, and visual effects to create an engaging narrative. Focus on smooth transitions, compelling storytelling, and professional execution.',
-    shortDescription: 'Animate a 30-second brand story',
-    status: 'active',
-    category: ['Motion Design', 'Graphic Design'],
-    organizer: 'Animation Guild India',
-    prizePool: 40000,
-    currency: 'INR',
-    totalParticipants: 412,
-    totalViews: 3456,
-    totalSubmissions: 678,
-    startDate: '2024-05-01',
-    endDate: '2025-01-31',
-    imageUrl: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80',
-    difficulty: 'Advanced',
-    tags: ['motion-graphics', 'animation', 'storytelling', 'after-effects'],
-    location: 'Pune, India',
-  },
-  {
-    id: '7',
-    title: 'Website Redesign: Local Business',
-    description: 'Redesign a website for a local Indian business. Create a modern, responsive web design that improves user experience, showcases products/services effectively, and reflects local culture. Include homepage, product pages, and contact sections.',
-    shortDescription: 'Redesign a local business website',
-    status: 'archived',
-    category: ['Web Design', 'UI/UX Design'],
-    organizer: 'Web Designers India',
-    prizePool: 35000,
-    currency: 'INR',
-    totalParticipants: 892,
-    totalViews: 6234,
-    totalSubmissions: 1456,
-    startDate: '2024-01-01',
-    endDate: '2024-10-31',
-    imageUrl: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
-    difficulty: 'Intermediate',
-    tags: ['web-design', 'responsive-design', 'local-business', 'ui-design'],
-    location: 'Chennai, India',
-  },
-  {
-    id: '8',
-    title: 'Packaging Design: Artisan Products',
-    description: 'Design packaging for traditional Indian artisan products. Create packaging that protects the product, tells the artisan story, and stands out on shelves. Focus on sustainable materials, cultural authenticity, and modern appeal.',
-    shortDescription: 'Create packaging for Indian artisan products',
-    status: 'active',
-    category: ['Product Design', 'Graphic Design'],
-    organizer: 'Craft Council of India',
-    prizePool: 28000,
-    currency: 'INR',
-    totalParticipants: 567,
-    totalViews: 4567,
-    totalSubmissions: 934,
-    startDate: '2024-06-01',
-    endDate: '2024-12-31',
-    imageUrl: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&q=80',
-    difficulty: 'Intermediate',
-    tags: ['packaging-design', 'artisan', 'sustainable-design', 'product-design'],
-    location: 'Ahmedabad, India',
-  }
-];
 
 export class ChallengeService {
   async getAllChallenges(): Promise<Challenge[]> {
-    // Simulate database delay
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(challenges), 100);
-    });
+    const challenges = await prisma.challenge.findMany();
+    return challenges as unknown as Challenge[];
   }
 
   async getChallengeById(id: string): Promise<Challenge | undefined> {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(challenges.find(c => c.id === id)), 100);
+    const challenge = await prisma.challenge.findUnique({
+      where: { id }
     });
+    return challenge as unknown as Challenge | undefined;
   }
 
   async createChallenge(challengeData: Omit<Challenge, 'id'>): Promise<Challenge> {
-    const newChallenge = {
-      ...challengeData,
-      id: (challenges.length + 1).toString()
-    };
-    challenges.push(newChallenge);
-    return newChallenge;
+    const challenge = await prisma.challenge.create({
+      data: {
+        ...challengeData,
+        overview: challengeData.overview as any,
+        assets: challengeData.assets as any
+      }
+    });
+    return challenge as unknown as Challenge;
+  }
+
+  async updateChallenge(id: string, challengeData: Partial<Challenge>): Promise<Challenge | null> {
+    try {
+      const challenge = await prisma.challenge.update({
+        where: { id },
+        data: {
+          ...challengeData,
+          overview: challengeData.overview ? (challengeData.overview as any) : undefined,
+          assets: challengeData.assets ? (challengeData.assets as any) : undefined
+        }
+      });
+      return challenge as unknown as Challenge;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async deleteChallenge(id: string): Promise<boolean> {
+    try {
+      await prisma.challenge.delete({
+        where: { id }
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

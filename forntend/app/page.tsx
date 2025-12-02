@@ -1,18 +1,39 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChallengeCard from '@/components/ChallengeCard';
-import { mockChallenges } from '@/data/challenges';
 import { ArrowRight, Users, Eye, Award, Sparkles, Target, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
-    const activeChallenges = mockChallenges.filter(c => c.status === 'active');
+    const [challenges, setChallenges] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchChallenges();
+    }, []);
+
+    const fetchChallenges = async () => {
+        try {
+            const res = await fetch('http://localhost:5000/api/challenges');
+            const data = await res.json();
+            setChallenges(data);
+        } catch (error) {
+            console.error('Error fetching challenges:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const activeChallenges = challenges.filter(c => c.status === 'active');
     const featuredChallenges = activeChallenges.slice(0, 3);
 
-    const totalParticipants = mockChallenges.reduce((sum, c) => sum + c.totalParticipants, 0);
-    const totalViews = mockChallenges.reduce((sum, c) => sum + c.totalViews, 0);
-    const totalPrizes = mockChallenges.reduce((sum, c) => sum + c.prizePool, 0);
+    const totalParticipants = challenges.reduce((sum, c) => sum + (c.totalParticipants || 0), 0);
+    const totalViews = challenges.reduce((sum, c) => sum + (c.totalViews || 0), 0);
+    const totalPrizes = challenges.reduce((sum, c) => sum + (c.prizePool || 0), 0);
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
