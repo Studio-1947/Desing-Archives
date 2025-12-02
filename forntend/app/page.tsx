@@ -43,6 +43,10 @@ export default function Home() {
     return (
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
+            {/* DEBUG BANNER */}
+            <div className="bg-yellow-100 p-2 text-center text-xs font-mono text-yellow-800 border-b border-yellow-200">
+                API: {process.env.NEXT_PUBLIC_API_URL} | Count: {challenges.length} | Loading: {loading.toString()}
+            </div>
 
             <main className="flex-1">
                 {/* Hero Section - Two Column Layout */}

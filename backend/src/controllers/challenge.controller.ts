@@ -67,4 +67,36 @@ export class ChallengeController {
       res.status(500).json({ message: 'Error deleting challenge', error });
     }
   }
+
+  async registerParticipant(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { userId } = req.body; // In a real app, get from auth middleware
+      
+      if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+      }
+
+      const participant = await challengeService.registerParticipant(userId, id);
+      res.status(201).json(participant);
+    } catch (error) {
+      res.status(500).json({ message: 'Error registering participant', error });
+    }
+  }
+
+  async getParticipantStatus(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { userId } = req.query;
+      
+      if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+      }
+
+      const status = await challengeService.getParticipantStatus(userId as string, id);
+      res.json({ status });
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching status', error });
+    }
+  }
 }

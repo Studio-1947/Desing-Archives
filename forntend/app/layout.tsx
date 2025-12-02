@@ -34,6 +34,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
+import { SocketProvider } from "@/context/SocketContext";
 
 export default function RootLayout({
     children,
@@ -44,10 +45,12 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${inter.variable} font-sans antialiased`}>
                 <AuthProvider>
-                    <ToastProvider>
-                        {children}
-                        <ScrollToTop />
-                    </ToastProvider>
+                    <SocketProvider>
+                        <ToastProvider>
+                            {children}
+                            <ScrollToTop />
+                        </ToastProvider>
+                    </SocketProvider>
                 </AuthProvider>
             </body>
         </html>

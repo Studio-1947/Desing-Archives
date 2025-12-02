@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Challenge } from '@/types';
+import { useSocket } from '@/context/SocketContext';
+import Image from 'next/image';
 
 interface LeaderboardTabProps {
     challenge: Challenge;
@@ -23,23 +25,37 @@ export default function LeaderboardTab({ challenge }: LeaderboardTabProps) {
     const [leaderboard, setLeaderboard] = useState<Submission[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchLeaderboard = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges/${challenge.id}/leaderboard`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setLeaderboard(data);
-                }
-            } catch (error) {
-                console.error('Error fetching leaderboard:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const { socket } = useSocket();
 
-        fetchLeaderboard();
+    const fetchLeaderboard = useCallback(async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges/${challenge.id}/leaderboard`);
+            if (res.ok) {
+                const data = await res.json();
+                setLeaderboard(data);
+            }
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error);
+        } finally {
+            setLoading(false);
+        }
     }, [challenge.id]);
+
+    useEffect(() => {
+        fetchLeaderboard();
+
+        if (socket) {
+            socket.on('leaderboard_update', (data: any) => {
+                if (data.challengeId === challenge.id) {
+                    fetchLeaderboard();
+                }
+            });
+
+            return () => {
+                socket.off('leaderboard_update');
+            };
+        }
+    }, [challenge.id, socket, fetchLeaderboard]);
 
     if (loading) {
         return <div className="text-center py-12">Loading leaderboard...</div>;
@@ -88,9 +104,9 @@ export default function LeaderboardTab({ challenge }: LeaderboardTabProps) {
                                     </td>
                                     <td className="py-4 px-6">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-xs font-bold overflow-hidden">
+                                            <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-xs font-bold overflow-hidden relative">
                                                 {submission.user.picture ? (
-                                                    <img src={submission.user.picture} alt={submission.user.name} className="w-full h-full object-cover" />
+                                                    <Image src={submission.user.picture} alt={submission.user.name} fill className="object-cover" />
                                                 ) : (
                                                     submission.user.name.charAt(0)
                                                 )}

@@ -73,4 +73,41 @@ export class ChallengeService {
       return false;
     }
   }
+
+  async registerParticipant(userId: string, challengeId: string): Promise<any> {
+    try {
+      const participant = await prisma.participant.create({
+        data: {
+          userId,
+          challengeId,
+          status: 'registered'
+        }
+      });
+      return participant;
+    } catch (error) {
+      // Check if already registered
+      const existing = await prisma.participant.findUnique({
+        where: {
+          userId_challengeId: {
+            userId,
+            challengeId
+          }
+        }
+      });
+      if (existing) return existing;
+      throw error;
+    }
+  }
+
+  async getParticipantStatus(userId: string, challengeId: string): Promise<string | null> {
+    const participant = await prisma.participant.findUnique({
+      where: {
+        userId_challengeId: {
+          userId,
+          challengeId
+        }
+      }
+    });
+    return participant ? participant.status : null;
+  }
 }

@@ -15,21 +15,21 @@ export default function AdminChallengesPage() {
     const { showToast } = useToast();
 
     useEffect(() => {
-        fetchChallenges();
-    }, []);
+        const fetchChallenges = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges`);
+                const data = await res.json();
+                setChallenges(data);
+            } catch (error) {
+                console.error('Error fetching challenges:', error);
+                showToast('Failed to fetch challenges', 'error');
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const fetchChallenges = async () => {
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges`);
-            const data = await res.json();
-            setChallenges(data);
-        } catch (error) {
-            console.error('Error fetching challenges:', error);
-            showToast('Failed to fetch challenges', 'error');
-        } finally {
-            setLoading(false);
-        }
-    };
+        fetchChallenges();
+    }, [showToast]);
 
     const confirmDelete = (id: string) => {
         setChallengeToDelete(id);

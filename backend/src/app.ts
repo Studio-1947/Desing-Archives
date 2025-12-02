@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/error.middleware';
 import challengeRoutes from './routes/challenge.routes';
 import transcriptionRoutes from './routes/transcription.routes';
 import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
 import prisma from './config/prisma';
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/v1/transcribe', transcriptionRoutes);
 
 // Error handling

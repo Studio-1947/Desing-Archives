@@ -12,5 +12,7 @@ router.get('/:id/leaderboard', submissionController.getLeaderboard);
 router.post('/', challengeController.createChallenge);
 router.put('/:id', challengeController.updateChallenge);
 router.delete('/:id', challengeController.deleteChallenge);
+router.post('/:id/participate', challengeController.registerParticipant);
+router.get('/:id/status', challengeController.getParticipantStatus);
 
 export default router;
