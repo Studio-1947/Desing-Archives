@@ -57,8 +57,8 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
 
         try {
             const url = isEditing
-                ? `http://localhost:5000/api/challenges/${initialData?.id}`
-                : 'http://localhost:5000/api/challenges';
+                ? `${process.env.NEXT_PUBLIC_API_URL}/challenges/${initialData?.id}`
+                : `${process.env.NEXT_PUBLIC_API_URL}/challenges`;
 
             const method = isEditing ? 'PUT' : 'POST';
 

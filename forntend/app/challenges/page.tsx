@@ -18,7 +18,7 @@ export default function ChallengesPage({ searchParams }: { searchParams: { type?
         const fetchChallenges = async () => {
             try {
                 const typeParam = searchParams?.type ? `?type=${searchParams.type}` : '';
-                const res = await fetch(`http://localhost:5000/api/challenges${typeParam}`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges${typeParam}`);
                 const data = await res.json();
                 if (Array.isArray(data)) {
                     setChallenges(data);

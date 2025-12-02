@@ -20,7 +20,7 @@ export default function AdminChallengesPage() {
 
     const fetchChallenges = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/challenges');
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges`);
             const data = await res.json();
             setChallenges(data);
         } catch (error) {
@@ -40,7 +40,7 @@ export default function AdminChallengesPage() {
         if (!challengeToDelete) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/challenges/${challengeToDelete}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges/${challengeToDelete}`, {
                 method: 'DELETE',
             });
 

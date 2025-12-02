@@ -18,7 +18,7 @@ export default function Home() {
 
     const fetchChallenges = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/challenges');
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges`);
             const data = await res.json();
             if (Array.isArray(data)) {
                 setChallenges(data);

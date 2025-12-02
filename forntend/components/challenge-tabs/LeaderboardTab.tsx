@@ -26,7 +26,7 @@ export default function LeaderboardTab({ challenge }: LeaderboardTabProps) {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/challenges/${challenge.id}/leaderboard`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges/${challenge.id}/leaderboard`);
                 if (res.ok) {
                     const data = await res.json();
                     setLeaderboard(data);
