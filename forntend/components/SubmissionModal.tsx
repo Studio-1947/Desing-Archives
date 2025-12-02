@@ -42,34 +42,59 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // In a real app, you would upload the file first. 
+        // For now, we assume the URL is provided directly.
+
         setStatus('uploading');
 
-        // Simulate upload delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        setStatus('processing');
-
-        // In a real app, you would upload the file and get a URL
-        // Then send the URL to the backend
-        // For now, we'll just simulate the socket event from the client for demo purposes
-        // BUT ideally, the backend emits this after processing.
-
-        // Let's call the API to create submission
         try {
-            // Mock API call
-            // await fetch('/api/submissions', ...);
+            // Get user ID from local storage or context (assuming user is logged in)
+            // This is a simplification; in a real app, the token would be handled by an interceptor
+            const userStr = localStorage.getItem('user');
+            if (!userStr) {
+                showToast('Please login to submit', 'error');
+                setStatus('idle');
+                return;
+            }
+            const user = JSON.parse(userStr);
 
-            // For demo, we'll manually trigger the success state after a delay
-            // since we haven't fully implemented the backend processing worker yet
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/submissions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    challengeId,
+                    userId: user.id,
+                    fileUrl,
+                    description,
+                }),
+            });
+
+            if (!res.ok) {
+                throw new Error('Failed to submit');
+            }
+
+            setStatus('completed');
+            showToast('Submission received! It is now pending grading.', 'success');
+
+            // Notify socket for real-time updates (optional, if we want to show "New Submission" on leaderboard)
+            if (socket) {
+                socket.emit('new_submission', { challengeId, userId: user.id });
+            }
+
             setTimeout(() => {
-                setStatus('completed');
-                showToast('Submission received!', 'success');
-                setTimeout(onClose, 1500);
+                onClose();
+                setStatus('idle');
+                setFileUrl('');
+                setDescription('');
             }, 2000);
 
         } catch (error) {
+            console.error('Submission error:', error);
             setStatus('idle');
-            showToast('Failed to submit', 'error');
+            showToast('Failed to submit. Please try again.', 'error');
         }
     };
 

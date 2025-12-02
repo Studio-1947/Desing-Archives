@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Challenge } from '@/types';
-import { Plus, Edit, Trash2, Eye } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, CheckCircle } from 'lucide-react';
 import Modal from '@/components/ui/Modal';
 import { useToast } from '@/context/ToastContext';
 
@@ -73,6 +73,13 @@ export default function AdminChallengesPage() {
                 >
                     <Plus size={16} />
                     Create Challenge
+                </Link>
+                <Link
+                    href="/admin/grading"
+                    className="btn-secondary-minimal flex items-center gap-2 ml-4"
+                >
+                    <CheckCircle size={16} />
+                    Grading
                 </Link>
             </div>
 

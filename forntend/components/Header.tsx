@@ -31,9 +31,9 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
             <nav className="container mx-auto px-6 py-6">
-                <div className="grid grid-cols-[1fr_auto] md:grid-cols-3 items-center">
+                <div className="flex items-center justify-between gap-4">
                     {/* Logo */}
-                    <Link href="/" className="group flex items-center gap-1.5 md:gap-2 justify-self-start">
+                    <Link href="/" className="group flex items-center gap-1.5 md:gap-3 flex-shrink-0">
                         <div className="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
                             <Image
                                 src="/logo.svg"
@@ -44,21 +44,21 @@ export default function Header() {
                         </div>
                         <div className="flex flex-col">
                             <div className="flex items-center gap-1.5 md:gap-2 whitespace-nowrap">
-                                <span className="text-base md:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
+                                <span className="text-base md:text-xl lg:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
                                     Local Design
                                 </span>
-                                <span className={`text-base md:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                                <span className={`text-base md:text-xl lg:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
                                     {activeText}
                                 </span>
                             </div>
-                            <span className="text-[10px] md:text-xs tracking-extra-wide text-gray-500 uppercase whitespace-nowrap">
+                            <span className=" text-[10px] md:text-xs tracking-extra-wide text-gray-500 uppercase whitespace-nowrap">
                                 An initiative by Studio 1947
                             </span>
                         </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-8 justify-self-center">
+                    <div className="hidden lg:flex items-center gap-6 xl:gap-8">
                         <div className="relative group">
                             <button
                                 className="flex items-center gap-1 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200 uppercase"
@@ -110,19 +110,19 @@ export default function Header() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-4 justify-self-end">
-                        <div className="hidden md:block">
+                    <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
+                        <div className="hidden sm:block">
                             <LoginButton />
                         </div>
                         <Link
                             href="/submit"
-                            className="hidden sm:block px-6 py-2 border-2 border-gray-900 text-gray-900 text-sm font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase"
+                            className="hidden md:block px-5 py-2 border-2 border-gray-900 text-gray-900 text-sm font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase whitespace-nowrap"
                         >
                             Submit Work
                         </Link>
 
                         <button
-                            className="p-2 md:hidden hover:bg-gray-100 transition-colors duration-200"
+                            className="p-2 lg:hidden hover:bg-gray-100 transition-colors duration-200"
                             aria-label="Menu"
                             onClick={toggleMenu}
                         >
@@ -137,7 +137,7 @@ export default function Header() {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 py-6 px-6 shadow-lg animate-fade-in">
+                    <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 py-6 px-6 shadow-lg animate-fade-in">
                         <div className="flex flex-col gap-6">
                             <div className="space-y-4">
                                 <button
