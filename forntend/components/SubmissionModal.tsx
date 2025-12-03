@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { X, Upload, CheckCircle, Loader2 } from 'lucide-react';
 import { useSocket } from '@/context/SocketContext';
 import { useToast } from '@/context/ToastContext';
+import FileUpload from './FileUpload';
 
 interface SubmissionModalProps {
     isOpen: boolean;
@@ -127,16 +128,14 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Repository URL / File Link
+                                    Upload Solution
                                 </label>
-                                <input
-                                    type="url"
-                                    required
-                                    value={fileUrl}
-                                    onChange={(e) => setFileUrl(e.target.value)}
-                                    placeholder="https://github.com/username/repo"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+                                <FileUpload
+                                    onUploadComplete={(url) => setFileUrl(url)}
                                 />
+                                {fileUrl && (
+                                    <input type="hidden" name="fileUrl" value={fileUrl} required />
+                                )}
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -152,7 +151,7 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                             </div>
                             <button
                                 type="submit"
-                                disabled={status === 'uploading'}
+                                disabled={status === 'uploading' || !fileUrl}
                                 className="w-full py-3 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
                             >
                                 {status === 'uploading' ? (

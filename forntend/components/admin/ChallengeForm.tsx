@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Challenge, ChallengeStatus, ChallengeCategory } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/context/ToastContext';
+import FileUpload from '../FileUpload';
 
 interface ChallengeFormProps {
     initialData?: Partial<Challenge>;
@@ -238,6 +239,12 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
                         onChange={handleChange}
                         className="input-field-minimal"
                     />
+                    <div className="mt-2">
+                        <FileUpload
+                            onUploadComplete={(url) => setFormData(prev => ({ ...prev, imageUrl: url }))}
+                            accept="image/*"
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -450,6 +457,16 @@ export default function ChallengeForm({ initialData, isEditing = false }: Challe
                             }}
                             className="input-field-minimal"
                         />
+                        <div className="col-span-1 md:col-span-4 mt-2">
+                            <FileUpload
+                                onUploadComplete={(url) => {
+                                    const newAssets = [...(formData.assets || [])];
+                                    newAssets[index] = { ...item, url };
+                                    setFormData(prev => ({ ...prev, assets: newAssets }));
+                                }}
+                                accept=".pdf,.zip,.fig,.png,.jpg,.jpeg"
+                            />
+                        </div>
                         <div className="flex gap-2">
                             <input
                                 placeholder="Size"

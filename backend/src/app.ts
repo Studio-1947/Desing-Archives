@@ -9,6 +9,7 @@ import transcriptionRoutes from './routes/transcription.routes';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import submissionRoutes from './routes/submission.routes';
+import uploadRoutes from './routes/upload.routes';
 import prisma from './config/prisma';
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use('/api/challenges', challengeRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/submissions', submissionRoutes);
 app.use('/api/v1/transcribe', transcriptionRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Error handling
 app.use(errorHandler);
