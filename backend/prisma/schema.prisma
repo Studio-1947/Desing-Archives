@@ -83,3 +83,14 @@ model Participant {
 
   @@unique([userId, challengeId])
 }
+
+model WorkshopApplication {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  statement String
+  status    String   @default("pending") // pending, approved, rejected
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
