@@ -2,11 +2,33 @@ import { Request, Response } from 'express';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import prisma from '../config/prisma';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// Mock database
-const users: any[] = [];
+// Seed admin user
+(async () => {
+  try {
+    const adminEmail = 'admin@studio1947.com';
+    const existingAdmin = await prisma.user.findUnique({ where: { email: adminEmail } });
+    
+    if (!existingAdmin) {
+      const hashedPassword = await bcrypt.hash('admin', 10);
+      await prisma.user.create({
+        data: {
+          name: 'Admin',
+          email: adminEmail,
+          password: hashedPassword,
+          role: 'admin',
+          picture: 'https://ui-avatars.com/api/?name=Admin&background=random'
+        }
+      });
+      console.log('Admin user seeded in database');
+    }
+  } catch (error) {
+    console.error('Error seeding admin user:', error);
+  }
+})();
 
 export class AuthController {
   async signup(req: Request, res: Response) {
@@ -17,24 +39,24 @@ export class AuthController {
         return res.status(400).json({ message: 'All fields are required' });
       }
 
-      const existingUser = users.find(u => u.email === email);
+      const existingUser = await prisma.user.findUnique({ where: { email } });
       if (existingUser) {
         return res.status(400).json({ message: 'User already exists' });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = {
-        id: (users.length + 1).toString(),
-        name,
-        email,
-        password: hashedPassword,
-        picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
-      };
-
-      users.push(newUser);
+      const newUser = await prisma.user.create({
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+          role: 'user',
+          picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
+        }
+      });
 
       const token = jwt.sign(
-        { id: newUser.id, email: newUser.email, name: newUser.name, picture: newUser.picture },
+        { id: newUser.id, email: newUser.email, name: newUser.name, picture: newUser.picture, role: newUser.role },
         process.env.JWT_SECRET || 'default_secret',
         { expiresIn: '24h' }
       );
@@ -59,8 +81,8 @@ export class AuthController {
         return res.status(400).json({ message: 'Email and password are required' });
       }
 
-      const user = users.find(u => u.email === email);
-      if (!user) {
+      const user = await prisma.user.findUnique({ where: { email } });
+      if (!user || !user.password) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
@@ -70,7 +92,7 @@ export class AuthController {
       }
 
       const token = jwt.sign(
-        { id: user.id, email: user.email, name: user.name, picture: user.picture },
+        { id: user.id, email: user.email, name: user.name, picture: user.picture, role: user.role },
         process.env.JWT_SECRET || 'default_secret',
         { expiresIn: '24h' }
       );
@@ -91,34 +113,31 @@ export class AuthController {
     try {
       const { token } = req.body;
       
-      // Verify Google token
       const ticket = await client.verifyIdToken({
           idToken: token,
           audience: process.env.GOOGLE_CLIENT_ID,
       });
       const payload = ticket.getPayload();
 
-      if (!payload) {
+      if (!payload || !payload.email) {
         return res.status(400).json({ message: 'Invalid token payload' });
       }
 
-      // Check if user exists, if not create one
-      let user = users.find(u => u.email === payload.email);
+      let user = await prisma.user.findUnique({ where: { email: payload.email } });
       
       if (!user) {
-        user = {
-          id: payload.sub,
-          email: payload.email,
-          name: payload.name,
-          picture: payload.picture,
-          password: '' // No password for Google users
-        };
-        users.push(user);
+        user = await prisma.user.create({
+          data: {
+            email: payload.email,
+            name: payload.name || 'User',
+            picture: payload.picture,
+            role: 'user'
+          }
+        });
       }
 
-      // Generate JWT
       const jwtToken = jwt.sign(
-        { id: user.id, email: user.email, name: user.name, picture: user.picture }, 
+        { id: user.id, email: user.email, name: user.name, picture: user.picture, role: user.role }, 
         process.env.JWT_SECRET || 'default_secret', 
         { expiresIn: '24h' }
       );

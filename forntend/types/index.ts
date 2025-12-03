@@ -16,6 +16,7 @@ export interface Challenge {
   description: string;
   shortDescription: string;
   status: ChallengeStatus;
+  type?: 'standard' | 'student';
   category: ChallengeCategory[];
   organizer: string;
   organizerLogo?: string;
@@ -30,6 +31,19 @@ export interface Challenge {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
   tags: string[];
   location?: string;
+  overview: {
+    brief: string;
+    deliverables: string[];
+    criteria: { title: string; weight: number; description: string }[];
+    schedule: { phase: string; date: string; objectives: string[]; deliverables: string[] }[];
+  };
+  rules: string[];
+  assets: {
+    name: string;
+    type: 'pdf' | 'zip' | 'fig' | 'img';
+    url: string;
+    size: string;
+  }[];
 }
 
 export interface Participant {

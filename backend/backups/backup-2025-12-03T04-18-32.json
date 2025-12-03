@@ -1,0 +1,425 @@
+{
+  "users": [
+    {
+      "id": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "email": "admin@studio1947.com",
+      "password": "$2b$10$6vrZ1qFcCHVOa9pqfDKgN.dkyO6MLLB2aYhoGjD3Mc9jfrvAl2FU6",
+      "name": "Admin",
+      "picture": "https://ui-avatars.com/api/?name=Admin&background=random",
+      "role": "admin",
+      "createdAt": "2025-12-01T11:42:32.487Z",
+      "updatedAt": "2025-12-01T11:42:32.487Z"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "321038f5-ad5d-44c6-8df1-2cae80349607",
+      "title": "Vintage Poster Design",
+      "description": "Create a vintage-style travel poster for a fictional city. Use retro typography and textures to capture the nostalgia of the 1950s.",
+      "shortDescription": "Design a vintage travel poster.",
+      "status": "archived",
+      "type": "standard",
+      "category": [
+        "Illustration",
+        "Print Design"
+      ],
+      "organizer": "RetroArt",
+      "prizePool": 300,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2024-11-01",
+      "endDate": "2024-11-30",
+      "imageUrl": "https://images.unsplash.com/photo-1572061489735-485f9f21d7e0?q=80&w=2574&auto=format&fit=crop",
+      "difficulty": "Beginner",
+      "tags": [
+        "vintage",
+        "poster",
+        "illustration"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Capture the essence of a fictional city in a retro style.",
+        "criteria": [
+          "Style adherence",
+          "Creativity"
+        ],
+        "schedule": [],
+        "deliverables": [
+          "Poster Design"
+        ]
+      },
+      "rules": [
+        "Use only provided color palette"
+      ],
+      "assets": [],
+      "createdAt": "2025-12-02T02:57:46.992Z",
+      "updatedAt": "2025-12-02T02:57:46.992Z"
+    },
+    {
+      "id": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "title": "Student Challenge",
+      "description": "This is a student challenge.",
+      "shortDescription": "Student",
+      "status": "active",
+      "type": "student",
+      "category": [
+        "UI/UX"
+      ],
+      "organizer": "University",
+      "prizePool": 500,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-02-01",
+      "imageUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764730265/design-archives-submissions/eo7hqvo26zjciwxwzrcb.png",
+      "difficulty": "Beginner",
+      "tags": [
+        "student"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Brief",
+        "criteria": [],
+        "schedule": [],
+        "deliverables": []
+      },
+      "rules": [],
+      "assets": [],
+      "createdAt": "2025-12-02T04:03:26.517Z",
+      "updatedAt": "2025-12-02T04:03:26.517Z"
+    },
+    {
+      "id": "b976450f-8051-4a58-b029-c46f8c7b8527",
+      "title": "Test Challenge Full Data",
+      "description": "This is a test challenge with all fields populated to verify the admin form structure.",
+      "shortDescription": "Testing full data submission",
+      "status": "upcoming",
+      "type": "standard",
+      "category": [
+        "UI/UX",
+        "Web Design"
+      ],
+      "organizer": "Test Organizer",
+      "prizePool": 10000,
+      "currency": "INR",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-02-01",
+      "imageUrl": "https://example.com/image.jpg",
+      "difficulty": "Beginner",
+      "tags": [
+        "test",
+        "verification"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "This is the brief.",
+        "criteria": [
+          {
+            "title": "Criterion 1",
+            "weight": 50,
+            "description": "Desc 1"
+          },
+          {
+            "title": "Criterion 2",
+            "weight": 50,
+            "description": "Desc 2"
+          }
+        ],
+        "schedule": [
+          {
+            "date": "Jan 1",
+            "phase": "Phase 1"
+          },
+          {
+            "date": "Feb 1",
+            "phase": "Phase 2"
+          }
+        ],
+        "deliverables": [
+          "Deliverable 1",
+          "Deliverable 2"
+        ]
+      },
+      "rules": [
+        "Rule 1",
+        "Rule 2"
+      ],
+      "assets": [
+        {
+          "url": "http://example.com/1.pdf",
+          "name": "Asset 1",
+          "size": "1MB",
+          "type": "pdf"
+        }
+      ],
+      "createdAt": "2025-12-02T03:14:57.578Z",
+      "updatedAt": "2025-12-02T03:14:57.578Z"
+    },
+    {
+      "id": "31d70039-c2e8-4ed8-a2bb-294801cf215b",
+      "title": "Standard Challenge",
+      "description": "This is a standard challenge.",
+      "shortDescription": "Standard",
+      "status": "active",
+      "type": "standard",
+      "category": [
+        "Web Design"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 1000,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-02-01",
+      "imageUrl": "https://example.com/standard.jpg",
+      "difficulty": "Intermediate",
+      "tags": [
+        "standard"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Brief",
+        "criteria": [],
+        "schedule": [],
+        "deliverables": []
+      },
+      "rules": [],
+      "assets": [],
+      "createdAt": "2025-12-02T04:03:25.324Z",
+      "updatedAt": "2025-12-02T04:03:25.324Z"
+    },
+    {
+      "id": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "title": "Futuristic UI Dashboard",
+      "description": "Design a futuristic user interface for a space exploration dashboard. Think holograms, dark mode, and data visualization.",
+      "shortDescription": "Create a UI for a space exploration dashboard.",
+      "status": "upcoming",
+      "type": "standard",
+      "category": [
+        "UI/UX",
+        "Web Design"
+      ],
+      "organizer": "TechNova",
+      "prizePool": 1000,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-02-01",
+      "endDate": "2025-02-28",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
+      "difficulty": "Advanced",
+      "tags": [
+        "ui",
+        "dashboard",
+        "futuristic"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Design a dashboard that helps astronauts monitor ship systems and navigation.",
+        "criteria": [
+          "Usability",
+          "Aesthetics",
+          "Innovation"
+        ],
+        "schedule": [
+          {
+            "date": "2025-02-01 - 2025-02-28",
+            "phase": "Submission"
+          },
+          {
+            "date": "",
+            "phase": "",
+            "objectives": [],
+            "deliverables": []
+          }
+        ],
+        "deliverables": [
+          "Dashboard Screen",
+          "Navigation Menu",
+          "System Status Widgets"
+        ]
+      },
+      "rules": [
+        "Must include dark mode",
+        "Figma or Sketch files required"
+      ],
+      "assets": [
+        {
+          "url": "",
+          "name": "",
+          "size": "",
+          "type": "pdf"
+        }
+      ],
+      "createdAt": "2025-12-02T02:57:46.629Z",
+      "updatedAt": "2025-12-02T02:57:46.629Z"
+    },
+    {
+      "id": "7962e740-574b-440c-898b-9efa31a28074",
+      "title": "Minimalist Brand Identity",
+      "description": "Create a minimalist brand identity for a sustainable coffee shop. Focus on clean lines, earthy tones, and a modern aesthetic that reflects the brand's commitment to the environment.",
+      "shortDescription": "Design a brand identity for a sustainable coffee shop.",
+      "status": "active",
+      "type": "standard",
+      "category": [
+        "Branding",
+        "Logo Design"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 500,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-01-15",
+      "imageUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764675922/design-archives-submissions/tncd0vskrdwnsz65wf2t.png",
+      "difficulty": "Intermediate",
+      "tags": [
+        "branding",
+        "minimalism",
+        "coffee"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "The goal is to create a cohesive brand identity that appeals to eco-conscious consumers.",
+        "criteria": [
+          "Originality",
+          "Relevance",
+          "Execution"
+        ],
+        "schedule": [
+          {
+            "date": "2025-01-01 - 2025-01-15",
+            "phase": "Submission"
+          },
+          {
+            "date": "2025-01-16 - 2025-01-20",
+            "phase": "Judging"
+          },
+          {
+            "date": "2025-01-21",
+            "phase": "Winners Announced"
+          }
+        ],
+        "deliverables": [
+          "Logo",
+          "Color Palette",
+          "Typography",
+          "Packaging Mockup"
+        ]
+      },
+      "rules": [
+        "Original work only",
+        "No AI generated content",
+        "Submit in PDF format"
+      ],
+      "assets": [
+        {
+          "url": "https://example.com/template.pdf",
+          "name": "Brand Guidelines Template"
+        }
+      ],
+      "createdAt": "2025-12-02T02:57:45.290Z",
+      "updatedAt": "2025-12-02T02:57:45.290Z"
+    },
+    {
+      "id": "a0e4e9e6-b8e3-4bac-8af3-f84cbbd0a237",
+      "title": "again test-2",
+      "description": "full des about test-2 again",
+      "shortDescription": "test 2 ",
+      "status": "upcoming",
+      "type": "student",
+      "category": [
+        "UI",
+        "UX"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 1998,
+      "currency": "INR",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-12-02",
+      "endDate": "2025-12-06",
+      "imageUrl": "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg",
+      "difficulty": "Beginner",
+      "tags": [
+        "Branding",
+        "logos",
+        "ui"
+      ],
+      "location": "",
+      "overview": {
+        "brief": "We re properly testing this student challenge publications",
+        "criteria": [],
+        "schedule": [
+          {
+            "date": "04/12/25",
+            "phase": "Phase -1",
+            "objectives": [
+              "desing ideas and drafting"
+            ],
+            "deliverables": [
+              "desing ideas and drafting"
+            ]
+          },
+          {
+            "date": "05/12/25",
+            "phase": "Phase -2",
+            "objectives": [
+              "proper files uploading"
+            ],
+            "deliverables": [
+              "desing ideas and drafting"
+            ]
+          }
+        ],
+        "deliverables": [
+          "blue"
+        ]
+      },
+      "rules": [
+        "no ai works if found a proper dispilinary advised will be taken "
+      ],
+      "assets": [],
+      "createdAt": "2025-12-02T04:25:37.363Z",
+      "updatedAt": "2025-12-02T04:25:37.363Z"
+    }
+  ],
+  "submissions": [],
+  "participants": [
+    {
+      "id": "a66ebd95-e8d2-47f5-8f92-e40dc72968e0",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "31d70039-c2e8-4ed8-a2bb-294801cf215b",
+      "status": "registered",
+      "joinedAt": "2025-12-02T05:29:02.965Z"
+    },
+    {
+      "id": "e2fb51e0-3bae-4973-8c0f-ec1ba22e7031",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "status": "registered",
+      "joinedAt": "2025-12-02T05:29:57.011Z"
+    },
+    {
+      "id": "c36ca808-ae4b-4858-baca-9fefdbbe01a3",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "7962e740-574b-440c-898b-9efa31a28074",
+      "status": "registered",
+      "joinedAt": "2025-12-02T11:36:00.126Z"
+    }
+  ],
+  "workshopApplications": []
+}

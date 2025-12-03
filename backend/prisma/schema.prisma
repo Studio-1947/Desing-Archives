@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Submission {
+  id          String   @id @default(uuid())
+  challengeId String
+  userId      String
+  creativity  Int?
+  technical   Int?
+  adherence   Int?
+  totalScore  Float?
+  status      String   @default("pending") // pending, graded
+  fileUrl     String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id          String       @id @default(uuid())
+  email       String       @unique
+  password    String?
+  name        String
+  picture     String?
+  role        String       @default("user")
+  submissions Submission[]
+  participants Participant[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Challenge {
+  id                String       @id @default(uuid())
+  title             String
+  description       String
+  shortDescription  String
+  status            String
+  type              String       @default("standard")
+  category          String[]
+  organizer         String
+  prizePool         Int
+  currency          String
+  totalParticipants Int          @default(0)
+  totalViews        Int          @default(0)
+  totalSubmissions  Int          @default(0)
+  startDate         String
+  endDate           String
+  imageUrl          String
+  difficulty        String
+  tags              String[]
+  location          String?
+  
+  overview          Json
+  rules             String[]
+  assets            Json[]
+
+  submissions       Submission[]
+
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  participants      Participant[]
+}
+
+model Participant {
+  id          String    @id @default(uuid())
+  userId      String
+  challengeId String
+  status      String    @default("registered") // registered, submitted, completed
+  joinedAt    DateTime  @default(now())
+  
+  user        User      @relation(fields: [userId], references: [id])
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+
+  @@unique([userId, challengeId])
+}
+
+model WorkshopApplication {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  statement String
+  status    String   @default("pending") // pending, approved, rejected
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

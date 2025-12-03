@@ -1,17 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChallengeCard from '@/components/ChallengeCard';
-import { mockChallenges } from '@/data/challenges';
 import { Search } from 'lucide-react';
-import { ChallengeStatus, ChallengeCategory } from '@/types';
+import { Challenge, ChallengeStatus, ChallengeCategory } from '@/types';
 
-export default function ChallengesPage() {
+export default function ChallengesPage({ searchParams }: { searchParams: { type?: string } }) {
+    const [challenges, setChallenges] = useState<Challenge[]>([]);
+    const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState<ChallengeStatus | 'all'>('all');
     const [selectedCategory, setSelectedCategory] = useState<ChallengeCategory | 'all'>('all');
+
+    useEffect(() => {
+        const fetchChallenges = async () => {
+            try {
+                const typeParam = searchParams?.type ? `?type=${searchParams.type}` : '';
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges${typeParam}`);
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    setChallenges(data);
+                } else {
+                    console.error('Expected array of challenges but got:', data);
+                    setChallenges([]);
+                }
+            } catch (error) {
+                console.error('Error fetching challenges:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchChallenges();
+    }, [searchParams?.type]);
 
     const categories: (ChallengeCategory | 'all')[] = [
         'all',
@@ -27,7 +50,7 @@ export default function ChallengesPage() {
 
     const statuses: (ChallengeStatus | 'all')[] = ['all', 'active', 'upcoming', 'archived'];
 
-    const filteredChallenges = mockChallenges.filter((challenge) => {
+    const filteredChallenges = challenges.filter((challenge) => {
         const matchesSearch = challenge.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             challenge.description.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesStatus = selectedStatus === 'all' || challenge.status === selectedStatus;
@@ -44,7 +67,7 @@ export default function ChallengesPage() {
                 {/* Page Header */}
                 <div className="mb-16 animate-fade-in">
                     <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-                        Design Challenges
+                        {searchParams?.type === 'student' ? 'Student Challenges' : 'Design Challenges'}
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl">
                         Discover and participate in design challenges that celebrate creativity,
@@ -77,8 +100,8 @@ export default function ChallengesPage() {
                                     key={status}
                                     onClick={() => setSelectedStatus(status)}
                                     className={`px-6 py-2 text-sm font-medium tracking-wide transition-all duration-200 uppercase ${selectedStatus === status
-                                            ? 'bg-gray-900 text-white'
-                                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-900'
+                                        ? 'bg-gray-900 text-white'
+                                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-900'
                                         }`}
                                 >
                                     {status}
@@ -98,8 +121,8 @@ export default function ChallengesPage() {
                                     key={category}
                                     onClick={() => setSelectedCategory(category)}
                                     className={`px-6 py-2 text-sm font-medium tracking-wide transition-all duration-200 uppercase ${selectedCategory === category
-                                            ? 'bg-gray-900 text-white'
-                                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-900'
+                                        ? 'bg-gray-900 text-white'
+                                        : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-gray-900'
                                         }`}
                                 >
                                     {category === 'all' ? 'All' : category}
@@ -117,7 +140,9 @@ export default function ChallengesPage() {
                 </div>
 
                 {/* Challenges Grid */}
-                {filteredChallenges.length > 0 ? (
+                {loading ? (
+                    <div className="text-center py-12">Loading challenges...</div>
+                ) : filteredChallenges.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredChallenges.map((challenge) => (
                             <ChallengeCard key={challenge.id} challenge={challenge} />
