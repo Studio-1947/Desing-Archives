@@ -18,9 +18,19 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
     const [fileUrl, setFileUrl] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState<'idle' | 'uploading' | 'processing' | 'completed'>('idle');
+    const [submissionCount, setSubmissionCount] = useState<number | null>(null);
     const { user } = useAuth();
     const { socket } = useSocket();
     const { showToast } = useToast();
+
+    useEffect(() => {
+        if (isOpen && user && challengeId) {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/submissions/count?challengeId=${challengeId}&userId=${user.id}`)
+                .then(res => res.json())
+                .then(data => setSubmissionCount(data.count))
+                .catch(err => console.error('Error fetching submission count:', err));
+        }
+    }, [isOpen, user, challengeId]);
 
     useEffect(() => {
         if (!socket) return;
@@ -136,6 +146,13 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                                     <input type="hidden" name="fileUrl" value={fileUrl} required />
                                 )}
                             </div>
+
+                            {submissionCount !== null && (
+                                <div className={`text-sm font-medium ${submissionCount >= 2 ? 'text-red-500' : 'text-blue-600'}`}>
+                                    {Math.max(0, 2 - submissionCount)} attempt{2 - submissionCount !== 1 ? 's' : ''} left
+                                </div>
+                            )}
+
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Description (Optional)
@@ -150,8 +167,11 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                             </div>
                             <button
                                 type="submit"
-                                disabled={status === 'uploading' || !fileUrl}
-                                className="w-full py-3 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
+                                disabled={status === 'uploading' || !fileUrl || (submissionCount !== null && submissionCount >= 2)}
+                                className={`w-full py-3 font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${(submissionCount !== null && submissionCount >= 2)
+                                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                        : 'bg-black text-white hover:bg-gray-800'
+                                    }`}
                             >
                                 {status === 'uploading' ? (
                                     <>

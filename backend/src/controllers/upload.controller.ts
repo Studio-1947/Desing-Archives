@@ -5,20 +5,30 @@ import cloudinary from "../config/cloudinary";
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: {
-    folder: "design-archives-submissions",
-    allowed_formats: [
-      "jpg",
-      "png",
-      "jpeg",
-      "pdf",
-      "ai",
-      "psd",
-      "sketch",
-      "fig",
-    ],
-    resource_type: "auto", // Allow both image and raw files (for pdf, ai, etc.)
-  } as any, // Type assertion needed for some custom params
+  params: async (req, file) => {
+    const isRaw =
+      file.mimetype.includes("pdf") ||
+      file.originalname.match(/\.(ai|psd|sketch|fig)$/i);
+
+    return {
+      folder: "design-archives-submissions",
+      allowed_formats: [
+        "jpg",
+        "png",
+        "jpeg",
+        "pdf",
+        "ai",
+        "psd",
+        "sketch",
+        "fig",
+      ],
+      resource_type: isRaw ? "raw" : "image",
+      public_id:
+        file.originalname.split(".")[0].replace(/[^a-zA-Z0-9]/g, "_") +
+        "_" +
+        Date.now(),
+    };
+  },
 });
 
 const upload = multer({

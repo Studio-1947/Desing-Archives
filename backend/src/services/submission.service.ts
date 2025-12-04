@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../config/prisma";
 
 export class SubmissionService {
   async getLeaderboard(challengeId: string) {
@@ -18,6 +16,15 @@ export class SubmissionService {
       },
       orderBy: {
         totalScore: "desc",
+      },
+    });
+  }
+
+  async getSubmissionCount(challengeId: string, userId: string) {
+    return prisma.submission.count({
+      where: {
+        challengeId,
+        userId,
       },
     });
   }

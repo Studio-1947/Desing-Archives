@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from "../config/prisma";
 
 export class UserService {
   async getUserParticipations(userId: string) {
@@ -16,13 +14,13 @@ export class UserService {
             startDate: true,
             endDate: true,
             prizePool: true,
-            organizer: true
-          }
-        }
+            organizer: true,
+          },
+        },
       },
       orderBy: {
-        joinedAt: 'desc'
-      }
+        joinedAt: "desc",
+      },
     });
 
     return participations;

@@ -90,4 +90,27 @@ export class SubmissionController {
       }
     }
   }
+
+  async getSubmissionCount(req: Request, res: Response) {
+    try {
+      const { challengeId, userId } = req.query;
+
+      if (!challengeId || !userId) {
+        return res
+          .status(400)
+          .json({ message: "Challenge ID and User ID are required" });
+      }
+
+      const count = await submissionService.getSubmissionCount(
+        challengeId as string,
+        userId as string
+      );
+
+      res.json({ count });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error fetching submission count", error });
+    }
+  }
 }
