@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from "../config/prisma";
 
 export class SubmissionService {
   async getLeaderboard(challengeId: string) {
@@ -17,16 +15,41 @@ export class SubmissionService {
         },
       },
       orderBy: {
-        totalScore: 'desc',
+        totalScore: "desc",
       },
     });
   }
 
-  async createSubmission(data: { challengeId: string; userId: string; fileUrl: string; description?: string }) {
+  async getSubmissionCount(challengeId: string, userId: string) {
+    return prisma.submission.count({
+      where: {
+        challengeId,
+        userId,
+      },
+    });
+  }
+
+  async createSubmission(data: {
+    challengeId: string;
+    userId: string;
+    fileUrl: string;
+    description?: string;
+  }) {
+    const existingSubmissionsCount = await prisma.submission.count({
+      where: {
+        challengeId: data.challengeId,
+        userId: data.userId,
+      },
+    });
+
+    if (existingSubmissionsCount >= 2) {
+      throw new Error("Submission limit reached");
+    }
+
     return prisma.submission.create({
       data: {
         ...data,
-        status: 'pending',
+        status: "pending",
       },
     });
   }
@@ -34,7 +57,7 @@ export class SubmissionService {
   async getPendingSubmissions() {
     return prisma.submission.findMany({
       where: {
-        status: 'pending',
+        status: "pending",
       },
       include: {
         user: {
@@ -51,37 +74,43 @@ export class SubmissionService {
         },
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: "asc",
       },
     });
   }
 
-  async gradeSubmission(id: string, scores: { creativity: number; technical: number; adherence: number }) {
+  async gradeSubmission(
+    id: string,
+    scores: { creativity: number; technical: number; adherence: number }
+  ) {
     const { creativity, technical, adherence } = scores;
 
     // Validate scores
     if (
-      creativity < 0 || creativity > 100 ||
-      technical < 0 || technical > 100 ||
-      adherence < 0 || adherence > 100
+      creativity < 0 ||
+      creativity > 100 ||
+      technical < 0 ||
+      technical > 100 ||
+      adherence < 0 ||
+      adherence > 100
     ) {
-      throw new Error('Scores must be between 0 and 100');
+      throw new Error("Scores must be between 0 and 100");
     }
 
     // Check if submission exists
     const submission = await prisma.submission.findUnique({ where: { id } });
     if (!submission) {
-      throw new Error('Submission not found');
+      throw new Error("Submission not found");
     }
 
     const totalScore = (creativity + technical + adherence) / 3;
-    
+
     return prisma.submission.update({
       where: { id },
       data: {
         ...scores,
         totalScore,
-        status: 'graded',
+        status: "graded",
       },
     });
   }

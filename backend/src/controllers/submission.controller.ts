@@ -1,5 +1,6 @@
-import { Request, Response } from 'express';
-import { SubmissionService } from '../services/submission.service';
+import { Request, Response } from "express";
+import { SubmissionService } from "../services/submission.service";
+import { getIO } from "../socket";
 
 const submissionService = new SubmissionService();
 
@@ -10,16 +11,40 @@ export class SubmissionController {
       const leaderboard = await submissionService.getLeaderboard(challengeId);
       res.json(leaderboard);
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching leaderboard', error });
+      res.status(500).json({ message: "Error fetching leaderboard", error });
     }
   }
 
   async createSubmission(req: Request, res: Response) {
     try {
       const submission = await submissionService.createSubmission(req.body);
+
+      try {
+        const io = getIO();
+        io.to(`challenge_${submission.challengeId}`).emit(
+          "submission_processed",
+          {
+            challengeId: submission.challengeId,
+            submissionId: submission.id,
+          }
+        );
+        io.to(`challenge_${submission.challengeId}`).emit(
+          "leaderboard_update",
+          {
+            challengeId: submission.challengeId,
+          }
+        );
+      } catch (e) {
+        console.error("Socket emit failed", e);
+      }
+
       res.status(201).json(submission);
-    } catch (error) {
-      res.status(500).json({ message: 'Error creating submission', error });
+    } catch (error: any) {
+      if (error.message === "Submission limit reached") {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error creating submission", error });
+      }
     }
   }
 
@@ -28,7 +53,9 @@ export class SubmissionController {
       const submissions = await submissionService.getPendingSubmissions();
       res.json(submissions);
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching pending submissions', error });
+      res
+        .status(500)
+        .json({ message: "Error fetching pending submissions", error });
     }
   }
 
@@ -37,15 +64,53 @@ export class SubmissionController {
       const { id } = req.params;
       const scores = req.body;
       const submission = await submissionService.gradeSubmission(id, scores);
+
+      try {
+        const io = getIO();
+        io.to(`challenge_${submission.challengeId}`).emit(
+          "leaderboard_update",
+          {
+            challengeId: submission.challengeId,
+          }
+        );
+      } catch (e) {
+        console.error("Socket emit failed", e);
+      }
+
       res.json(submission);
     } catch (error: any) {
-      if (error.message === 'Submission not found') {
+      if (error.message === "Submission not found") {
         res.status(404).json({ message: error.message });
-      } else if (error.message === 'Scores must be between 0 and 100') {
+      } else if (error.message === "Scores must be between 0 and 100") {
         res.status(400).json({ message: error.message });
       } else {
-        res.status(500).json({ message: 'Error grading submission', error: error.message });
+        res
+          .status(500)
+          .json({ message: "Error grading submission", error: error.message });
       }
+    }
+  }
+
+  async getSubmissionCount(req: Request, res: Response) {
+    try {
+      const { challengeId, userId } = req.query;
+
+      if (!challengeId || !userId) {
+        return res
+          .status(400)
+          .json({ message: "Challenge ID and User ID are required" });
+      }
+
+      const count = await submissionService.getSubmissionCount(
+        challengeId as string,
+        userId as string
+      );
+
+      res.json({ count });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error fetching submission count", error });
     }
   }
 }

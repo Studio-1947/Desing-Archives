@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { X, Upload, CheckCircle, Loader2 } from 'lucide-react';
 import { useSocket } from '@/context/SocketContext';
 import { useToast } from '@/context/ToastContext';
+import { useAuth } from '@/context/AuthContext';
 import FileUpload from './FileUpload';
 
 interface SubmissionModalProps {
@@ -17,8 +18,19 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
     const [fileUrl, setFileUrl] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState<'idle' | 'uploading' | 'processing' | 'completed'>('idle');
+    const [submissionCount, setSubmissionCount] = useState<number | null>(null);
+    const { user } = useAuth();
     const { socket } = useSocket();
     const { showToast } = useToast();
+
+    useEffect(() => {
+        if (isOpen && user && challengeId) {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/submissions/count?challengeId=${challengeId}&userId=${user.id}`)
+                .then(res => res.json())
+                .then(data => setSubmissionCount(data.count))
+                .catch(err => console.error('Error fetching submission count:', err));
+        }
+    }, [isOpen, user, challengeId]);
 
     useEffect(() => {
         if (!socket) return;
@@ -50,15 +62,11 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
         setStatus('uploading');
 
         try {
-            // Get user ID from local storage or context (assuming user is logged in)
-            // This is a simplification; in a real app, the token would be handled by an interceptor
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
+            if (!user) {
                 showToast('Please login to submit', 'error');
                 setStatus('idle');
                 return;
             }
-            const user = JSON.parse(userStr);
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/submissions`, {
                 method: 'POST',
@@ -74,7 +82,8 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
             });
 
             if (!res.ok) {
-                throw new Error('Failed to submit');
+                const errorData = await res.json();
+                throw new Error(errorData.message || 'Failed to submit');
             }
 
             setStatus('completed');
@@ -92,10 +101,10 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                 setDescription('');
             }, 2000);
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Submission error:', error);
             setStatus('idle');
-            showToast('Failed to submit. Please try again.', 'error');
+            showToast(error.message || 'Failed to submit. Please try again.', 'error');
         }
     };
 
@@ -137,6 +146,13 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                                     <input type="hidden" name="fileUrl" value={fileUrl} required />
                                 )}
                             </div>
+
+                            {submissionCount !== null && (
+                                <div className={`text-sm font-medium ${submissionCount >= 2 ? 'text-red-500' : 'text-blue-600'}`}>
+                                    {Math.max(0, 2 - submissionCount)} attempt{2 - submissionCount !== 1 ? 's' : ''} left
+                                </div>
+                            )}
+
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     Description (Optional)
@@ -151,8 +167,11 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                             </div>
                             <button
                                 type="submit"
-                                disabled={status === 'uploading' || !fileUrl}
-                                className="w-full py-3 bg-black text-white font-bold rounded-lg hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
+                                disabled={status === 'uploading' || !fileUrl || (submissionCount !== null && submissionCount >= 2)}
+                                className={`w-full py-3 font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${(submissionCount !== null && submissionCount >= 2)
+                                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                        : 'bg-black text-white hover:bg-gray-800'
+                                    }`}
                             >
                                 {status === 'uploading' ? (
                                     <>
