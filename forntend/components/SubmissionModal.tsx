@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { X, Upload, CheckCircle, Loader2 } from 'lucide-react';
 import { useSocket } from '@/context/SocketContext';
 import { useToast } from '@/context/ToastContext';
+import { useAuth } from '@/context/AuthContext';
 import FileUpload from './FileUpload';
 
 interface SubmissionModalProps {
@@ -17,6 +18,7 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
     const [fileUrl, setFileUrl] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState<'idle' | 'uploading' | 'processing' | 'completed'>('idle');
+    const { user } = useAuth();
     const { socket } = useSocket();
     const { showToast } = useToast();
 
@@ -50,15 +52,11 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
         setStatus('uploading');
 
         try {
-            // Get user ID from local storage or context (assuming user is logged in)
-            // This is a simplification; in a real app, the token would be handled by an interceptor
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
+            if (!user) {
                 showToast('Please login to submit', 'error');
                 setStatus('idle');
                 return;
             }
-            const user = JSON.parse(userStr);
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/submissions`, {
                 method: 'POST',
@@ -74,7 +72,8 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
             });
 
             if (!res.ok) {
-                throw new Error('Failed to submit');
+                const errorData = await res.json();
+                throw new Error(errorData.message || 'Failed to submit');
             }
 
             setStatus('completed');
@@ -92,10 +91,10 @@ export default function SubmissionModal({ isOpen, onClose, challengeId }: Submis
                 setDescription('');
             }, 2000);
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Submission error:', error);
             setStatus('idle');
-            showToast('Failed to submit. Please try again.', 'error');
+            showToast(error.message || 'Failed to submit. Please try again.', 'error');
         }
     };
 
