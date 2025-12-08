@@ -8,20 +8,22 @@ import LoginButton from './LoginButton';
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeText, setActiveText] = useState('Community');
+    const [activeTextIndex, setActiveTextIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isChallengesOpen, setIsChallengesOpen] = useState(false);
 
+    const words = ['Community', 'Archives', 'Workshops', 'Challenges'];
+
     useEffect(() => {
-        const interval = setInterval(() => {
+        const interval = window.setInterval(() => {
             setIsAnimating(true);
-            setTimeout(() => {
-                setActiveText(prev => prev === 'Community' ? 'Archives' : 'Community');
+            window.setTimeout(() => {
+                setActiveTextIndex((prev) => (prev + 1) % words.length);
                 setIsAnimating(false);
             }, 500); // Wait for fade out animation to complete
         }, 3000);
 
-        return () => clearInterval(interval);
+        return () => window.clearInterval(interval);
     }, []);
 
     const toggleMenu = () => {
@@ -47,9 +49,18 @@ export default function Header() {
                                 <span className="text-base md:text-xl lg:text-2xl font-bold tracking-tight text-gray-900 group-hover:text-gray-600 transition-colors duration-300">
                                     Local Design
                                 </span>
-                                <span className={`text-base md:text-xl lg:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                                    {activeText}
-                                </span>
+                                <div className="grid grid-cols-1 grid-rows-1">
+                                    {/* Invisible copies to reserve space */}
+                                    {words.map((word) => (
+                                        <span key={word} className="text-base md:text-xl lg:text-2xl font-bold tracking-tight text-transparent invisible col-start-1 row-start-1 pointer-events-none select-none" aria-hidden="true">
+                                            {word}
+                                        </span>
+                                    ))}
+                                    {/* Visible animating text */}
+                                    <span className={`text-base md:text-xl lg:text-2xl font-bold tracking-tight text-gray-500 transition-all duration-500 col-start-1 row-start-1 ${isAnimating ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                                        {words[activeTextIndex]}
+                                    </span>
+                                </div>
                             </div>
                             <span className=" text-[10px] md:text-xs tracking-extra-wide text-gray-500 uppercase whitespace-nowrap">
                                 An initiative by Studio 1947
