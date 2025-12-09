@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #2a9d8f;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+      }
+      .content {
+        padding: 20px;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+        color: #666;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #2a9d8f;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>{{title}}</h1>
+      </div>
+      <div class="content">
+        <p>Hi {{name}},</p>
+        <p>{{content}}</p>
+        <p style="text-align: center">
+          <a href="http://localhost:3000" class="button">Check it out</a>
+        </p>
+      </div>
+      <div class="footer">
+        <p>&copy; {{year}} Studio 1947. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
