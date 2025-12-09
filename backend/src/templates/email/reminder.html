@@ -1,62 +1,147 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reminder from Local Design Community</title>
     <style>
+      /* Reset */
+      body,
+      p,
+      h1,
+      h2,
+      h3,
+      div,
+      a {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         line-height: 1.6;
-        color: #333;
+        color: #111827;
+        background-color: #f9fafb;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Layout */
+      .wrapper {
+        width: 100%;
+        background-color: #f9fafb;
+        padding: 40px 20px;
       }
       .container {
         max-width: 600px;
         margin: 0 auto;
-        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0px;
+        overflow: hidden;
       }
+
+      /* Header */
       .header {
-        background-color: #f4a261;
-        color: #fff;
-        padding: 20px;
+        padding: 40px 40px 20px;
         text-align: center;
+        border-bottom: 1px solid #f3f4f6;
       }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+      .logo-text {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: #111827;
+        text-transform: uppercase;
+      }
+
+      /* Content */
       .content {
-        padding: 20px;
+        padding: 40px;
+        text-align: left;
       }
+      .badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background-color: #f3f4f6;
+        color: #111827;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #111827;
+        letter-spacing: -0.025em;
+      }
+      p {
+        margin-bottom: 16px;
+        font-size: 16px;
+        color: #374151;
+      }
+      .highlight {
+        font-weight: 600;
+        color: #111827;
+      }
+
       .footer {
         text-align: center;
-        padding: 20px;
-        font-size: 12px;
-        color: #666;
+        border-top: 1px solid #f3f4f6;
       }
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #f4a261;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
+      .footer p {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <h1>Reminder: {{title}}</h1>
-      </div>
-      <div class="content">
-        <p>Hi {{name}},</p>
-        <p>
-          This is a friendly reminder about <strong>{{title}}</strong> coming up
-          on <strong>{{date}}</strong>.
-        </p>
-        <p>Don't miss out!</p>
-        <p style="text-align: center">
-          <a href="http://localhost:3000/challenges" class="button"
-            >View Details</a
-          >
-        </p>
-      </div>
-      <div class="footer">
-        <p>&copy; {{year}} Studio 1947. All rights reserved.</p>
+    <div class="wrapper">
+      <div class="container">
+        <div class="header">
+          <a href="http://localhost:3000" class="logo-container">
+            <img src="cid:logo" alt="Logo" class="logo-img" />
+            <span class="logo-text">Local Design Community</span>
+          </a>
+        </div>
+        <div class="content">
+          <div class="badge">Reminder</div>
+          <h1>Upcoming: {{title}}</h1>
+          <p>Hi {{name}},</p>
+          <p>
+            This is a friendly reminder that <strong>{{title}}</strong> is
+            coming up on <span class="highlight">{{date}}</span>.
+          </p>
+          <p>
+            Make sure you're prepared and don't miss out on this opportunity.
+          </p>
+          <div class="button-container">
+            <a href="http://localhost:3000/challenges" class="button"
+              >View Details</a
+            >
+          </div>
+        </div>
+        <div class="footer">
+          <p>&copy; {{year}} Local Design Community. All rights reserved.</p>
+          <p>Unsubscribe | Privacy Policy</p>
+        </div>
       </div>
     </div>
   </body>

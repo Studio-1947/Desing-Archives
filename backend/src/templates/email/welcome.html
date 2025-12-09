@@ -1,62 +1,136 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Local Design Community</title>
     <style>
+      /* Reset */
+      body,
+      p,
+      h1,
+      h2,
+      h3,
+      div,
+      a {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         line-height: 1.6;
-        color: #333;
+        color: #111827;
+        background-color: #f9fafb;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Layout */
+      .wrapper {
+        width: 100%;
+        background-color: #f9fafb;
+        padding: 40px 20px;
       }
       .container {
         max-width: 600px;
         margin: 0 auto;
-        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 0px;
+        overflow: hidden;
       }
+
+      /* Header */
       .header {
-        background-color: #000;
-        color: #fff;
-        padding: 20px;
+        padding: 40px 40px 20px;
         text-align: center;
+        border-bottom: 1px solid #f3f4f6;
       }
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .logo-img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+      .logo-text {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: #111827;
+        text-transform: uppercase;
+      }
+
+      /* Content */
       .content {
-        padding: 20px;
+        padding: 40px;
+        text-align: left;
       }
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        color: #111827;
+        letter-spacing: -0.025em;
+      }
+      p {
+        margin-bottom: 16px;
+        font-size: 16px;
+        color: #374151;
+      }
+
       .footer {
         text-align: center;
-        padding: 20px;
-        font-size: 12px;
-        color: #666;
+        border-top: 1px solid #f3f4f6;
       }
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #000;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
+      .footer p {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="header">
-        <h1>Welcome to Studio 1947!</h1>
-      </div>
-      <div class="content">
-        <p>Hi {{name}},</p>
-        <p>
-          We're thrilled to have you on board! Studio 1947 is your platform to
-          showcase your creativity and compete in design challenges.
-        </p>
-        <p>Get started by exploring our latest challenges.</p>
-        <p style="text-align: center">
-          <a href="http://localhost:3000/challenges" class="button"
-            >Explore Challenges</a
-          >
-        </p>
-      </div>
-      <div class="footer">
-        <p>&copy; {{year}} Studio 1947. All rights reserved.</p>
+    <div class="wrapper">
+      <div class="container">
+        <div class="header">
+          <a href="http://localhost:3000" class="logo-container">
+            <img src="cid:logo" alt="Logo" class="logo-img" />
+            <span class="logo-text">Local Design Community</span>
+          </a>
+        </div>
+        <div class="content">
+          <h1>Welcome, {{name}}.</h1>
+          <p>
+            We are thrilled to welcome you to our community. Local Design
+            Community is a curated space for designers to showcase their work,
+            compete in challenges, and grow together.
+          </p>
+          <p>
+            Your journey begins now. Explore our latest design challenges and
+            start building your portfolio.
+          </p>
+          <div class="button-container">
+            <a href="http://localhost:3000/challenges" class="button"
+              >Explore Challenges</a
+            >
+          </div>
+          <p>
+            If you have any questions, feel free to reply to this email. We're
+            here to help.
+          </p>
+        </div>
+        <div class="footer">
+          <p>&copy; {{year}} Local Design Community. All rights reserved.</p>
+          <p>Unsubscribe | Privacy Policy</p>
+        </div>
       </div>
     </div>
   </body>

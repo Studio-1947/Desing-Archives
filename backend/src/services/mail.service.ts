@@ -44,11 +44,23 @@ export class MailService {
 
   async sendMail(to: string, subject: string, html: string) {
     try {
+      const logoPath = path.join(
+        __dirname,
+        "../../../forntend/public/logo.svg"
+      );
+
       const info = await this.transporter.sendMail({
         from: process.env.EMAIL_USER,
         to,
         subject,
         html,
+        attachments: [
+          {
+            filename: "logo.svg",
+            path: logoPath,
+            cid: "logo", // same cid value as in the html img src
+          },
+        ],
       });
       console.log("Message sent: %s", info.messageId);
       return info;
@@ -63,7 +75,11 @@ export class MailService {
       name: user.name,
       year: new Date().getFullYear().toString(),
     });
-    return this.sendMail(user.email, "Welcome to Studio 1947!", html);
+    return this.sendMail(
+      user.email,
+      "Welcome to Local Design Community!",
+      html
+    );
   }
 
   async sendReminderEmail(

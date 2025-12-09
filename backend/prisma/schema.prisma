@@ -33,6 +33,7 @@ model User {
   name        String
   picture     String?
   role        String       @default("user")
+  welcomeEmailSent Boolean @default(false)
   submissions Submission[]
   participants Participant[]
   challengeViews ChallengeView[]

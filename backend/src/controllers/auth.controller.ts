@@ -58,6 +58,7 @@ export class AuthController {
           picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(
             name
           )}&background=random`,
+          welcomeEmailSent: true as any,
         },
       });
 
@@ -159,6 +160,7 @@ export class AuthController {
             name: payload.name || "User",
             picture: payload.picture,
             role: "user",
+            welcomeEmailSent: true as any,
           },
         });
 
