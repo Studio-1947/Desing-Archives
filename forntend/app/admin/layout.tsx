@@ -23,6 +23,12 @@ export default function AdminLayout({
                     >
                         Challenges
                     </Link>
+                    <Link
+                        href="/admin/emails"
+                        className="flex items-center px-4 py-3 text-sm font-medium rounded-none text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-300"
+                    >
+                        Email Manager
+                    </Link>
                     {/* Add more admin links here */}
                 </nav>
             </aside>
