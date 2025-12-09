@@ -110,13 +110,44 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
+
+      /* Mobile Responsiveness */
+      @media only screen and (max-width: 600px) {
+        .wrapper {
+          padding: 20px 0 !important;
+        }
+        .container {
+          width: 100% !important;
+          border-radius: 0 !important;
+          border-left: none !important;
+          border-right: none !important;
+        }
+        .header {
+          padding: 30px 20px !important;
+        }
+        .content {
+          padding: 30px 20px !important;
+        }
+        h1 {
+          font-size: 24px !important;
+          margin-bottom: 20px !important;
+        }
+        p {
+          font-size: 16px !important;
+        }
+        .button {
+          display: block !important;
+          width: 100% !important;
+          padding: 16px 0 !important;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="wrapper">
       <div class="container">
         <div class="header">
-          <a href="http://localhost:3000" class="logo-container">
+          <a href="https://www.localdesign.in" class="logo-container">
             <img src="cid:logo" alt="Logo" class="logo-img" />
             <span class="logo-text">Local Design Community</span>
           </a>
@@ -134,7 +165,7 @@
             Make sure you're prepared and don't miss out on this opportunity.
           </p>
           <div class="button-container">
-            <a href="http://localhost:3000/challenges" class="button"
+            <a href="https://www.localdesign.in/challenges" class="button"
               >View Details</a
             >
           </div>
