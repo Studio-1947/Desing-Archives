@@ -26,6 +26,11 @@ async function getChallenge(id: string): Promise<Challenge | null> {
     }
 }
 
+import ViewIncrementer from '@/components/ViewIncrementer';
+import ChallengeStats from '@/components/ChallengeStats';
+
+// ... (imports remain the same)
+
 export default async function ChallengePage({ params }: { params: { id: string } }) {
     const challenge = await getChallenge(params.id);
 
@@ -42,6 +47,7 @@ export default async function ChallengePage({ params }: { params: { id: string }
     return (
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
+            <ViewIncrementer challengeId={challenge.id} />
 
             <main className="flex-1">
                 {/* Hero Image */}
@@ -89,44 +95,7 @@ export default async function ChallengePage({ params }: { params: { id: string }
                 {/* Stats Bar */}
                 <div className="border-b border-gray-200 bg-gray-50">
                     <div className="container mx-auto px-6 py-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                            <div className="flex items-center gap-4">
-                                <Award className="w-8 h-8 text-gray-900" />
-                                <div>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        ₹{(challenge.prizePool / 1000).toFixed(0)}K
-                                    </p>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide font-bold">Prize Pool</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <Users className="w-8 h-8 text-gray-900" />
-                                <div>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {challenge.totalParticipants.toLocaleString()}
-                                    </p>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide font-bold">Participants</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <Clock className="w-8 h-8 text-gray-900" />
-                                <div>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {Math.ceil((new Date(challenge.endDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))}
-                                    </p>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide font-bold">Days Left</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <Download className="w-8 h-8 text-gray-900" />
-                                <div>
-                                    <p className="text-2xl font-bold text-gray-900">
-                                        {challenge.totalSubmissions.toLocaleString()}
-                                    </p>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide font-bold">Submissions</p>
-                                </div>
-                            </div>
-                        </div>
+                        <ChallengeStats challenge={challenge} />
                     </div>
                 </div>
 

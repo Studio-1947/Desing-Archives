@@ -35,6 +35,7 @@ model User {
   role        String       @default("user")
   submissions Submission[]
   participants Participant[]
+  challengeViews ChallengeView[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 }
@@ -70,6 +71,7 @@ model Challenge {
   updatedAt         DateTime     @updatedAt
 
   participants      Participant[]
+  challengeViews    ChallengeView[]
 }
 
 model Participant {
@@ -94,4 +96,17 @@ model WorkshopApplication {
   status    String   @default("pending") // pending, approved, rejected
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ChallengeView {
+  id          String    @id @default(uuid())
+  challengeId String
+  userId      String?
+  ipAddress   String?
+  createdAt   DateTime  @default(now())
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  user        User?     @relation(fields: [userId], references: [id])
+
+  @@unique([challengeId, userId])
 }
