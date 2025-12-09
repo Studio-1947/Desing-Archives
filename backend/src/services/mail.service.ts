@@ -84,12 +84,13 @@ export class MailService {
 
   async sendReminderEmail(
     user: { name: string; email: string },
-    details: { title: string; date: string }
+    details: { title: string; date: string; content?: string }
   ) {
     const html = await this.loadTemplate("reminder", {
       name: user.name,
       title: details.title,
       date: details.date,
+      content: details.content || "",
       year: new Date().getFullYear().toString(),
     });
     return this.sendMail(user.email, `Reminder: ${details.title}`, html);

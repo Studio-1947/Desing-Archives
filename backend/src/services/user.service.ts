@@ -25,4 +25,18 @@ export class UserService {
 
     return participations;
   }
+
+  async getAllUsers() {
+    return prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        picture: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
 }

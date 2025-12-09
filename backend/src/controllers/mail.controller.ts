@@ -7,7 +7,7 @@ const mailService = new MailService();
 export class MailController {
   async sendReminder(req: Request, res: Response) {
     try {
-      const { email, title, date } = req.body;
+      const { email, title, date, content } = req.body;
 
       if (!email || !title || !date) {
         return res
@@ -22,7 +22,7 @@ export class MailController {
 
       await mailService.sendReminderEmail(
         { name: user.name, email },
-        { title, date }
+        { title, date, content }
       );
       res.json({ message: "Reminder email sent successfully" });
     } catch (error) {
