@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Users, Eye } from 'lucide-react';
@@ -7,7 +9,15 @@ interface ChallengeCardProps {
     challenge: Challenge;
 }
 
+import { useChallengeSocket } from '../hooks/useChallengeSocket';
+
 export default function ChallengeCard({ challenge }: ChallengeCardProps) {
+    const { views, participants } = useChallengeSocket(
+        challenge.id,
+        challenge.totalViews,
+        challenge.totalParticipants
+    );
+
     const statusColors = {
         active: 'border-gray-900 text-gray-900',
         upcoming: 'border-gray-500 text-gray-500',
@@ -39,24 +49,24 @@ export default function ChallengeCard({ challenge }: ChallengeCardProps) {
                         {challenge.location && (
                             <div className="flex items-center gap-1">
                                 <MapPin className="w-3 h-3" />
-                                <span>{challenge.location}</span>
+                                <span className="line-clamp-1">{challenge.location}</span>
                             </div>
                         )}
-                        <span>{challenge.organizer}</span>
+                        <span className="line-clamp-1">{challenge.organizer}</span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-semibold text-gray-900 line-clamp-2 group-hover:text-gray-600 transition-colors duration-200">
+                    <h3 className="text-lg font-semibold text-gray-900 line-clamp-2 group-hover:text-gray-600 transition-colors duration-200 h-14">
                         {challenge.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
+                    <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed h-10">
                         {challenge.shortDescription}
                     </p>
 
                     {/* Categories */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 h-6 overflow-hidden">
                         {challenge.category.slice(0, 2).map((cat) => (
                             <span
                                 key={cat}
@@ -72,11 +82,11 @@ export default function ChallengeCard({ challenge }: ChallengeCardProps) {
                         <div className="flex items-center gap-4 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                                 <Users className="w-3 h-3" />
-                                <span>{challenge.totalParticipants}</span>
+                                <span>{participants}</span>
                             </div>
                             <div className="flex items-center gap-1">
                                 <Eye className="w-3 h-3" />
-                                <span>{challenge.totalViews}</span>
+                                <span>{views}</span>
                             </div>
                         </div>
                         <div className="text-sm font-semibold text-gray-900">
