@@ -89,7 +89,7 @@ export default function Home() {
                             {/* Intro Paragraph */}
                             <div className="mb-12 p-6 bg-gray-50 border-l-4 border-gray-900">
                                 <p className="text-gray-700 italic">
-                                    "Local Design is a movement shaped by young people, educators, and rural communities. We host design competitions, run hands-on workshops, and build an open archive of local creativity. Everything here is crafted to spark participation, curiosity, and real opportunities for youth."
+                                    &quot;Local Design is a movement shaped by young people, educators, and rural communities. We host design competitions, run hands-on workshops, and build an open archive of local creativity. Everything here is crafted to spark participation, curiosity, and real opportunities for youth.&quot;
                                 </p>
                             </div>
 

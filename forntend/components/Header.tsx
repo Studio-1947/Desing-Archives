@@ -6,13 +6,15 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import LoginButton from './LoginButton';
 
+const words = ['Community', 'Archives', 'Workshops', 'Challenges'];
+
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeTextIndex, setActiveTextIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isChallengesOpen, setIsChallengesOpen] = useState(false);
 
-    const words = ['Community', 'Archives', 'Workshops', 'Challenges'];
+
 
     useEffect(() => {
         const interval = window.setInterval(() => {
