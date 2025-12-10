@@ -421,23 +421,69 @@ export default function Home() {
 
                         <div className="lg:w-1/2 grid grid-cols-2 gap-4">
                             <div className="space-y-4">
-                                <div className="relative h-64 bg-gray-100 border border-gray-200 p-6 flex flex-col justify-end group hover:border-gray-900 transition-colors">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Archive 01</span>
-                                    <h4 className="text-xl font-bold text-gray-900">JAGDISH</h4>
+                                <div className="relative h-64 border border-gray-200 overflow-hidden group hover:border-gray-900 transition-colors">
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80"
+                                        alt="Jagdish Archive - Craft"
+                                        fill
+                                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                                    <div className="relative z-10 p-6 flex flex-col justify-end h-full">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-white/80 mb-2">Archive 01</span>
+                                        <h4 className="text-xl font-bold text-white">JAGDISH</h4>
+                                    </div>
                                 </div>
-                                <div className="relative h-48 bg-gray-900 text-white p-6 flex flex-col justify-end">
-                                    <span className="text-xs font-bold uppercase tracking-wider opacity-60 mb-2">Archive 02</span>
-                                    <h4 className="text-xl font-bold">RABI - PLASSEY</h4>
+                                <div className="relative h-48 border border-gray-200 overflow-hidden group hover:border-gray-900 transition-colors">
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=800&q=80"
+                                        alt="Rabi Plassey Archive - Landscape"
+                                        fill
+                                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                                    <div className="relative z-10 p-6 flex flex-col justify-end h-full">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-white/80 mb-2">Archive 02</span>
+                                        <h4 className="text-xl font-bold text-white">RABI - PLASSEY</h4>
+                                    </div>
                                 </div>
                             </div>
                             <div className="space-y-4 pt-12">
-                                <div className="relative h-48 bg-gray-100 border border-gray-200 p-6 flex flex-col justify-end group hover:border-gray-900 transition-colors">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Archive 03</span>
-                                    <h4 className="text-xl font-bold text-gray-900">RABI - SUNDARBAN</h4>
+                                <div className="relative h-48 border border-gray-200 overflow-hidden group hover:border-gray-900 transition-colors">
+                                    <Image
+                                        src="https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?w=800&q=80"
+                                        alt="Rabi Sundarban Archive - River"
+                                        fill
+                                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                                    <div className="relative z-10 p-6 flex flex-col justify-end h-full">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-white/80 mb-2">Archive 03</span>
+                                        <h4 className="text-xl font-bold text-white">RABI - SUNDARBAN</h4>
+                                    </div>
                                 </div>
-                                <div className="relative h-64 bg-gray-100 border border-gray-200 p-6 flex flex-col justify-end group hover:border-gray-900 transition-colors">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">More</span>
-                                    <h4 className="text-xl font-bold text-gray-900">View Collection →</h4>
+                                <div className="relative h-64 border border-gray-200 overflow-hidden group hover:border-gray-900 transition-colors">
+                                    {/* Collage Background */}
+                                    <div className="absolute inset-0 grid grid-cols-2 grid-rows-2">
+                                        <div className="relative w-full h-full">
+                                            <Image src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?w=400&q=80" alt="Collage 1" fill className="object-cover grayscale opacity-60" />
+                                        </div>
+                                        <div className="relative w-full h-full">
+                                            <Image src="https://images.unsplash.com/photo-1501084817091-a4f3d1d19e07?w=400&q=80" alt="Collage 2" fill className="object-cover grayscale opacity-60" />
+                                        </div>
+                                        <div className="relative w-full h-full">
+                                            <Image src="https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?w=400&q=80" alt="Collage 3" fill className="object-cover grayscale opacity-60" />
+                                        </div>
+                                        <div className="relative w-full h-full">
+                                            <Image src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400&q=80" alt="Collage 4" fill className="object-cover grayscale opacity-60" />
+                                        </div>
+                                    </div>
+                                    <div className="absolute inset-0 bg-gray-900/80 group-hover:bg-gray-900/70 transition-colors" />
+
+                                    <div className="relative z-10 p-6 flex flex-col justify-end h-full">
+                                        <span className="text-xs font-bold uppercase tracking-wider text-white/60 mb-2">More</span>
+                                        <h4 className="text-xl font-bold text-white group-hover:translate-x-1 transition-transform">View Collection →</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
