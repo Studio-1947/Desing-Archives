@@ -62,13 +62,12 @@ export default function Home() {
                             </div>
 
                             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
-                                Local Wisdom,<br />
-                                <span className="text-gray-600">for Global Impact.</span>
+                                Design Begins at Home.<br />
+                                <span className="text-gray-600">Grows With Community.</span>
                             </h1>
 
                             <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-                                Join design challenges, showcase your work, and connect with a community
-                                rooted in cultural heritage and contemporary design excellence.
+                                A platform that discovers young creators, preserves local knowledge, and brings free design-thinking workshops to rural India.
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -76,15 +75,22 @@ export default function Home() {
                                     href="/challenges"
                                     className="btn-primary-minimal inline-flex items-center justify-center gap-2"
                                 >
-                                    <span>Explore Challenges</span>
+                                    <span>Explore the Challenge</span>
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </Link>
                                 <Link
-                                    href="/about"
+                                    href="/workshops"
                                     className="btn-secondary-minimal inline-flex items-center justify-center"
                                 >
-                                    <span>Learn More</span>
+                                    <span>Join a Workshop</span>
                                 </Link>
+                            </div>
+
+                            {/* Intro Paragraph */}
+                            <div className="mb-12 p-6 bg-gray-50 border-l-4 border-gray-900">
+                                <p className="text-gray-700 italic">
+                                    "Local Design is a movement shaped by young people, educators, and rural communities. We host design competitions, run hands-on workshops, and build an open archive of local creativity. Everything here is crafted to spark participation, curiosity, and real opportunities for youth."
+                                </p>
                             </div>
 
                             {/* Quick Stats */}
@@ -287,6 +293,51 @@ export default function Home() {
                     </div>
                 </section>
 
+                {/* What We Do Section */}
+                <section className="bg-gray-50 border-y border-gray-200">
+                    <div className="container mx-auto px-6 py-24">
+                        <div className="text-center mb-16">
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                                What We Do
+                            </h2>
+                            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                                Local Design focuses on three core efforts that strengthen creative culture across India.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                            {/* Card 1 */}
+                            <div className="bg-white p-8 border border-gray-200 hover:border-gray-900 transition-colors duration-300 group">
+                                <div className="w-12 h-12 bg-gray-900 text-white flex items-center justify-center mb-6 text-xl font-bold">1</div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Competitions & Awards</h3>
+                                <p className="text-gray-600 leading-relaxed mb-6">
+                                    We run design challenges that invite students and young creators to solve real problems, imagine better futures, and express their creativity. Winners receive recognition, mentorship, and a platform to showcase their work.
+                                </p>
+                                <div className="text-sm font-bold text-gray-900 uppercase tracking-wide">+ Board of Evaluation</div>
+                            </div>
+
+                            {/* Card 2 */}
+                            <div className="bg-white p-8 border border-gray-200 hover:border-gray-900 transition-colors duration-300 group">
+                                <div className="w-12 h-12 bg-gray-900 text-white flex items-center justify-center mb-6 text-xl font-bold">2</div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Free Workshops for Rural Communities</h3>
+                                <p className="text-gray-600 leading-relaxed">
+                                    We bring accessible design-thinking workshops to small towns and villages. Youth learn problem-solving, teamwork, communication, and hands-on creative skills, all without any cost.
+                                </p>
+                            </div>
+
+                            {/* Card 3 */}
+                            <div className="bg-white p-8 border border-gray-200 hover:border-gray-900 transition-colors duration-300 group">
+                                <div className="w-12 h-12 bg-gray-900 text-white flex items-center justify-center mb-6 text-xl font-bold">3</div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">Archiving Local Design Knowledge</h3>
+                                <p className="text-gray-600 leading-relaxed mb-6">
+                                    India’s local wisdom, tools, crafts, and everyday innovations carry deep design value. We collect, document, and preserve these stories to build a public archive that inspires future generations.
+                                </p>
+                                <div className="text-sm font-bold text-gray-900 uppercase tracking-wide">+ Area of Interest</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Mission Section */}
                 <section className="container mx-auto px-6 py-24">
                     <div className="max-w-4xl mx-auto">
@@ -339,38 +390,116 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* CTA Section */}
+                {/* Archives Section */}
                 <section className="container mx-auto px-6 py-24">
-                    <div className="border-2 border-gray-900 p-12 md:p-16 text-center relative overflow-hidden group">
-                        {/* Animated Background Pattern */}
-                        <div className="absolute inset-0 opacity-5">
-                            <div className="absolute top-0 left-0 w-full h-full" style={{
-                                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, #111827 50px, #111827 51px)',
-                            }} />
+                    <div className="flex flex-col lg:flex-row gap-16 items-start">
+                        <div className="lg:w-1/2">
+                            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                                Local Design Archive
+                            </h2>
+                            <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                                A growing library of stories, crafts, tools, symbols, materials, and everyday objects that shape local life. Each entry documents how design emerges naturally from culture and community.
+                            </p>
+
+                            <ul className="space-y-4 mb-10">
+                                {['Community tools and crafts', 'Local innovations', 'Photo and video documentation', 'Oral histories and interviews', 'Student submissions and case studies'].map((item, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-gray-900 font-medium">
+                                        <div className="w-2 h-2 bg-gray-900 rounded-full" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <Link
+                                href="/archives"
+                                className="btn-primary-minimal inline-flex items-center justify-center gap-2"
+                            >
+                                <span>Explore the Archive</span>
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Link>
                         </div>
 
-                        <div className="relative z-10">
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                                Ready to Showcase Your Design?
-                            </h2>
-                            <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                                Join our community of designers and participate in challenges that
-                                celebrate creativity and cultural authenticity.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Link
-                                    href="/challenges"
-                                    className="btn-ripple inline-flex items-center justify-center"
-                                >
-                                    <span>Browse Challenges</span>
-                                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                                <Link
-                                    href="/submit"
-                                    className="btn-magnetic inline-flex items-center justify-center"
-                                >
-                                    <span>Submit Your Work</span>
-                                </Link>
+                        <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+                            <div className="space-y-4">
+                                <div className="relative h-64 bg-gray-100 border border-gray-200 p-6 flex flex-col justify-end group hover:border-gray-900 transition-colors">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Archive 01</span>
+                                    <h4 className="text-xl font-bold text-gray-900">JAGDISH</h4>
+                                </div>
+                                <div className="relative h-48 bg-gray-900 text-white p-6 flex flex-col justify-end">
+                                    <span className="text-xs font-bold uppercase tracking-wider opacity-60 mb-2">Archive 02</span>
+                                    <h4 className="text-xl font-bold">RABI - PLASSEY</h4>
+                                </div>
+                            </div>
+                            <div className="space-y-4 pt-12">
+                                <div className="relative h-48 bg-gray-100 border border-gray-200 p-6 flex flex-col justify-end group hover:border-gray-900 transition-colors">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Archive 03</span>
+                                    <h4 className="text-xl font-bold text-gray-900">RABI - SUNDARBAN</h4>
+                                </div>
+                                <div className="relative h-64 bg-gray-100 border border-gray-200 p-6 flex flex-col justify-end group hover:border-gray-900 transition-colors">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">More</span>
+                                    <h4 className="text-xl font-bold text-gray-900">View Collection →</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Unified CTA Section */}
+                <section className="container mx-auto px-6 py-24">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Designers CTA */}
+                        <div className="border-2 border-gray-900 p-12 text-center relative overflow-hidden group hover:bg-gray-50 transition-colors duration-300">
+                            <div className="relative z-10">
+                                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                                    Ready to Showcase Your Design?
+                                </h2>
+                                <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+                                    Join our community of designers and participate in challenges that
+                                    celebrate creativity and cultural authenticity.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <Link
+                                        href="/challenges"
+                                        className="btn-ripple inline-flex items-center justify-center"
+                                    >
+                                        <span>Browse Challenges</span>
+                                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                    </Link>
+                                    <Link
+                                        href="/submit"
+                                        className="btn-magnetic inline-flex items-center justify-center"
+                                    >
+                                        <span>Submit Your Work</span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Partners CTA */}
+                        <div className="border-2 border-gray-900 p-12 text-center relative overflow-hidden group hover:bg-gray-900 hover:text-white transition-all duration-300">
+                            {/* Animated Background Pattern for Partner Card */}
+                            <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <div className="absolute top-0 left-0 w-full h-full" style={{
+                                    backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, currentColor 50px, currentColor 51px)',
+                                }} />
+                            </div>
+
+                            <div className="relative z-10">
+                                <h2 className="text-3xl font-bold mb-6">
+                                    Host a Challenge With Us
+                                </h2>
+                                <p className="text-lg opacity-90 mb-10 leading-relaxed">
+                                    Partner with us to run design competitions that solve real problems and discover new talent.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                    <Link
+                                        href="/contact"
+                                        className="btn-primary-minimal border-current hover:bg-white hover:text-gray-900 inline-flex items-center justify-center"
+                                    >
+                                        <span>Start a Challenge</span>
+                                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
