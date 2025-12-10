@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { Upload, X, FileText, Image as ImageIcon, Loader2, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
 import { useToast } from '@/context/ToastContext';
 
 interface FileUploadProps {
@@ -134,7 +135,7 @@ export default function FileUpload({
 
                     <div className="flex items-center gap-3">
                         {preview ? (
-                            <img src={preview} alt="Preview" className="w-12 h-12 object-cover rounded-md" />
+                            <Image src={preview} alt="Preview" width={48} height={48} className="object-cover rounded-md" />
                         ) : (
                             <div className="w-12 h-12 bg-gray-100 rounded-md flex items-center justify-center">
                                 <FileText className="w-6 h-6 text-gray-500" />

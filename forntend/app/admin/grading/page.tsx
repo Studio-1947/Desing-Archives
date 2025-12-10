@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { Loader2, CheckCircle, XCircle, ExternalLink } from 'lucide-react';
@@ -32,11 +32,7 @@ export default function AdminGradingPage() {
     const { user } = useAuth();
     const { showToast } = useToast();
 
-    useEffect(() => {
-        fetchPendingSubmissions();
-    }, []);
-
-    const fetchPendingSubmissions = async () => {
+    const fetchPendingSubmissions = useCallback(async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/submissions/pending`);
             if (res.ok) {
@@ -49,7 +45,11 @@ export default function AdminGradingPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [showToast]);
+
+    useEffect(() => {
+        fetchPendingSubmissions();
+    }, [fetchPendingSubmissions]);
 
     const handleGrade = async (id: string) => {
         try {

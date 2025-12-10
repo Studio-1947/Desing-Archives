@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/context/ToastContext";
 
@@ -26,11 +26,7 @@ export default function EmailManagerPage() {
     const router = useRouter();
     const { showToast } = useToast();
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         try {
             const res = await fetch("http://localhost:5000/api/users");
             if (!res.ok) throw new Error("Failed to fetch users");
@@ -42,7 +38,11 @@ export default function EmailManagerPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [showToast]);
+
+    useEffect(() => {
+        fetchUsers();
+    }, [fetchUsers]);
 
     const toggleUser = (email: string) => {
         const newSelected = new Set(selectedUsers);
@@ -169,8 +169,8 @@ export default function EmailManagerPage() {
                         <div className="flex space-x-4 mb-6 border-b border-gray-200">
                             <button
                                 className={`pb-2 px-1 text-sm font-medium transition-colors ${activeTab === "reminder"
-                                        ? "border-b-2 border-black text-black"
-                                        : "text-gray-500 hover:text-gray-700"
+                                    ? "border-b-2 border-black text-black"
+                                    : "text-gray-500 hover:text-gray-700"
                                     }`}
                                 onClick={() => setActiveTab("reminder")}
                             >
@@ -178,8 +178,8 @@ export default function EmailManagerPage() {
                             </button>
                             <button
                                 className={`pb-2 px-1 text-sm font-medium transition-colors ${activeTab === "promotion"
-                                        ? "border-b-2 border-black text-black"
-                                        : "text-gray-500 hover:text-gray-700"
+                                    ? "border-b-2 border-black text-black"
+                                    : "text-gray-500 hover:text-gray-700"
                                     }`}
                                 onClick={() => setActiveTab("promotion")}
                             >
@@ -254,8 +254,8 @@ export default function EmailManagerPage() {
                                     onClick={handleSend}
                                     disabled={sending || selectedUsers.size === 0}
                                     className={`w-full py-3 px-4 rounded-md text-white font-medium transition-all ${sending || selectedUsers.size === 0
-                                            ? "bg-gray-400 cursor-not-allowed"
-                                            : "bg-black hover:bg-gray-800 shadow-md hover:shadow-lg"
+                                        ? "bg-gray-400 cursor-not-allowed"
+                                        : "bg-black hover:bg-gray-800 shadow-md hover:shadow-lg"
                                         }`}
                                 >
                                     {sending
