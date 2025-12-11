@@ -21,8 +21,11 @@ const storage = new CloudinaryStorage({
         "psd",
         "sketch",
         "fig",
+        "mp4",
+        "mov",
+        "webm",
       ],
-      resource_type: isRaw ? "raw" : "image",
+      resource_type: "auto",
       public_id:
         file.originalname.split(".")[0].replace(/[^a-zA-Z0-9]/g, "_") +
         "_" +

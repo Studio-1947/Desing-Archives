@@ -61,9 +61,9 @@ export default function Home() {
                                 </span>
                             </div>
 
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
-                                Design Begins at Home.<br />
-                                <span className="text-gray-600">Grows With Community.</span>
+                            <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+                                Local Design Wisdom.
+                                <span className="block text-gray-600">For Global Impact.</span>
                             </h1>
 
                             <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
@@ -87,11 +87,11 @@ export default function Home() {
                             </div>
 
                             {/* Intro Paragraph */}
-                            <div className="mb-12 p-6 bg-gray-50 border-l-4 border-gray-900">
+                            {/* <div className="mb-12 p-6 bg-gray-50 border-l-4 border-gray-900">
                                 <p className="text-gray-700 italic">
                                     &quot;Local Design is a movement shaped by young people, educators, and rural communities. We host design competitions, run hands-on workshops, and build an open archive of local creativity. Everything here is crafted to spark participation, curiosity, and real opportunities for youth.&quot;
                                 </p>
-                            </div>
+                            </div> */}
 
                             {/* Quick Stats */}
                             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
