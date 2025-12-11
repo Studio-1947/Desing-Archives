@@ -58,8 +58,18 @@ export default function ContactPage() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="bg-gray-50 border-b border-gray-200 py-20">
-                    <div className="container mx-auto px-6 text-center">
+                <section className="relative border-b border-gray-200 py-32 overflow-hidden">
+                    {/* Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <img
+                            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
+                            alt="Design Studio Background"
+                            className="w-full h-full object-cover grayscale opacity-60"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-white/90" />
+                    </div>
+
+                    <div className="container mx-auto px-6 text-center relative z-10">
                         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                             Get in Touch
                         </h1>
