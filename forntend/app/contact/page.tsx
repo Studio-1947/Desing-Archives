@@ -97,7 +97,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-bold text-gray-900 mb-1">Call Us</h3>
-                                        <p className="text-gray-600">+91 98765 43210</p>
+                                        <p className="text-gray-600">+91 97334 50433</p>
                                         <p className="text-gray-500 text-sm mt-1">Mon-Fri, 9am - 6pm IST</p>
                                     </div>
                                 </div>
@@ -110,8 +110,8 @@ export default function ContactPage() {
                                         <h3 className="text-lg font-bold text-gray-900 mb-1">Visit Us</h3>
                                         <p className="text-gray-600">
                                             Studio 1947, Design Block<br />
-                                            Hauz Khas Village, New Delhi<br />
-                                            India - 110016
+                                            Krishna Nagar, Mirik Darjeeling<br />
+                                            India - 734214
                                         </p>
                                     </div>
                                 </div>
