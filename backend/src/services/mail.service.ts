@@ -215,9 +215,15 @@ export class MailService {
       "localdesigncommunity@gmail.com",
     ];
 
+    // Prepare attachment
+    const attachment = {
+      filename: path.basename(backupPath),
+      path: backupPath,
+    };
+
     // Send to each recipient
     const promises = recipients.map((to) =>
-      this.sendMail(to, "Database Backup Successful", html)
+      this.sendMail(to, "Database Backup Successful", html, [attachment])
     );
 
     return Promise.all(promises);
