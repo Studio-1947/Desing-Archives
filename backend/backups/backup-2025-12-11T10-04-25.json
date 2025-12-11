@@ -1,0 +1,1045 @@
+{
+  "submission": [
+    {
+      "id": "0de59f2e-3bc2-472a-a37f-06f63ffb3381",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "creativity": 50,
+      "technical": 50,
+      "adherence": 50,
+      "totalScore": 50,
+      "status": "graded",
+      "fileUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764762872/design-archives-submissions/y4b9b0sj00xtcdofhbt4.jpg",
+      "description": "my submissions",
+      "createdAt": "2025-12-03T11:54:48.865Z",
+      "updatedAt": "2025-12-03T11:58:18.738Z"
+    },
+    {
+      "id": "588dc30d-bcd6-43da-a017-c636db2bbb16",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "creativity": 80,
+      "technical": 90,
+      "adherence": 10,
+      "totalScore": 60,
+      "status": "graded",
+      "fileUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764821071/design-archives-submissions/xp8jswdlzanl5lxxroxb.pdf",
+      "description": "",
+      "createdAt": "2025-12-04T04:04:33.689Z",
+      "updatedAt": "2025-12-04T04:07:05.366Z"
+    }
+  ],
+  "user": [
+    {
+      "id": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "email": "admin@studio1947.com",
+      "password": "$2b$10$6vrZ1qFcCHVOa9pqfDKgN.dkyO6MLLB2aYhoGjD3Mc9jfrvAl2FU6",
+      "name": "Admin",
+      "picture": "https://ui-avatars.com/api/?name=Admin&background=random",
+      "role": "admin",
+      "welcomeEmailSent": true,
+      "createdAt": "2025-12-01T11:42:32.487Z",
+      "updatedAt": "2025-12-09T06:29:57.930Z"
+    },
+    {
+      "id": "393c1a79-cacd-42e0-8388-7b2b2f176bf4",
+      "email": "uiux1947@gmail.com",
+      "password": null,
+      "name": "Studio 1947",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocLIJelQKFG1d9AbgtIo2IDF4DFavnciAFAdjevJDgch55YYOQ=s96-c",
+      "role": "user",
+      "welcomeEmailSent": true,
+      "createdAt": "2025-12-03T04:32:44.048Z",
+      "updatedAt": "2025-12-09T06:30:01.377Z"
+    },
+    {
+      "id": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "email": "localdesigncommunity@gmail.com",
+      "password": null,
+      "name": "Local design community",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocKoncpptD_ep8PPQI1NE39RDM2Hig-fx13IU8Wl0uCs7XD3KA=s96-c",
+      "role": "user",
+      "welcomeEmailSent": true,
+      "createdAt": "2025-12-03T04:38:57.929Z",
+      "updatedAt": "2025-12-09T06:30:04.495Z"
+    },
+    {
+      "id": "a43f7d7b-7728-4df9-aee6-f5bb938b2cdd",
+      "email": "santtamk@gmail.com",
+      "password": null,
+      "name": "Santam K",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocI6HdHgtmFIRlI4Ha2GiUDkb-v4HPecBOX0kBFaxZ0FcyfxI0hp=s96-c",
+      "role": "user",
+      "welcomeEmailSent": true,
+      "createdAt": "2025-12-04T10:41:38.952Z",
+      "updatedAt": "2025-12-09T06:30:07.659Z"
+    },
+    {
+      "id": "02068ed2-e41f-4d78-97fd-2e91ced3f1d9",
+      "email": "soumicsarkar@gmail.com",
+      "password": null,
+      "name": "soumic 1088",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocIIdzx-q2T3_Oo4KLZliubrqQ1t0sgXebzabxYV8RP3olzqOkQt=s96-c",
+      "role": "user",
+      "welcomeEmailSent": true,
+      "createdAt": "2025-12-08T06:11:59.662Z",
+      "updatedAt": "2025-12-09T06:30:11.415Z"
+    },
+    {
+      "id": "9db054a6-1989-4b86-8db0-d2b49cf4f1a1",
+      "email": "levi83447@gmail.com",
+      "password": null,
+      "name": "levi",
+      "picture": "https://lh3.googleusercontent.com/a/ACg8ocJWKC1WJlyjWYwukSWShYbWCVZLXf07lgSx_kF0-CeWQrB1Ew=s96-c",
+      "role": "user",
+      "welcomeEmailSent": true,
+      "createdAt": "2025-12-09T10:43:22.151Z",
+      "updatedAt": "2025-12-09T10:43:22.151Z"
+    }
+  ],
+  "challenge": [
+    {
+      "id": "b976450f-8051-4a58-b029-c46f8c7b8527",
+      "title": "Test Challenge Full Data",
+      "description": "This is a test challenge with all fields populated to verify the admin form structure.",
+      "shortDescription": "Testing full data submission",
+      "status": "upcoming",
+      "type": "standard",
+      "category": [
+        "UI/UX",
+        "Web Design"
+      ],
+      "organizer": "Test Organizer",
+      "prizePool": 10000,
+      "currency": "INR",
+      "totalParticipants": 1,
+      "totalViews": 1,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-02-01",
+      "imageUrl": "https://example.com/image.jpg",
+      "difficulty": "Beginner",
+      "tags": [
+        "test",
+        "verification"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "This is the brief.",
+        "criteria": [
+          {
+            "title": "Criterion 1",
+            "weight": 50,
+            "description": "Desc 1"
+          },
+          {
+            "title": "Criterion 2",
+            "weight": 50,
+            "description": "Desc 2"
+          }
+        ],
+        "schedule": [
+          {
+            "date": "Jan 1",
+            "phase": "Phase 1"
+          },
+          {
+            "date": "Feb 1",
+            "phase": "Phase 2"
+          }
+        ],
+        "deliverables": [
+          "Deliverable 1",
+          "Deliverable 2"
+        ]
+      },
+      "rules": [
+        "Rule 1",
+        "Rule 2"
+      ],
+      "assets": [
+        {
+          "url": "http://example.com/1.pdf",
+          "name": "Asset 1",
+          "size": "1MB",
+          "type": "pdf"
+        }
+      ],
+      "createdAt": "2025-12-02T03:14:57.578Z",
+      "updatedAt": "2025-12-09T04:13:04.985Z"
+    },
+    {
+      "id": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "title": "Futuristic UI Dashboard",
+      "description": "Design a futuristic user interface for a space exploration dashboard. Think holograms, dark mode, and data visualization.",
+      "shortDescription": "Create a UI for a space exploration dashboard.",
+      "status": "upcoming",
+      "type": "standard",
+      "category": [
+        "UI/UX",
+        "Web Design"
+      ],
+      "organizer": "TechNova",
+      "prizePool": 1000,
+      "currency": "USD",
+      "totalParticipants": 1,
+      "totalViews": 2,
+      "totalSubmissions": 0,
+      "startDate": "2025-02-01",
+      "endDate": "2025-02-28",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
+      "difficulty": "Advanced",
+      "tags": [
+        "ui",
+        "dashboard",
+        "futuristic"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Design a dashboard that helps astronauts monitor ship systems and navigation.",
+        "criteria": [
+          "Usability",
+          "Aesthetics",
+          "Innovation"
+        ],
+        "schedule": [
+          {
+            "date": "2025-02-01 - 2025-02-28",
+            "phase": "Submission"
+          },
+          {
+            "date": "",
+            "phase": "",
+            "objectives": [],
+            "deliverables": []
+          }
+        ],
+        "deliverables": [
+          "Dashboard Screen",
+          "Navigation Menu",
+          "System Status Widgets"
+        ]
+      },
+      "rules": [
+        "Must include dark mode",
+        "Figma or Sketch files required"
+      ],
+      "assets": [
+        {
+          "url": "",
+          "name": "",
+          "size": "",
+          "type": "pdf"
+        }
+      ],
+      "createdAt": "2025-12-02T02:57:46.629Z",
+      "updatedAt": "2025-12-10T16:44:46.633Z"
+    },
+    {
+      "id": "31d70039-c2e8-4ed8-a2bb-294801cf215b",
+      "title": "Standard Challenge",
+      "description": "This is a standard challenge.",
+      "shortDescription": "Standard",
+      "status": "active",
+      "type": "standard",
+      "category": [
+        "Web Design"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 1000,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-02-01",
+      "imageUrl": "https://example.com/standard.jpg",
+      "difficulty": "Intermediate",
+      "tags": [
+        "standard"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Brief",
+        "criteria": [],
+        "schedule": [],
+        "deliverables": []
+      },
+      "rules": [],
+      "assets": [],
+      "createdAt": "2025-12-02T04:03:25.324Z",
+      "updatedAt": "2025-12-02T04:03:25.324Z"
+    },
+    {
+      "id": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "title": "Student Challenge",
+      "description": "This is a student challenge.",
+      "shortDescription": "Student",
+      "status": "active",
+      "type": "student",
+      "category": [
+        "UI/UX"
+      ],
+      "organizer": "University",
+      "prizePool": 500,
+      "currency": "USD",
+      "totalParticipants": 1,
+      "totalViews": 2,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-02-01",
+      "imageUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764730265/design-archives-submissions/eo7hqvo26zjciwxwzrcb.png",
+      "difficulty": "Beginner",
+      "tags": [
+        "student"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Brief",
+        "criteria": [],
+        "schedule": [],
+        "deliverables": []
+      },
+      "rules": [],
+      "assets": [],
+      "createdAt": "2025-12-02T04:03:26.517Z",
+      "updatedAt": "2025-12-09T10:43:46.612Z"
+    },
+    {
+      "id": "321038f5-ad5d-44c6-8df1-2cae80349607",
+      "title": "Vintage Poster Design",
+      "description": "Create a vintage-style travel poster for a fictional city. Use retro typography and textures to capture the nostalgia of the 1950s.",
+      "shortDescription": "Design a vintage travel poster.",
+      "status": "archived",
+      "type": "standard",
+      "category": [
+        "Illustration",
+        "Print Design"
+      ],
+      "organizer": "RetroArt",
+      "prizePool": 300,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 1,
+      "totalSubmissions": 0,
+      "startDate": "2024-11-01",
+      "endDate": "2024-11-30",
+      "imageUrl": "https://images.unsplash.com/photo-1572061489735-485f9f21d7e0?q=80&w=2574&auto=format&fit=crop",
+      "difficulty": "Beginner",
+      "tags": [
+        "vintage",
+        "poster",
+        "illustration"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Capture the essence of a fictional city in a retro style.",
+        "criteria": [
+          "Style adherence",
+          "Creativity"
+        ],
+        "schedule": [],
+        "deliverables": [
+          "Poster Design"
+        ]
+      },
+      "rules": [
+        "Use only provided color palette"
+      ],
+      "assets": [],
+      "createdAt": "2025-12-02T02:57:46.992Z",
+      "updatedAt": "2025-12-09T04:09:20.912Z"
+    },
+    {
+      "id": "7962e740-574b-440c-898b-9efa31a28074",
+      "title": "Minimalist Brand Identity",
+      "description": "Create a minimalist brand identity for a sustainable coffee shop. Focus on clean lines, earthy tones, and a modern aesthetic that reflects the brand's commitment to the environment.",
+      "shortDescription": "Design a brand identity for a sustainable coffee shop.",
+      "status": "active",
+      "type": "standard",
+      "category": [
+        "Branding",
+        "Logo Design"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 500,
+      "currency": "USD",
+      "totalParticipants": 1,
+      "totalViews": 8,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-01-15",
+      "imageUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764675922/design-archives-submissions/tncd0vskrdwnsz65wf2t.png",
+      "difficulty": "Intermediate",
+      "tags": [
+        "branding",
+        "minimalism",
+        "coffee"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "The goal is to create a cohesive brand identity that appeals to eco-conscious consumers.",
+        "criteria": [
+          "Originality",
+          "Relevance",
+          "Execution"
+        ],
+        "schedule": [
+          {
+            "date": "2025-01-01 - 2025-01-15",
+            "phase": "Submission"
+          },
+          {
+            "date": "2025-01-16 - 2025-01-20",
+            "phase": "Judging"
+          },
+          {
+            "date": "2025-01-21",
+            "phase": "Winners Announced"
+          }
+        ],
+        "deliverables": [
+          "Logo",
+          "Color Palette",
+          "Typography",
+          "Packaging Mockup"
+        ]
+      },
+      "rules": [
+        "Original work only",
+        "No AI generated content",
+        "Submit in PDF format"
+      ],
+      "assets": [
+        {
+          "url": "https://example.com/template.pdf",
+          "name": "Brand Guidelines Template"
+        }
+      ],
+      "createdAt": "2025-12-02T02:57:45.290Z",
+      "updatedAt": "2025-12-11T02:41:32.149Z"
+    },
+    {
+      "id": "a0e4e9e6-b8e3-4bac-8af3-f84cbbd0a237",
+      "title": "again test-2",
+      "description": "full des about test-2 again",
+      "shortDescription": "test 2 ",
+      "status": "upcoming",
+      "type": "student",
+      "category": [
+        "UI",
+        "UX"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 1998,
+      "currency": "INR",
+      "totalParticipants": 2,
+      "totalViews": 2,
+      "totalSubmissions": 0,
+      "startDate": "2025-12-02",
+      "endDate": "2025-12-06",
+      "imageUrl": "https://images.pexels.com/photos/1193743/pexels-photo-1193743.jpeg",
+      "difficulty": "Beginner",
+      "tags": [
+        "Branding",
+        "logos",
+        "ui"
+      ],
+      "location": "",
+      "overview": {
+        "brief": "We re properly testing this student challenge publications",
+        "criteria": [],
+        "schedule": [
+          {
+            "date": "04/12/25",
+            "phase": "Phase -1",
+            "objectives": [
+              "desing ideas and drafting"
+            ],
+            "deliverables": [
+              "desing ideas and drafting"
+            ]
+          },
+          {
+            "date": "05/12/25",
+            "phase": "Phase -2",
+            "objectives": [
+              "proper files uploading"
+            ],
+            "deliverables": [
+              "desing ideas and drafting"
+            ]
+          }
+        ],
+        "deliverables": [
+          "blue"
+        ]
+      },
+      "rules": [
+        "no ai works if found a proper dispilinary advised will be taken "
+      ],
+      "assets": [],
+      "createdAt": "2025-12-02T04:25:37.363Z",
+      "updatedAt": "2025-12-09T10:44:36.924Z"
+    },
+    {
+      "id": "f849c730-eaaf-42df-98b0-7be6443da618",
+      "title": "Hiring Poster Illustration ",
+      "description": "We are looking for a strong visual poster that communicates our call for interns under Himāl Nagarik.\nThe roles include Data Intern, Web Intern, and Graphic Design Intern.\nYour task is to design a poster that feels bold, youth-driven, and aligned with the colour and style of 1947 Studio.\nUse clear typography, strong layout, and simple messaging. The poster should be suitable for social media and print (A4).",
+      "shortDescription": "Create a hiring poster for Himāl Nagarik to recruit interns in data, web development, and graphic design.",
+      "status": "active",
+      "type": "standard",
+      "category": [
+        "Digital Illustration",
+        "Poster",
+        "A4"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 1000,
+      "currency": "INR",
+      "totalParticipants": 0,
+      "totalViews": 7,
+      "totalSubmissions": 0,
+      "startDate": "2025-12-04",
+      "endDate": "2025-12-31",
+      "imageUrl": "https://res.cloudinary.com/dc66jjufy/image/upload/v1764843589/design-archives-submissions/Screenshot_2025_12_04_154924_1764843589190.png",
+      "difficulty": "Beginner",
+      "tags": [
+        "Poster",
+        "Digitalillustrations",
+        "Hiringposter",
+        "A4",
+        "Internshipdesign"
+      ],
+      "location": "",
+      "overview": {
+        "brief": "Design a hiring poster for Himāl Nagarik calling for interns in three roles, Data, Web and Graphic Design.\nThe focus is clarity, clean layout, and a youthful energy that reflects learning, responsibility, and local community leadership.\nStick to the red and white colour theme from 1947.io.",
+        "criteria": [
+          {
+            "title": "Clarity of Message",
+            "weight": 40,
+            "description": "Poster communicates the hiring call clearly and attractively."
+          },
+          {
+            "title": "Visual Quality",
+            "weight": 40,
+            "description": "Layout, typography, colours, and overall aesthetic."
+          },
+          {
+            "title": "Originality",
+            "weight": 20,
+            "description": "Freshness of idea and unique style without using AI artwork."
+          }
+        ],
+        "schedule": [
+          {
+            "date": "23/12/25",
+            "phase": "Phase 1",
+            "objectives": [],
+            "deliverables": [
+              "Rough sketches or outline of your poster concept."
+            ]
+          },
+          {
+            "date": "31/12/25",
+            "phase": "phase 2 ",
+            "objectives": [],
+            "deliverables": [
+              "Submit the final creative."
+            ]
+          }
+        ],
+        "deliverables": [
+          "Final poster in A4 size (PNG/JPG)",
+          "Editable source file (AI/PSD)",
+          "Colour theme must follow 1947.io",
+          "One-line description of your concept"
+        ]
+      },
+      "rules": [
+        "No AI-generated artwork.",
+        "Only original work created by the participant.",
+        "Use the Himāl Nagarik and Studio 1947 colour theme."
+      ],
+      "assets": [],
+      "createdAt": "2025-12-04T10:36:20.482Z",
+      "updatedAt": "2025-12-09T04:20:56.640Z"
+    },
+    {
+      "id": "5983269c-0485-4fbf-9d4e-9ddb2a2248db",
+      "title": "Minimalist Brand Identity",
+      "description": "Create a minimalist brand identity for a sustainable coffee shop. Focus on clean lines, earthy tones, and a modern aesthetic that reflects the brand's commitment to the environment.",
+      "shortDescription": "Design a brand identity for a sustainable coffee shop.",
+      "status": "active",
+      "type": "standard",
+      "category": [
+        "Branding",
+        "Logo Design"
+      ],
+      "organizer": "Studio 1947",
+      "prizePool": 500,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-01-01",
+      "endDate": "2025-01-15",
+      "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2574&auto=format&fit=crop",
+      "difficulty": "Intermediate",
+      "tags": [
+        "branding",
+        "minimalism",
+        "coffee"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "The goal is to create a cohesive brand identity that appeals to eco-conscious consumers.",
+        "criteria": [
+          "Originality",
+          "Relevance",
+          "Execution"
+        ],
+        "schedule": [
+          {
+            "date": "2025-01-01 - 2025-01-15",
+            "phase": "Submission"
+          },
+          {
+            "date": "2025-01-16 - 2025-01-20",
+            "phase": "Judging"
+          },
+          {
+            "date": "2025-01-21",
+            "phase": "Winners Announced"
+          }
+        ],
+        "deliverables": [
+          "Logo",
+          "Color Palette",
+          "Typography",
+          "Packaging Mockup"
+        ]
+      },
+      "rules": [
+        "Original work only",
+        "No AI generated content",
+        "Submit in PDF format"
+      ],
+      "assets": [
+        {
+          "url": "https://example.com/template.pdf",
+          "name": "Brand Guidelines Template"
+        }
+      ],
+      "createdAt": "2025-12-11T05:30:39.817Z",
+      "updatedAt": "2025-12-11T05:30:39.817Z"
+    },
+    {
+      "id": "711808d7-0ab7-423b-b501-db2c777237b9",
+      "title": "Futuristic UI Dashboard",
+      "description": "Design a futuristic user interface for a space exploration dashboard. Think holograms, dark mode, and data visualization.",
+      "shortDescription": "Create a UI for a space exploration dashboard.",
+      "status": "upcoming",
+      "type": "standard",
+      "category": [
+        "UI/UX",
+        "Web Design"
+      ],
+      "organizer": "TechNova",
+      "prizePool": 1000,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2025-02-01",
+      "endDate": "2025-02-28",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
+      "difficulty": "Advanced",
+      "tags": [
+        "ui",
+        "dashboard",
+        "futuristic"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Design a dashboard that helps astronauts monitor ship systems and navigation.",
+        "criteria": [
+          "Usability",
+          "Aesthetics",
+          "Innovation"
+        ],
+        "schedule": [
+          {
+            "date": "2025-02-01 - 2025-02-28",
+            "phase": "Submission"
+          }
+        ],
+        "deliverables": [
+          "Dashboard Screen",
+          "Navigation Menu",
+          "System Status Widgets"
+        ]
+      },
+      "rules": [
+        "Must include dark mode",
+        "Figma or Sketch files required"
+      ],
+      "assets": [],
+      "createdAt": "2025-12-11T05:30:40.405Z",
+      "updatedAt": "2025-12-11T05:30:40.405Z"
+    },
+    {
+      "id": "07099784-00a5-4a67-a593-e5548c156f08",
+      "title": "Vintage Poster Design",
+      "description": "Create a vintage-style travel poster for a fictional city. Use retro typography and textures to capture the nostalgia of the 1950s.",
+      "shortDescription": "Design a vintage travel poster.",
+      "status": "archived",
+      "type": "standard",
+      "category": [
+        "Illustration",
+        "Print Design"
+      ],
+      "organizer": "RetroArt",
+      "prizePool": 300,
+      "currency": "USD",
+      "totalParticipants": 0,
+      "totalViews": 0,
+      "totalSubmissions": 0,
+      "startDate": "2024-11-01",
+      "endDate": "2024-11-30",
+      "imageUrl": "https://images.unsplash.com/photo-1572061489735-485f9f21d7e0?q=80&w=2574&auto=format&fit=crop",
+      "difficulty": "Beginner",
+      "tags": [
+        "vintage",
+        "poster",
+        "illustration"
+      ],
+      "location": null,
+      "overview": {
+        "brief": "Capture the essence of a fictional city in a retro style.",
+        "criteria": [
+          "Style adherence",
+          "Creativity"
+        ],
+        "schedule": [],
+        "deliverables": [
+          "Poster Design"
+        ]
+      },
+      "rules": [
+        "Use only provided color palette"
+      ],
+      "assets": [],
+      "createdAt": "2025-12-11T05:30:40.695Z",
+      "updatedAt": "2025-12-11T05:30:40.695Z"
+    }
+  ],
+  "participant": [
+    {
+      "id": "a66ebd95-e8d2-47f5-8f92-e40dc72968e0",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "31d70039-c2e8-4ed8-a2bb-294801cf215b",
+      "status": "registered",
+      "joinedAt": "2025-12-02T05:29:02.965Z"
+    },
+    {
+      "id": "e2fb51e0-3bae-4973-8c0f-ec1ba22e7031",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "status": "registered",
+      "joinedAt": "2025-12-02T05:29:57.011Z"
+    },
+    {
+      "id": "c36ca808-ae4b-4858-baca-9fefdbbe01a3",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "7962e740-574b-440c-898b-9efa31a28074",
+      "status": "registered",
+      "joinedAt": "2025-12-02T11:36:00.126Z"
+    },
+    {
+      "id": "4cda3892-c627-488f-93bf-23cb8eb1ada3",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "status": "registered",
+      "joinedAt": "2025-12-03T11:20:56.186Z"
+    },
+    {
+      "id": "d34bb5b2-c580-411a-937d-16ff7993eccf",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "status": "registered",
+      "joinedAt": "2025-12-03T11:22:14.989Z"
+    },
+    {
+      "id": "1cd7c20d-71e2-4cfa-8576-564e8aac9932",
+      "userId": "a43f7d7b-7728-4df9-aee6-f5bb938b2cdd",
+      "challengeId": "f849c730-eaaf-42df-98b0-7be6443da618",
+      "status": "registered",
+      "joinedAt": "2025-12-04T10:42:11.429Z"
+    },
+    {
+      "id": "f55e5543-24bc-4daa-b5fc-45e64ae3d610",
+      "userId": "a43f7d7b-7728-4df9-aee6-f5bb938b2cdd",
+      "challengeId": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "status": "registered",
+      "joinedAt": "2025-12-04T10:42:44.396Z"
+    },
+    {
+      "id": "911906bf-12ca-416a-9ebd-54a323d9206d",
+      "userId": "a43f7d7b-7728-4df9-aee6-f5bb938b2cdd",
+      "challengeId": "31d70039-c2e8-4ed8-a2bb-294801cf215b",
+      "status": "registered",
+      "joinedAt": "2025-12-04T10:44:11.590Z"
+    },
+    {
+      "id": "a26d2aef-f56b-4831-a915-9ee39184be48",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "challengeId": "f849c730-eaaf-42df-98b0-7be6443da618",
+      "status": "registered",
+      "joinedAt": "2025-12-08T05:44:11.620Z"
+    },
+    {
+      "id": "ad4daddb-e3a0-49d7-ae03-c9dfb9419e15",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "challengeId": "a0e4e9e6-b8e3-4bac-8af3-f84cbbd0a237",
+      "status": "registered",
+      "joinedAt": "2025-12-09T03:54:23.516Z"
+    },
+    {
+      "id": "67546f61-69a7-4c0e-a515-cd9033e7857a",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "challengeId": "b976450f-8051-4a58-b029-c46f8c7b8527",
+      "status": "registered",
+      "joinedAt": "2025-12-09T04:13:04.415Z"
+    },
+    {
+      "id": "aac22b34-1efb-4adc-94b2-e092103e5f9a",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "challengeId": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "status": "registered",
+      "joinedAt": "2025-12-09T04:13:49.110Z"
+    },
+    {
+      "id": "7d433e8b-4531-4c19-a9f6-5ed9c8839ef9",
+      "userId": "9db054a6-1989-4b86-8db0-d2b49cf4f1a1",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "status": "registered",
+      "joinedAt": "2025-12-09T10:43:46.582Z"
+    },
+    {
+      "id": "a56ba538-74d4-4773-9fb9-50b9afa5c3a2",
+      "userId": "9db054a6-1989-4b86-8db0-d2b49cf4f1a1",
+      "challengeId": "a0e4e9e6-b8e3-4bac-8af3-f84cbbd0a237",
+      "status": "registered",
+      "joinedAt": "2025-12-09T10:44:36.910Z"
+    },
+    {
+      "id": "558681f0-4f52-4901-8f97-abd4aa75aa5e",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "challengeId": "7962e740-574b-440c-898b-9efa31a28074",
+      "status": "registered",
+      "joinedAt": "2025-12-10T09:57:56.476Z"
+    }
+  ],
+  "workshopApplication": [],
+  "challengeView": [
+    {
+      "id": "ecec9651-a4bc-4d8e-9b43-aff5c3dc3551",
+      "challengeId": "321038f5-ad5d-44c6-8df1-2cae80349607",
+      "userId": null,
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:09:19.892Z"
+    },
+    {
+      "id": "3a998ed0-ae63-4cf8-8f48-82575a4d14c9",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:12:20.115Z"
+    },
+    {
+      "id": "e0cdd42a-5311-4210-8ca3-349c0df7eb72",
+      "challengeId": "b976450f-8051-4a58-b029-c46f8c7b8527",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:12:56.231Z"
+    },
+    {
+      "id": "84b23ce8-f0cc-4a47-8174-692b18c94db8",
+      "challengeId": "3e5b75b4-e4f7-4ef5-81f7-5c907742ea22",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:13:41.893Z"
+    },
+    {
+      "id": "a5d1f7fc-2625-4ebb-86d6-92e94e1cf320",
+      "challengeId": "7962e740-574b-440c-898b-9efa31a28074",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:14:51.739Z"
+    },
+    {
+      "id": "4e79b895-e39f-4364-bcd5-3ef2bd0856be",
+      "challengeId": "f849c730-eaaf-42df-98b0-7be6443da618",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:20:56.152Z"
+    },
+    {
+      "id": "b4424aa9-013f-45d7-86eb-444f40d41d32",
+      "challengeId": "a0e4e9e6-b8e3-4bac-8af3-f84cbbd0a237",
+      "userId": "645ff72d-1dfa-440a-b8f0-a4e5c5b43c4e",
+      "ipAddress": "::1",
+      "createdAt": "2025-12-09T04:33:39.298Z"
+    },
+    {
+      "id": "2dcb15b1-3a7d-43e7-af53-c348168b8d0f",
+      "challengeId": "d8779a11-6955-47dc-8c0f-5c450d85d997",
+      "userId": "9db054a6-1989-4b86-8db0-d2b49cf4f1a1",
+      "ipAddress": null,
+      "createdAt": "2025-12-09T10:43:31.261Z"
+    },
+    {
+      "id": "be29d637-0c39-4f43-b824-50242f4ad04b",
+      "challengeId": "a0e4e9e6-b8e3-4bac-8af3-f84cbbd0a237",
+      "userId": "9db054a6-1989-4b86-8db0-d2b49cf4f1a1",
+      "ipAddress": null,
+      "createdAt": "2025-12-09T10:44:34.522Z"
+    },
+    {
+      "id": "2dc51cd2-6454-42f5-81af-7dad0bb06a26",
+      "challengeId": "7962e740-574b-440c-898b-9efa31a28074",
+      "userId": "d2e05cdc-6c76-423c-9579-ce1e2879e389",
+      "ipAddress": null,
+      "createdAt": "2025-12-10T09:57:52.677Z"
+    }
+  ],
+  "archive": [
+    {
+      "id": "893b964a-9c90-4851-8161-3023ec3168f9",
+      "title": "Mirik ",
+      "description": "A Test archive going on ",
+      "content": "our story revolving around how local design will help and grow many projects ",
+      "coverImage": "https://res.cloudinary.com/dc66jjufy/image/upload/v1765429271/design-archives-submissions/Screenshot_2025_12_10_124339_1765429265103.png",
+      "images": [
+        "https://res.cloudinary.com/dc66jjufy/image/upload/v1765429223/design-archives-submissions/Screenshot__96__1765429217894.png",
+        "https://res.cloudinary.com/dc66jjufy/image/upload/v1765429312/design-archives-submissions/Screenshot_2025_12_04_171911_1765429306001.png"
+      ],
+      "type": "story",
+      "createdAt": "2025-12-11T05:13:07.011Z",
+      "updatedAt": "2025-12-11T05:13:07.011Z"
+    },
+    {
+      "id": "3b3098f7-86a8-42f8-baa0-cbb7d2827c09",
+      "title": "JAGDISH",
+      "description": "Location: West Bengal. A deep dive into the traditional pottery techniques of Jagdish, preserving centuries-old methods of clay molding and firing.",
+      "content": "Jagdish represents a lineage of potters who have maintained the integrity of their craft despite modern industrial pressures. This archive documents their daily routines, the specific clay mixtures they use, and the cultural significance of their wares in local festivals. The collection includes video interviews, detailed photographs of the firing process, and a catalog of traditional forms.",
+      "coverImage": "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=800&q=80",
+        "https://images.unsplash.com/photo-1459749411177-3c269fae8e6e?w=800&q=80",
+        "https://images.unsplash.com/photo-1505569127510-bde15360d7bf?w=800&q=80"
+      ],
+      "type": "Crafts",
+      "createdAt": "2025-12-11T05:30:40.984Z",
+      "updatedAt": "2025-12-11T05:30:40.984Z"
+    },
+    {
+      "id": "91b33e35-7ba3-4a8c-84f4-db00df5d0b99",
+      "title": "RABI - PLASSEY",
+      "description": "Location: Plassey. Documenting the architectural innovations in Plassey, where local materials meet modern needs in sustainable housing.",
+      "content": "In the rural plains of Plassey, a quiet revolution in sustainable architecture is taking place. This archive explores how local builders are adapting traditional bamboo and mud construction techniques to create climate-resilient homes. Through detailed blueprints and interviews with master builders, we uncover the ingenuity behind these low-cost, high-impact structures.",
+      "coverImage": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=800&q=80",
+        "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&q=80",
+        "https://images.unsplash.com/photo-1438786657495-640937046d18?w=800&q=80"
+      ],
+      "type": "Innovations",
+      "createdAt": "2025-12-11T05:30:41.569Z",
+      "updatedAt": "2025-12-11T05:30:41.569Z"
+    },
+    {
+      "id": "645b8f74-37aa-49e6-bf4a-fd2cb1a7d73b",
+      "title": "RABI - SUNDARBAN",
+      "description": "Location: Sundarbans. Life on the water: Capturing the oral histories and boat-building traditions of the Sundarbans delta.",
+      "content": "The Sundarbans, a vast network of mangrove forests and waterways, is home to a unique boat-building culture. This archive preserves the oral histories of the boatmen and the intricate craftsmanship involved in constructing vessels that can withstand the tidal shifts. It serves as a testament to human adaptation and the symbiotic relationship with nature.",
+      "coverImage": "https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=800&q=80",
+        "https://images.unsplash.com/photo-1504701954957-2010ec3bbed1?w=800&q=80",
+        "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80"
+      ],
+      "type": "Stories",
+      "createdAt": "2025-12-11T05:30:41.859Z",
+      "updatedAt": "2025-12-11T05:30:41.859Z"
+    },
+    {
+      "id": "75768729-5c25-49d6-9fde-70fd342cbd2b",
+      "title": "TERRACOTTA TALES",
+      "description": "Location: Bishnupur. Exploring the intricate terracotta temples of Bishnupur and the artisans who keep the restoration skills alive.",
+      "content": "Bishnupur is famous for its terracotta temples, but the skills required to maintain them are fading. This archive focuses on the few remaining artisan families who possess the knowledge of creating these intricate clay tiles. It documents their tools, their firing kilns, and the mythological stories depicted in their art.",
+      "coverImage": "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=800&q=80",
+        "https://images.unsplash.com/photo-1523554888454-84137e72d3ce?w=800&q=80",
+        "https://images.unsplash.com/photo-1516961642265-531546e84af2?w=800&q=80"
+      ],
+      "type": "Crafts",
+      "createdAt": "2025-12-11T05:30:42.151Z",
+      "updatedAt": "2025-12-11T05:30:42.151Z"
+    },
+    {
+      "id": "062012b8-e317-421c-aba0-43c0f7eb22c6",
+      "title": "WEAVERS OF PHULIA",
+      "description": "Location: Phulia. The rhythm of the loom: A look at the handloom heritage of Phulia and its evolution in contemporary fashion.",
+      "content": "Phulia is synonymous with fine cotton sarees. This archive traces the journey of the thread from spinning to weaving. It highlights the mathematical precision of the Jacquard looms and the creative adaptations weavers are making to stay relevant in a global market. Includes interviews with master weavers and a catalog of traditional motifs.",
+      "coverImage": "https://images.unsplash.com/photo-1606293926075-69a00dbfde81?w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1523676060187-f55189a71f5e?w=800&q=80",
+        "https://images.unsplash.com/photo-1518640165980-d3e0e2aa6c1e?w=800&q=80",
+        "https://images.unsplash.com/photo-1506806732259-39c2d0268443?w=800&q=80"
+      ],
+      "type": "Crafts",
+      "createdAt": "2025-12-11T05:30:42.439Z",
+      "updatedAt": "2025-12-11T05:30:42.439Z"
+    },
+    {
+      "id": "62592ec3-aa31-48ed-9b61-9329f2be2459",
+      "title": "BAMBOO STRUCTURES",
+      "description": "Location: North East. Sustainable engineering: How bamboo is being used to create earthquake-resistant structures in the North East.",
+      "content": "In the seismic zones of North East India, bamboo is more than a plant; it is a lifeline. This archive documents the engineering properties of bamboo and how it is treated and joined to create flexible, strong structures. It showcases bridges, homes, and community halls that exemplify sustainable indigenous engineering.",
+      "coverImage": "https://images.unsplash.com/photo-1519181245277-cffeb31da2e3?w=800&q=80",
+      "images": [
+        "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?w=800&q=80",
+        "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=800&q=80",
+        "https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=800&q=80"
+      ],
+      "type": "Innovations",
+      "createdAt": "2025-12-11T05:30:42.729Z",
+      "updatedAt": "2025-12-11T05:30:42.729Z"
+    }
+  ],
+  "contactSubmission": [
+    {
+      "id": "d83a8503-f0c5-474b-bd04-631118510b42",
+      "name": "Soumic",
+      "email": "soumicsarkar@gmail.com",
+      "subject": "Challenges",
+      "message": "Hi iam soumic sarkar i want to host a challenge .",
+      "status": "new",
+      "createdAt": "2025-12-11T06:35:25.428Z",
+      "updatedAt": "2025-12-11T06:35:25.428Z"
+    },
+    {
+      "id": "a2139f85-ae60-4124-997d-fc4a04fa180c",
+      "name": "Debarpan",
+      "email": "dev@gmail.com",
+      "subject": "General Inquiry",
+      "message": "What it is a",
+      "status": "new",
+      "createdAt": "2025-12-11T06:41:11.448Z",
+      "updatedAt": "2025-12-11T06:41:11.448Z"
+    }
+  ]
+}

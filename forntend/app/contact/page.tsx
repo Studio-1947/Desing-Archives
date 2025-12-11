@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Mail, MapPin, Phone, Send, Loader2, ArrowRight } from 'lucide-react';
@@ -61,10 +62,13 @@ export default function ContactPage() {
                 <section className="relative border-b border-gray-200 py-32 overflow-hidden">
                     {/* Background Image */}
                     <div className="absolute inset-0 z-0">
-                        <img
+                        <Image
                             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80"
                             alt="Design Studio Background"
-                            className="w-full h-full object-cover grayscale opacity-60"
+                            fill
+                            className="object-cover grayscale opacity-60"
+                            sizes="100vw"
+                            priority
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-white/90" />
                     </div>
@@ -74,7 +78,7 @@ export default function ContactPage() {
                             Get in Touch
                         </h1>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                            Have a question about our challenges, workshops, or archives? We'd love to hear from you.
+                            Have a question about our challenges, workshops, or archives? We&apos;d love to hear from you.
                         </p>
                     </div>
                 </section>
@@ -87,7 +91,7 @@ export default function ContactPage() {
                                 Contact Information
                             </h2>
                             <p className="text-gray-600 mb-12 leading-relaxed">
-                                Whether you're a student looking to participate, a designer wanting to contribute, or an organization interested in partnering, we're here to help.
+                                Whether you&apos;re a student looking to participate, a designer wanting to contribute, or an organization interested in partnering, we&apos;re here to help.
                             </p>
 
                             <div className="space-y-8">
@@ -139,7 +143,7 @@ export default function ContactPage() {
                                     </div>
                                     <h3 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h3>
                                     <p className="text-gray-600 mb-6">
-                                        Thank you for reaching out. We'll get back to you as soon as possible.
+                                        Thank you for reaching out. We&apos;ll get back to you as soon as possible.
                                     </p>
                                     <button
                                         onClick={() => setStatus('idle')}

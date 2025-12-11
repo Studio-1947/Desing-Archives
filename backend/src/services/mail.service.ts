@@ -175,4 +175,51 @@ export class MailService {
       html
     );
   }
+
+  async sendBackupSuccessEmail(backupPath: string) {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; }
+          .header { border-bottom: 2px solid #28a745; padding-bottom: 10px; margin-bottom: 20px; }
+          .header h1 { margin: 0; font-size: 24px; color: #28a745; }
+          .content { margin-bottom: 20px; }
+          .footer { margin-top: 30px; font-size: 12px; color: #999; border-top: 1px solid #eee; padding-top: 10px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Backup Successful</h1>
+          </div>
+          
+          <div class="content">
+            <p>The database backup has been completed successfully.</p>
+            <p><strong>Backup File:</strong> ${backupPath}</p>
+            <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+          </div>
+
+          <div class="footer">
+            System Notification - Design Archives
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    const recipients = [
+      "soumicsarkar@gmail.com",
+      "localdesigncommunity@gmail.com",
+    ];
+
+    // Send to each recipient
+    const promises = recipients.map((to) =>
+      this.sendMail(to, "Database Backup Successful", html)
+    );
+
+    return Promise.all(promises);
+  }
 }
