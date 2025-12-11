@@ -108,4 +108,25 @@ export class MailService {
     });
     return this.sendMail(user.email, details.title, html);
   }
+
+  async sendContactSubmissionEmail(submission: {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+  }) {
+    const html = `
+      <h1>New Contact Submission</h1>
+      <p><strong>Name:</strong> ${submission.name}</p>
+      <p><strong>Email:</strong> ${submission.email}</p>
+      <p><strong>Subject:</strong> ${submission.subject}</p>
+      <p><strong>Message:</strong></p>
+      <p>${submission.message.replace(/\n/g, "<br>")}</p>
+    `;
+    return this.sendMail(
+      "localdesigncommunity@gmail.com",
+      `New Contact Submission: ${submission.subject}`,
+      html
+    );
+  }
 }
