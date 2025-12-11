@@ -1,11 +1,26 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const pathname = usePathname();
+
+    const isActive = (path: string) => pathname?.startsWith(path);
+
+    const getLinkClass = (path: string) => {
+        const active = isActive(path);
+        return `flex items-center px-4 py-3 text-sm font-medium rounded-none transition-all duration-300 ${active
+                ? 'bg-gray-900 text-white hover:bg-gray-800'
+                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+            }`;
+    };
+
     return (
         <div className="flex min-h-screen bg-white">
             {/* Sidebar */}
@@ -19,15 +34,21 @@ export default function AdminLayout({
                 <nav className="p-4 space-y-2">
                     <Link
                         href="/admin/challenges"
-                        className="flex items-center px-4 py-3 text-sm font-medium rounded-none bg-gray-900 text-white transition-all duration-300 hover:bg-gray-800"
+                        className={getLinkClass('/admin/challenges')}
                     >
                         Challenges
                     </Link>
                     <Link
                         href="/admin/emails"
-                        className="flex items-center px-4 py-3 text-sm font-medium rounded-none text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-300"
+                        className={getLinkClass('/admin/emails')}
                     >
                         Email Manager
+                    </Link>
+                    <Link
+                        href="/admin/archives"
+                        className={getLinkClass('/admin/archives')}
+                    >
+                        Archives
                     </Link>
                     {/* Add more admin links here */}
                 </nav>

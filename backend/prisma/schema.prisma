@@ -111,3 +111,26 @@ model ChallengeView {
 
   @@unique([challengeId, userId])
 }
+
+model Archive {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  content     String   @db.Text
+  coverImage  String
+  images      String[]
+  type        String   @default("story") // story, winner
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("new") // new, read, replied
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

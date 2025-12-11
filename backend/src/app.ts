@@ -12,6 +12,8 @@ import submissionRoutes from "./routes/submission.routes";
 import uploadRoutes from "./routes/upload.routes";
 import workshopRoutes from "./routes/workshop.routes";
 import mailRoutes from "./routes/mail.routes";
+import archiveRoutes from "./routes/archive.routes";
+import contactRoutes from "./routes/contact.routes";
 import prisma from "./config/prisma";
 
 dotenv.config();
@@ -37,10 +39,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/challenges", challengeRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/submissions", submissionRoutes);
+app.use("/api/archives", archiveRoutes);
 app.use("/api/v1/transcribe", transcriptionRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/workshops", workshopRoutes);
 app.use("/api/mail", mailRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Error handling
 app.use(errorHandler);
