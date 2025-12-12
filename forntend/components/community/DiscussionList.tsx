@@ -19,6 +19,12 @@ interface Discussion {
     tags: string[];
     likes: string[];
     createdAt: string;
+    comments: {
+        author: {
+            name: string;
+            picture: string | null;
+        };
+    }[];
     _count: {
         comments: number;
     };
@@ -92,20 +98,44 @@ export default function DiscussionList() {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-6 text-sm text-gray-500 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6 pt-4 md:pt-0 mt-2 md:mt-0 min-w-[120px]">
-                            <div className="flex items-center gap-2">
-                                <MessageSquare className="w-4 h-4" />
-                                <span>{discussion._count.comments}</span>
+                        <div className="flex flex-col items-end gap-4 min-w-[120px]">
+                            <div className="flex items-center gap-6 text-sm text-gray-500 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6 pt-4 md:pt-0 mt-2 md:mt-0">
+                                <div className="flex items-center gap-2">
+                                    <MessageSquare className="w-4 h-4" />
+                                    <span>{discussion._count.comments}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Eye className="w-4 h-4" />
+                                    <span>{discussion.views}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-lg">♥</span>
+                                    <span>{discussion.likes ? discussion.likes.length : 0}</span>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <Eye className="w-4 h-4" />
-                                <span>{discussion.views}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-lg">♥</span>
-                                <span>{discussion.likes ? discussion.likes.length : 0}</span>
-                            </div>
-                            <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1" />
+
+                            {/* Stacked Avatars */}
+                            {discussion.comments && discussion.comments.length > 0 && (
+                                <div className="flex -space-x-2 overflow-hidden md:pl-6">
+                                    {discussion.comments.map((comment, idx) => (
+                                        <div key={idx} className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-900 border border-gray-200">
+                                            {comment.author.picture ? (
+                                                <img
+                                                    src={comment.author.picture}
+                                                    alt={comment.author.name}
+                                                    className="h-full w-full rounded-full object-cover"
+                                                    onError={(e) => {
+                                                        e.currentTarget.style.display = 'none';
+                                                        e.currentTarget.parentElement!.innerText = comment.author.name.charAt(0).toUpperCase();
+                                                    }}
+                                                />
+                                            ) : (
+                                                comment.author.name.charAt(0).toUpperCase()
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Link>

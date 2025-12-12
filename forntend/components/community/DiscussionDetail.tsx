@@ -176,13 +176,7 @@ export default function DiscussionDetail({ id }: { id: string }) {
 
                 <div className="flex items-center gap-6 text-sm text-gray-500 border-b border-gray-100 pb-8 mb-8">
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-900">
-                            {discussion.author.picture ? (
-                                <img src={discussion.author.picture} alt={discussion.author.name} className="w-full h-full object-cover" />
-                            ) : (
-                                discussion.author.name.charAt(0)
-                            )}
-                        </div>
+                        <UserAvatar user={discussion.author} />
                         <span className="font-bold text-gray-900 uppercase tracking-wide text-xs">
                             {discussion.author.name}
                         </span>
@@ -237,13 +231,7 @@ export default function DiscussionDetail({ id }: { id: string }) {
                 {user ? (
                     <form onSubmit={(e) => handlePostComment(e)} className="mb-12 bg-gray-50 p-6 border border-gray-200">
                         <div className="flex gap-4">
-                            <div className="w-10 h-10 bg-white border border-gray-200 flex-shrink-0 flex items-center justify-center font-bold text-gray-900">
-                                {user.picture ? (
-                                    <img src={user.picture} alt={user.name} className="w-full h-full object-cover" />
-                                ) : (
-                                    user.name.charAt(0)
-                                )}
-                            </div>
+                            <UserAvatar user={user} className="w-10 h-10" />
                             <div className="flex-1">
                                 <textarea
                                     value={newComment}
@@ -294,6 +282,27 @@ export default function DiscussionDetail({ id }: { id: string }) {
     );
 }
 
+const UserAvatar = ({ user, className = "w-8 h-8" }: { user: { name: string; picture: string | null } | null; className?: string }) => {
+    const [error, setError] = useState(false);
+
+    if (!user) return null;
+
+    return (
+        <div className={`${className} bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-900 flex-shrink-0`}>
+            {user.picture && !error ? (
+                <img
+                    src={user.picture}
+                    alt={user.name}
+                    className="w-full h-full object-cover"
+                    onError={() => setError(true)}
+                />
+            ) : (
+                user.name.charAt(0).toUpperCase()
+            )}
+        </div>
+    );
+};
+
 const CommentItem = ({
     comment,
     depth = 0,
@@ -320,13 +329,7 @@ const CommentItem = ({
 
     return (
         <div className={`flex gap-4 p-6 bg-white border-l-2 ${depth > 0 ? "border-gray-200 ml-8" : "border-gray-100"} hover:border-gray-900 transition-colors`}>
-            <div className="w-10 h-10 bg-gray-50 border border-gray-200 flex-shrink-0 flex items-center justify-center font-bold text-gray-900">
-                {comment.author.picture ? (
-                    <img src={comment.author.picture} alt={comment.author.name} className="w-full h-full object-cover" />
-                ) : (
-                    comment.author.name.charAt(0)
-                )}
-            </div>
+            <UserAvatar user={comment.author} className="w-10 h-10" />
             <div className="flex-1 space-y-2">
                 <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-3">

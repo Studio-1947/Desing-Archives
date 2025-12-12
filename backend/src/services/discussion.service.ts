@@ -13,6 +13,19 @@ export class DiscussionService {
             picture: true,
           },
         },
+        comments: {
+          distinct: ["authorId"],
+          take: 5,
+          select: {
+            author: {
+              select: {
+                id: true,
+                name: true,
+                picture: true,
+              },
+            },
+          },
+        },
         _count: {
           select: { comments: true },
         },
