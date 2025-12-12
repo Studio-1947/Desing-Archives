@@ -5,6 +5,7 @@ const router = Router();
 const discussionController = new DiscussionController();
 
 router.get("/", discussionController.getAllDiscussions);
+router.get("/stats", discussionController.getStats);
 router.get("/:id", discussionController.getDiscussionById);
 router.post("/", discussionController.createDiscussion);
 router.put("/:id", discussionController.updateDiscussion);

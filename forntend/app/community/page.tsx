@@ -1,8 +1,32 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import DiscussionList from "@/components/community/DiscussionList";
 import Link from "next/link";
 import { Plus, MessageSquare, Users, Search } from "lucide-react";
 
 export default function CommunityPage() {
+    const [stats, setStats] = useState<{
+        totalMembers: number;
+        totalDiscussions: number;
+        categoryCounts: { name: string; count: number }[];
+    } | null>(null);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions/stats`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setStats(data);
+                }
+            } catch (error) {
+                console.error("Error fetching stats:", error);
+            }
+        };
+        fetchStats();
+    }, []);
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
@@ -44,9 +68,9 @@ export default function CommunityPage() {
             </div>
 
             <div className="container mx-auto px-6 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
                     {/* Main Content */}
-                    <div className="lg:col-span-3">
+                    <div className="lg:col-span-4">
                         <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200">
                             <h2 className="text-xl font-bold text-gray-900">Latest Discussions</h2>
                             <div className="flex gap-2">
@@ -66,19 +90,13 @@ export default function CommunityPage() {
                                 Categories
                             </h3>
                             <ul className="space-y-3">
-                                {[
-                                    { name: "General", count: 12 },
-                                    { name: "Design Help", count: 8 },
-                                    { name: "Showcase", count: 15 },
-                                    { name: "Resources", count: 5 },
-                                    { name: "Jobs", count: 3 }
-                                ].map((category) => (
+                                {stats?.categoryCounts.map((category) => (
                                     <li key={category.name}>
                                         <Link
-                                            href={`/community?category=${category.name.toLowerCase()}`}
+                                            href={`/community?category=${category.name}`}
                                             className="flex items-center justify-between group"
                                         >
-                                            <span className="text-gray-600 group-hover:text-gray-900 transition-colors">
+                                            <span className="text-gray-600 group-hover:text-gray-900 transition-colors capitalize">
                                                 {category.name}
                                             </span>
                                             <span className="text-xs text-gray-400 bg-white px-2 py-1 border border-gray-200 group-hover:border-gray-900 transition-colors">
@@ -87,6 +105,9 @@ export default function CommunityPage() {
                                         </Link>
                                     </li>
                                 ))}
+                                {!stats && (
+                                    <li className="text-sm text-gray-400">Loading categories...</li>
+                                )}
                             </ul>
                         </div>
 
@@ -99,14 +120,18 @@ export default function CommunityPage() {
                                 <div className="flex items-center gap-3">
                                     <Users className="w-5 h-5 text-gray-400" />
                                     <div>
-                                        <p className="text-2xl font-bold text-gray-900">1.2K</p>
+                                        <p className="text-2xl font-bold text-gray-900">
+                                            {stats?.totalMembers ?? "-"}
+                                        </p>
                                         <p className="text-xs text-gray-500 uppercase tracking-wide">Members</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <MessageSquare className="w-5 h-5 text-gray-400" />
                                     <div>
-                                        <p className="text-2xl font-bold text-gray-900">845</p>
+                                        <p className="text-2xl font-bold text-gray-900">
+                                            {stats?.totalDiscussions ?? "-"}
+                                        </p>
                                         <p className="text-xs text-gray-500 uppercase tracking-wide">Topics</p>
                                     </div>
                                 </div>

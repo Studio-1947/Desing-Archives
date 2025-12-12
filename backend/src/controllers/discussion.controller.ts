@@ -128,4 +128,13 @@ export class DiscussionController {
       res.status(500).json({ message: "Error updating comment", error });
     }
   }
+
+  async getStats(req: Request, res: Response) {
+    try {
+      const stats = await discussionService.getCommunityStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching stats", error });
+    }
+  }
 }

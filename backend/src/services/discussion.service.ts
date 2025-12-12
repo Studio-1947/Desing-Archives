@@ -192,4 +192,26 @@ export class DiscussionService {
       data: { content },
     });
   }
+
+  async getCommunityStats() {
+    const [totalMembers, totalDiscussions, categoryCounts] = await Promise.all([
+      prisma.user.count(),
+      prisma.discussion.count(),
+      prisma.discussion.groupBy({
+        by: ["category"],
+        _count: {
+          category: true,
+        },
+      }),
+    ]);
+
+    return {
+      totalMembers,
+      totalDiscussions,
+      categoryCounts: categoryCounts.map((c) => ({
+        name: c.category,
+        count: c._count.category,
+      })),
+    };
+  }
 }
