@@ -34,6 +34,12 @@ export default function FileUpload({
         try {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
+
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast(`File ${file.name} is too large (max 10MB)`, 'error');
+                    continue;
+                }
+
                 const formData = new FormData();
                 formData.append('file', file);
 
@@ -52,8 +58,10 @@ export default function FileUpload({
 
             const updatedUrls = multiple ? [...urls, ...newUrls] : newUrls;
             setUrls(updatedUrls);
-            onUpload(updatedUrls);
-            showToast('Upload successful', 'success');
+            if (newUrls.length > 0) {
+                onUpload(updatedUrls);
+                showToast('Upload successful', 'success');
+            }
         } catch (error) {
             console.error('Upload error:', error);
             showToast('Failed to upload file(s)', 'error');
@@ -77,9 +85,12 @@ export default function FileUpload({
 
     return (
         <div className="space-y-4">
-            <label className="block text-sm font-bold uppercase tracking-wide text-gray-700">
-                {label}
-            </label>
+            <div className="flex items-center justify-between">
+                <label className="block text-sm font-bold uppercase tracking-wide text-gray-700">
+                    {label}
+                </label>
+                <span className="text-xs text-gray-400 font-medium">Max 10MB per file</span>
+            </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {urls.map((url, index) => (

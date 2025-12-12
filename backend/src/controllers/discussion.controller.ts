@@ -117,4 +117,15 @@ export class DiscussionController {
       res.status(500).json({ message: "Error toggling like", error });
     }
   }
+
+  async updateComment(req: Request, res: Response) {
+    try {
+      const { commentId } = req.params;
+      const { content } = req.body;
+      const comment = await discussionService.updateComment(commentId, content);
+      res.json(comment);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating comment", error });
+    }
+  }
 }

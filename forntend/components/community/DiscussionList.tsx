@@ -17,6 +17,7 @@ interface Discussion {
     isPinned: boolean;
     isLocked: boolean;
     tags: string[];
+    mediaUrls: string[];
     likes: string[];
     createdAt: string;
     comments: {
@@ -60,82 +61,103 @@ export default function DiscussionList() {
                 <Link
                     key={discussion.id}
                     href={`/community/${discussion.id}`}
-                    className="group block p-6 bg-white border border-gray-200 hover:border-gray-900 transition-all duration-300"
+                    className="group block bg-white border border-gray-200 hover:border-gray-900 transition-all duration-300 overflow-hidden"
                 >
-                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                        <div className="space-y-3 flex-1">
-                            <div className="flex items-center gap-3">
-                                {discussion.isPinned && (
-                                    <span className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-gray-900 bg-gray-100 px-2 py-1">
-                                        <Pin className="w-3 h-3" /> Pinned
-                                    </span>
-                                )}
-                                <span className="text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200 px-2 py-1">
-                                    {discussion.category}
-                                </span>
-                                {discussion.tags && discussion.tags.slice(0, 3).map(tag => (
-                                    <span key={tag} className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-50 px-2 py-1">
-                                        #{tag}
-                                    </span>
-                                ))}
-                            </div>
-
-                            <div>
-                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-gray-600 transition-colors mb-2">
-                                    {discussion.title}
-                                </h3>
-                                <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">
-                                    {discussion.content}
-                                </p>
-                            </div>
-
-                            <div className="flex items-center gap-4 text-xs text-gray-500 uppercase tracking-wide pt-2">
-                                <span className="font-medium text-gray-900">
-                                    {discussion.author.name}
-                                </span>
-                                <span>•</span>
-                                <span>{new Date(discussion.createdAt).toLocaleDateString()}</span>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col items-end gap-4 min-w-[120px]">
-                            <div className="flex items-center gap-6 text-sm text-gray-500 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6 pt-4 md:pt-0 mt-2 md:mt-0">
-                                <div className="flex items-center gap-2">
-                                    <MessageSquare className="w-4 h-4" />
-                                    <span>{discussion._count.comments}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <Eye className="w-4 h-4" />
-                                    <span>{discussion.views}</span>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-lg">♥</span>
-                                    <span>{discussion.likes ? discussion.likes.length : 0}</span>
-                                </div>
-                            </div>
-
-                            {/* Stacked Avatars */}
-                            {discussion.comments && discussion.comments.length > 0 && (
-                                <div className="flex -space-x-2 overflow-hidden md:pl-6">
-                                    {discussion.comments.map((comment, idx) => (
-                                        <div key={idx} className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-900 border border-gray-200">
-                                            {comment.author.picture ? (
-                                                <img
-                                                    src={comment.author.picture}
-                                                    alt={comment.author.name}
-                                                    className="h-full w-full rounded-full object-cover"
-                                                    onError={(e) => {
-                                                        e.currentTarget.style.display = 'none';
-                                                        e.currentTarget.parentElement!.innerText = comment.author.name.charAt(0).toUpperCase();
-                                                    }}
-                                                />
-                                            ) : (
-                                                comment.author.name.charAt(0).toUpperCase()
-                                            )}
+                    <div className="flex flex-col md:flex-row h-full">
+                        {/* Cover Image Section */}
+                        <div className="md:w-48 h-48 md:h-auto bg-gray-100 flex-shrink-0 relative border-b md:border-b-0 md:border-r border-gray-200">
+                            {discussion.mediaUrls && discussion.mediaUrls.length > 0 ? (
+                                discussion.mediaUrls[0].match(/\.(mp4|mov|webm)$/i) ? (
+                                    <video src={discussion.mediaUrls[0]} className="w-full h-full object-cover" muted />
+                                ) : (
+                                    <img src={discussion.mediaUrls[0]} alt={discussion.title} className="w-full h-full object-cover" />
+                                )
+                            ) : (
+                                <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-300">
+                                    <div className="text-center p-4">
+                                        <div className="w-12 h-12 border-2 border-gray-200 mx-auto mb-2 flex items-center justify-center">
+                                            <span className="text-2xl font-bold text-gray-200">DA</span>
                                         </div>
-                                    ))}
+                                    </div>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="flex-1 p-6 flex flex-col justify-between">
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    {discussion.isPinned && (
+                                        <span className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-gray-900 bg-gray-100 px-2 py-1">
+                                            <Pin className="w-3 h-3" /> Pinned
+                                        </span>
+                                    )}
+                                    <span className="text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200 px-2 py-1">
+                                        {discussion.category}
+                                    </span>
+                                    {discussion.tags && discussion.tags.slice(0, 3).map(tag => (
+                                        <span key={tag} className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-50 px-2 py-1">
+                                            #{tag}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <div>
+                                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-gray-600 transition-colors mb-2">
+                                        {discussion.title}
+                                    </h3>
+                                    <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">
+                                        {discussion.content}
+                                    </p>
+                                </div>
+
+                                <div className="flex items-center gap-4 text-xs text-gray-500 uppercase tracking-wide pt-2">
+                                    <span className="font-medium text-gray-900">
+                                        {discussion.author.name}
+                                    </span>
+                                    <span>•</span>
+                                    <span>{new Date(discussion.createdAt).toLocaleDateString()}</span>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
+                                <div className="flex items-center gap-6 text-sm text-gray-500">
+                                    <div className="flex items-center gap-2">
+                                        <MessageSquare className="w-4 h-4" />
+                                        <span>{discussion._count.comments}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Eye className="w-4 h-4" />
+                                        <span>{discussion.views}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-lg">♥</span>
+                                        <span>{discussion.likes ? discussion.likes.length : 0}</span>
+                                    </div>
+                                </div>
+
+                                {/* Stacked Avatars */}
+                                {discussion.comments && discussion.comments.length > 0 && (
+                                    <div className="flex -space-x-2 overflow-hidden">
+                                        {discussion.comments.map((comment, idx) => (
+                                            <div key={idx} className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-900 border border-gray-200">
+                                                {comment.author.picture ? (
+                                                    <img
+                                                        src={comment.author.picture}
+                                                        alt={comment.author.name}
+                                                        className="h-full w-full rounded-full object-cover"
+                                                        onError={(e) => {
+                                                            e.currentTarget.style.display = 'none';
+                                                            e.currentTarget.parentElement!.innerText = comment.author.name.charAt(0).toUpperCase();
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    comment.author.name.charAt(0).toUpperCase()
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </Link>

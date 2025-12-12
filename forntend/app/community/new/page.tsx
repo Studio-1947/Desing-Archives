@@ -7,6 +7,14 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import FileUpload from "@/components/ui/FileUpload";
 
+const DEFAULT_IMAGES: Record<string, string> = {
+    "general": "https://images.unsplash.com/photo-1499750310159-5b9887039e54?q=80&w=2070&auto=format&fit=crop",
+    "design help": "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop",
+    "showcase": "https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80&w=2080&auto=format&fit=crop",
+    "resources": "https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=2070&auto=format&fit=crop",
+    "jobs": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop"
+};
+
 export default function NewDiscussionPage() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -23,6 +31,8 @@ export default function NewDiscussionPage() {
 
         setSubmitting(true);
         try {
+            const finalMediaUrls = mediaUrls.length > 0 ? mediaUrls : [DEFAULT_IMAGES[category] || DEFAULT_IMAGES["general"]];
+
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions`, {
                 method: "POST",
                 headers: {
@@ -33,7 +43,7 @@ export default function NewDiscussionPage() {
                     content,
                     category,
                     authorId: user.id,
-                    mediaUrls,
+                    mediaUrls: finalMediaUrls,
                     tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
                 }),
             });

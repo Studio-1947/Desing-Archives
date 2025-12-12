@@ -94,6 +94,8 @@ export class DiscussionService {
       content: string;
       isPinned: boolean;
       isLocked: boolean;
+      category: string;
+      mediaUrls: string[];
     }>
   ) {
     return prisma.discussion.update({
@@ -181,6 +183,13 @@ export class DiscussionService {
     return prisma.comment.update({
       where: { id },
       data: { likes: newLikes },
+    });
+  }
+
+  async updateComment(id: string, content: string) {
+    return prisma.comment.update({
+      where: { id },
+      data: { content },
     });
   }
 }
