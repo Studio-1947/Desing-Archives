@@ -22,6 +22,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import FileUpload from "@/components/ui/FileUpload";
+import Skeleton from "@/components/ui/Skeleton";
+import Toast, { ToastType } from "@/components/ui/Toast";
 
 interface Comment {
     id: string;
@@ -75,6 +77,9 @@ export default function DiscussionDetail({ id }: { id: string }) {
     const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
     const [editCommentContent, setEditCommentContent] = useState("");
 
+    // Toast State
+    const [toast, setToast] = useState<{ message: string; type: ToastType } | null>(null);
+
     const { user } = useAuth();
     const router = useRouter();
 
@@ -82,6 +87,10 @@ export default function DiscussionDetail({ id }: { id: string }) {
         fetchDiscussion();
         incrementViews();
     }, [id]);
+
+    const showToast = (message: string, type: ToastType) => {
+        setToast({ message, type });
+    };
 
     const fetchDiscussion = async () => {
         try {
@@ -96,6 +105,7 @@ export default function DiscussionDetail({ id }: { id: string }) {
             }
         } catch (error) {
             console.error("Error fetching discussion:", error);
+            showToast("Failed to load discussion", "error");
         } finally {
             setLoading(false);
         }
@@ -137,9 +147,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
                     setNewComment("");
                 }
                 fetchDiscussion();
+                showToast("Comment posted successfully", "success");
             }
         } catch (error) {
             console.error("Error posting comment:", error);
+            showToast("Failed to post comment", "error");
         }
     };
 
@@ -165,9 +177,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
                     mediaUrls: editMediaUrls
                 });
                 setIsEditingDiscussion(false);
+                showToast("Discussion updated successfully", "success");
             }
         } catch (error) {
             console.error("Error updating discussion:", error);
+            showToast("Failed to update discussion", "error");
         }
     };
 
@@ -179,9 +193,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
             });
             if (res.ok) {
                 router.push("/community");
+                showToast("Discussion deleted", "success");
             }
         } catch (error) {
             console.error("Error deleting discussion:", error);
+            showToast("Failed to delete discussion", "error");
         }
     };
 
@@ -196,9 +212,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
             if (res.ok) {
                 setEditingCommentId(null);
                 fetchDiscussion();
+                showToast("Comment updated", "success");
             }
         } catch (error) {
             console.error("Error updating comment:", error);
+            showToast("Failed to update comment", "error");
         }
     };
 
@@ -210,9 +228,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
             });
             if (res.ok) {
                 fetchDiscussion();
+                showToast("Comment deleted", "success");
             }
         } catch (error) {
             console.error("Error deleting comment:", error);
+            showToast("Failed to delete comment", "error");
         }
     };
 
@@ -248,7 +268,42 @@ export default function DiscussionDetail({ id }: { id: string }) {
         }
     };
 
-    if (loading) return <div className="text-center py-20 uppercase tracking-wide text-sm">Loading...</div>;
+    const handleShare = async () => {
+        const url = window.location.href;
+        try {
+            await navigator.clipboard.writeText(url);
+            showToast("Link copied to clipboard!", "success");
+        } catch (err) {
+            console.error("Failed to copy:", err);
+            showToast("Failed to copy link", "error");
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="max-w-4xl mx-auto py-8">
+                <Skeleton className="w-32 h-6 mb-8" />
+                <Skeleton className="w-full h-64 md:h-96 mb-12" />
+                <div className="p-8 md:p-12">
+                    <div className="flex justify-between mb-6">
+                        <Skeleton className="w-24 h-6" />
+                        <Skeleton className="w-16 h-6" />
+                    </div>
+                    <Skeleton className="w-3/4 h-10 mb-6" />
+                    <div className="flex gap-4 mb-8">
+                        <Skeleton className="w-8 h-8 rounded-full" />
+                        <Skeleton className="w-32 h-4 my-auto" />
+                    </div>
+                    <div className="space-y-4">
+                        <Skeleton className="w-full h-4" />
+                        <Skeleton className="w-full h-4" />
+                        <Skeleton className="w-2/3 h-4" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     if (!discussion) return <div className="text-center py-20 uppercase tracking-wide text-sm">Discussion not found</div>;
 
     const isAuthor = user?.id === discussion.author.id;
@@ -258,7 +313,17 @@ export default function DiscussionDetail({ id }: { id: string }) {
     const remainingImages = discussion.mediaUrls && discussion.mediaUrls.length > 1 ? discussion.mediaUrls.slice(1) : [];
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto relative">
+            {toast && (
+                <div className="fixed bottom-4 right-4 z-50">
+                    <Toast
+                        message={toast.message}
+                        type={toast.type}
+                        onClose={() => setToast(null)}
+                    />
+                </div>
+            )}
+
             <Link
                 href="/community"
                 className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 mb-8 uppercase tracking-wide font-medium transition-colors"
@@ -297,24 +362,33 @@ export default function DiscussionDetail({ id }: { id: string }) {
                             ))}
                         </div>
 
-                        {isAuthor && !isEditingDiscussion && (
-                            <div className="flex items-center gap-2">
-                                <button
-                                    onClick={() => setIsEditingDiscussion(true)}
-                                    className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
-                                    title="Edit Discussion"
-                                >
-                                    <Pencil className="w-4 h-4" />
-                                </button>
-                                <button
-                                    onClick={handleDeleteDiscussion}
-                                    className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                                    title="Delete Discussion"
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                </button>
-                            </div>
-                        )}
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={handleShare}
+                                className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
+                                title="Share Discussion"
+                            >
+                                <Share2 className="w-4 h-4" />
+                            </button>
+                            {isAuthor && !isEditingDiscussion && (
+                                <>
+                                    <button
+                                        onClick={() => setIsEditingDiscussion(true)}
+                                        className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
+                                        title="Edit Discussion"
+                                    >
+                                        <Pencil className="w-4 h-4" />
+                                    </button>
+                                    <button
+                                        onClick={handleDeleteDiscussion}
+                                        className="p-2 text-gray-400 hover:text-red-600 transition-colors"
+                                        title="Delete Discussion"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     </div>
 
                     <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
