@@ -6,12 +6,17 @@ const discussionService = new DiscussionService();
 export class DiscussionController {
   async getAllDiscussions(req: Request, res: Response) {
     try {
-      const { category, sortBy } = req.query;
-      const discussions = await discussionService.getAllDiscussions(
+      const { category, sortBy, page, limit } = req.query;
+      const pageNum = page ? parseInt(page as string) : 1;
+      const limitNum = limit ? parseInt(limit as string) : 10;
+
+      const result = await discussionService.getAllDiscussions(
         category as string,
-        sortBy as string
+        sortBy as string,
+        pageNum,
+        limitNum
       );
-      res.json(discussions);
+      res.json(result);
     } catch (error) {
       res.status(500).json({ message: "Error fetching discussions", error });
     }
