@@ -14,6 +14,8 @@ interface Comment {
         picture: string | null;
     };
     createdAt: string;
+    mediaUrls: string[];
+    likes: string[];
     replies: Comment[];
 }
 
@@ -30,6 +32,9 @@ interface Discussion {
     views: number;
     isPinned: boolean;
     isLocked: boolean;
+    mediaUrls: string[];
+    tags: string[];
+    likes: string[];
     createdAt: string;
     comments: Comment[];
 }
@@ -38,6 +43,8 @@ export default function DiscussionDetail({ id }: { id: string }) {
     const [discussion, setDiscussion] = useState<Discussion | null>(null);
     const [loading, setLoading] = useState(true);
     const [newComment, setNewComment] = useState("");
+    const [replyingTo, setReplyingTo] = useState<string | null>(null);
+    const [replyContent, setReplyContent] = useState("");
     const { user } = useAuth();
 
     useEffect(() => {
@@ -69,9 +76,10 @@ export default function DiscussionDetail({ id }: { id: string }) {
         }
     };
 
-    const handlePostComment = async (e: React.FormEvent) => {
+    const handlePostComment = async (e: React.FormEvent, parentId?: string) => {
         e.preventDefault();
-        if (!newComment.trim() || !user) return;
+        const content = parentId ? replyContent : newComment;
+        if (!content.trim() || !user) return;
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions/${id}/comments`, {
@@ -80,17 +88,55 @@ export default function DiscussionDetail({ id }: { id: string }) {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    content: newComment,
+                    content,
                     authorId: user.id,
+                    parentId,
                 }),
             });
 
             if (res.ok) {
-                setNewComment("");
+                if (parentId) {
+                    setReplyContent("");
+                    setReplyingTo(null);
+                } else {
+                    setNewComment("");
+                }
                 fetchDiscussion();
             }
         } catch (error) {
             console.error("Error posting comment:", error);
+        }
+    };
+
+    const handleLikeDiscussion = async () => {
+        if (!user || !discussion) return;
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions/${id}/like`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user.id }),
+            });
+            if (res.ok) {
+                fetchDiscussion(); // Refresh to get updated likes
+            }
+        } catch (error) {
+            console.error("Error liking discussion:", error);
+        }
+    };
+
+    const handleLikeComment = async (commentId: string) => {
+        if (!user) return;
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions/comments/${commentId}/like`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userId: user.id }),
+            });
+            if (res.ok) {
+                fetchDiscussion();
+            }
+        } catch (error) {
+            console.error("Error liking comment:", error);
         }
     };
 
@@ -108,7 +154,7 @@ export default function DiscussionDetail({ id }: { id: string }) {
             </Link>
 
             <div className="bg-white border border-gray-200 p-8 md:p-12 mb-12">
-                <div className="flex items-center gap-3 mb-6">
+                <div className="flex flex-wrap items-center gap-3 mb-6">
                     <span className="text-xs font-bold uppercase tracking-wider text-gray-900 border border-gray-900 px-2 py-1">
                         {discussion.category}
                     </span>
@@ -117,6 +163,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
                             <Pin className="w-3 h-3" /> Pinned
                         </span>
                     )}
+                    {discussion.tags && discussion.tags.map(tag => (
+                        <span key={tag} className="text-xs font-bold uppercase tracking-wider text-gray-500 bg-gray-50 px-2 py-1">
+                            #{tag}
+                        </span>
+                    ))}
                 </div>
 
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
@@ -147,6 +198,31 @@ export default function DiscussionDetail({ id }: { id: string }) {
 
                 <div className="prose prose-gray max-w-none mb-8">
                     <p className="whitespace-pre-wrap text-gray-700 leading-relaxed text-lg">{discussion.content}</p>
+
+                    {/* Discussion Media */}
+                    {discussion.mediaUrls && discussion.mediaUrls.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                            {discussion.mediaUrls.map((url, idx) => (
+                                <div key={idx} className="relative aspect-video bg-gray-100 border border-gray-200">
+                                    {url.match(/\.(mp4|mov|webm)$/i) ? (
+                                        <video src={url} controls className="w-full h-full object-cover" />
+                                    ) : (
+                                        <img src={url} alt={`Attachment ${idx + 1}`} className="w-full h-full object-cover" />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex items-center gap-4 pt-8 border-t border-gray-100">
+                    <button
+                        onClick={handleLikeDiscussion}
+                        className={`btn-secondary-minimal inline-flex items-center gap-2 ${user && discussion.likes.includes(user.id) ? "bg-gray-100" : ""}`}
+                    >
+                        <span className={user && discussion.likes.includes(user.id) ? "text-red-600" : ""}>♥</span>
+                        <span>{discussion.likes.length} Likes</span>
+                    </button>
                 </div>
             </div>
 
@@ -157,9 +233,9 @@ export default function DiscussionDetail({ id }: { id: string }) {
                     Comments ({discussion.comments.length})
                 </h3>
 
-                {/* Comment Form */}
+                {/* Main Comment Form */}
                 {user ? (
-                    <form onSubmit={handlePostComment} className="mb-12 bg-gray-50 p-6 border border-gray-200">
+                    <form onSubmit={(e) => handlePostComment(e)} className="mb-12 bg-gray-50 p-6 border border-gray-200">
                         <div className="flex gap-4">
                             <div className="w-10 h-10 bg-white border border-gray-200 flex-shrink-0 flex items-center justify-center font-bold text-gray-900">
                                 {user.picture ? (
@@ -200,33 +276,150 @@ export default function DiscussionDetail({ id }: { id: string }) {
                 {/* Comments List */}
                 <div className="space-y-8">
                     {discussion.comments.map((comment) => (
-                        <div key={comment.id} className="flex gap-6 p-6 bg-white border-l-2 border-gray-100 hover:border-gray-900 transition-colors">
-                            <div className="w-10 h-10 bg-gray-50 border border-gray-200 flex-shrink-0 flex items-center justify-center font-bold text-gray-900">
-                                {comment.author.picture ? (
-                                    <img src={comment.author.picture} alt={comment.author.name} className="w-full h-full object-cover" />
-                                ) : (
-                                    comment.author.name.charAt(0)
-                                )}
-                            </div>
-                            <div className="flex-1 space-y-2">
-                                <div className="flex items-center justify-between mb-2">
-                                    <div className="flex items-center gap-3">
-                                        <span className="font-bold text-gray-900 uppercase tracking-wide text-xs">
-                                            {comment.author.name}
-                                        </span>
-                                        <span className="text-xs text-gray-400 uppercase tracking-wide">
-                                            {new Date(comment.createdAt).toLocaleDateString()}
-                                        </span>
-                                    </div>
-                                </div>
-                                <p className="text-gray-700 leading-relaxed">
-                                    {comment.content}
-                                </p>
-                            </div>
-                        </div>
+                        <CommentItem
+                            key={comment.id}
+                            comment={comment}
+                            replyingTo={replyingTo}
+                            setReplyingTo={setReplyingTo}
+                            replyContent={replyContent}
+                            setReplyContent={setReplyContent}
+                            handlePostComment={handlePostComment}
+                            handleLikeComment={handleLikeComment}
+                            user={user}
+                        />
                     ))}
                 </div>
             </div>
         </div>
     );
 }
+
+const CommentItem = ({
+    comment,
+    depth = 0,
+    replyingTo,
+    setReplyingTo,
+    replyContent,
+    setReplyContent,
+    handlePostComment,
+    handleLikeComment,
+    user
+}: {
+    comment: Comment;
+    depth?: number;
+    replyingTo: string | null;
+    setReplyingTo: (id: string | null) => void;
+    replyContent: string;
+    setReplyContent: (content: string) => void;
+    handlePostComment: (e: React.FormEvent, parentId?: string) => void;
+    handleLikeComment: (id: string) => void;
+    user: any;
+}) => {
+    const isReplying = replyingTo === comment.id;
+    const hasLiked = user ? comment.likes.includes(user.id) : false;
+
+    return (
+        <div className={`flex gap-4 p-6 bg-white border-l-2 ${depth > 0 ? "border-gray-200 ml-8" : "border-gray-100"} hover:border-gray-900 transition-colors`}>
+            <div className="w-10 h-10 bg-gray-50 border border-gray-200 flex-shrink-0 flex items-center justify-center font-bold text-gray-900">
+                {comment.author.picture ? (
+                    <img src={comment.author.picture} alt={comment.author.name} className="w-full h-full object-cover" />
+                ) : (
+                    comment.author.name.charAt(0)
+                )}
+            </div>
+            <div className="flex-1 space-y-2">
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-3">
+                        <span className="font-bold text-gray-900 uppercase tracking-wide text-xs">
+                            {comment.author.name}
+                        </span>
+                        <span className="text-xs text-gray-400 uppercase tracking-wide">
+                            {new Date(comment.createdAt).toLocaleDateString()}
+                        </span>
+                    </div>
+                </div>
+                <p className="text-gray-700 leading-relaxed">
+                    {comment.content}
+                </p>
+
+                {/* Media in comments (future proofing) */}
+                {comment.mediaUrls && comment.mediaUrls.length > 0 && (
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+                        {comment.mediaUrls.map((url, idx) => (
+                            <div key={idx} className="relative aspect-video bg-gray-100">
+                                {url.match(/\.(mp4|mov|webm)$/i) ? (
+                                    <video src={url} controls className="w-full h-full object-cover" />
+                                ) : (
+                                    <img src={url} alt="Attachment" className="w-full h-full object-cover" />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                <div className="flex items-center gap-4 mt-2">
+                    <button
+                        onClick={() => handleLikeComment(comment.id)}
+                        className={`text-xs font-bold uppercase tracking-wide flex items-center gap-1 ${hasLiked ? "text-red-600" : "text-gray-400 hover:text-gray-900"}`}
+                    >
+                        <span className={hasLiked ? "fill-current" : ""}>♥</span> {comment.likes.length} Likes
+                    </button>
+                    <button
+                        onClick={() => setReplyingTo(isReplying ? null : comment.id)}
+                        className="text-xs font-bold uppercase tracking-wide text-gray-400 hover:text-gray-900"
+                    >
+                        Reply
+                    </button>
+                </div>
+
+                {isReplying && (
+                    <div className="mt-4 pl-4 border-l-2 border-gray-900">
+                        <textarea
+                            value={replyContent}
+                            onChange={(e) => setReplyContent(e.target.value)}
+                            placeholder="Write a reply..."
+                            className="w-full p-3 bg-gray-50 border border-gray-200 focus:border-gray-900 focus:outline-none text-sm mb-2"
+                            rows={3}
+                            autoFocus
+                        />
+                        <div className="flex justify-end gap-2">
+                            <button
+                                onClick={() => setReplyingTo(null)}
+                                className="text-xs font-bold uppercase tracking-wide text-gray-500 hover:text-gray-900 px-3 py-2"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={(e) => handlePostComment(e, comment.id)}
+                                disabled={!replyContent.trim()}
+                                className="btn-primary-minimal text-xs px-4 py-2"
+                            >
+                                Reply
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Recursive Replies */}
+                {comment.replies && comment.replies.length > 0 && (
+                    <div className="mt-4 space-y-4">
+                        {comment.replies.map(reply => (
+                            <CommentItem
+                                key={reply.id}
+                                comment={reply}
+                                depth={depth + 1}
+                                replyingTo={replyingTo}
+                                setReplyingTo={setReplyingTo}
+                                replyContent={replyContent}
+                                setReplyContent={setReplyContent}
+                                handlePostComment={handlePostComment}
+                                handleLikeComment={handleLikeComment}
+                                user={user}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};

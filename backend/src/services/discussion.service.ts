@@ -66,6 +66,7 @@ export class DiscussionService {
     content: string;
     authorId: string;
     category?: string;
+    mediaUrls?: string[];
     tags?: string[];
   }) {
     return prisma.discussion.create({
@@ -99,6 +100,7 @@ export class DiscussionService {
     authorId: string;
     discussionId: string;
     parentId?: string;
+    mediaUrls?: string[];
   }) {
     return prisma.comment.create({
       data,
@@ -128,6 +130,44 @@ export class DiscussionService {
           increment: 1,
         },
       },
+    });
+  }
+
+  async toggleLikeDiscussion(id: string, userId: string) {
+    const discussion = await prisma.discussion.findUnique({
+      where: { id },
+      select: { likes: true },
+    });
+
+    if (!discussion) throw new Error("Discussion not found");
+
+    const hasLiked = discussion.likes.includes(userId);
+    const newLikes = hasLiked
+      ? discussion.likes.filter((uid) => uid !== userId)
+      : [...discussion.likes, userId];
+
+    return prisma.discussion.update({
+      where: { id },
+      data: { likes: newLikes },
+    });
+  }
+
+  async toggleLikeComment(id: string, userId: string) {
+    const comment = await prisma.comment.findUnique({
+      where: { id },
+      select: { likes: true },
+    });
+
+    if (!comment) throw new Error("Comment not found");
+
+    const hasLiked = comment.likes.includes(userId);
+    const newLikes = hasLiked
+      ? comment.likes.filter((uid) => uid !== userId)
+      : [...comment.likes, userId];
+
+    return prisma.comment.update({
+      where: { id },
+      data: { likes: newLikes },
     });
   }
 }

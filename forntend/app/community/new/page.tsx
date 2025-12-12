@@ -5,11 +5,14 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import FileUpload from "@/components/ui/FileUpload";
 
 export default function NewDiscussionPage() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [category, setCategory] = useState("general");
+    const [tags, setTags] = useState("");
+    const [mediaUrls, setMediaUrls] = useState<string[]>([]);
     const [submitting, setSubmitting] = useState(false);
     const router = useRouter();
     const { user } = useAuth();
@@ -30,6 +33,8 @@ export default function NewDiscussionPage() {
                     content,
                     category,
                     authorId: user.id,
+                    mediaUrls,
+                    tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
                 }),
             });
 
@@ -101,6 +106,27 @@ export default function NewDiscussionPage() {
                             <option value="resources">Resources</option>
                             <option value="jobs">Jobs</option>
                         </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-xs font-bold text-gray-900 uppercase tracking-wider mb-3">
+                            Tags (Comma separated)
+                        </label>
+                        <input
+                            type="text"
+                            value={tags}
+                            onChange={(e) => setTags(e.target.value)}
+                            placeholder="design, help, poster, typography"
+                            className="w-full p-4 bg-white border-2 border-gray-200 focus:border-gray-900 focus:outline-none transition-colors"
+                        />
+                    </div>
+
+                    <div>
+                        <FileUpload
+                            label="Attachments (Images & Videos)"
+                            multiple
+                            onUpload={setMediaUrls}
+                        />
                     </div>
 
                     <div>

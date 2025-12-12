@@ -16,6 +16,8 @@ interface Discussion {
     views: number;
     isPinned: boolean;
     isLocked: boolean;
+    tags: string[];
+    likes: string[];
     createdAt: string;
     _count: {
         comments: number;
@@ -65,6 +67,11 @@ export default function DiscussionList() {
                                 <span className="text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200 px-2 py-1">
                                     {discussion.category}
                                 </span>
+                                {discussion.tags && discussion.tags.slice(0, 3).map(tag => (
+                                    <span key={tag} className="text-xs font-bold uppercase tracking-wider text-gray-400 bg-gray-50 px-2 py-1">
+                                        #{tag}
+                                    </span>
+                                ))}
                             </div>
 
                             <div>
@@ -93,6 +100,10 @@ export default function DiscussionList() {
                             <div className="flex items-center gap-2">
                                 <Eye className="w-4 h-4" />
                                 <span>{discussion.views}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-lg">♥</span>
+                                <span>{discussion.likes ? discussion.likes.length : 0}</span>
                             </div>
                             <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1" />
                         </div>

@@ -12,5 +12,10 @@ router.delete("/:id", discussionController.deleteDiscussion);
 router.post("/:id/comments", discussionController.addComment);
 router.delete("/comments/:commentId", discussionController.deleteComment);
 router.post("/:id/view", discussionController.incrementViews);
+router.post("/:id/like", discussionController.toggleLikeDiscussion);
+router.post(
+  "/comments/:commentId/like",
+  discussionController.toggleLikeComment
+);
 
 export default router;

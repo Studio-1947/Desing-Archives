@@ -92,4 +92,29 @@ export class DiscussionController {
       res.status(500).json({ message: "Error incrementing views", error });
     }
   }
+
+  async toggleLikeDiscussion(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { userId } = req.body; // Assuming userId is passed in body for now
+      const result = await discussionService.toggleLikeDiscussion(id, userId);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: "Error toggling like", error });
+    }
+  }
+
+  async toggleLikeComment(req: Request, res: Response) {
+    try {
+      const { commentId } = req.params;
+      const { userId } = req.body; // Assuming userId is passed in body for now
+      const result = await discussionService.toggleLikeComment(
+        commentId,
+        userId
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: "Error toggling like", error });
+    }
+  }
 }
