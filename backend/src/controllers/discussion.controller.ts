@@ -6,9 +6,10 @@ const discussionService = new DiscussionService();
 export class DiscussionController {
   async getAllDiscussions(req: Request, res: Response) {
     try {
-      const { category } = req.query;
+      const { category, sortBy } = req.query;
       const discussions = await discussionService.getAllDiscussions(
-        category as string
+        category as string,
+        sortBy as string
       );
       res.json(discussions);
     } catch (error) {

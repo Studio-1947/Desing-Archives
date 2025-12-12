@@ -1,9 +1,9 @@
 import prisma from "../config/prisma";
 
 export class DiscussionService {
-  async getAllDiscussions(category?: string) {
+  async getAllDiscussions(category?: string, sortBy?: string) {
     const where = category ? { category } : {};
-    return prisma.discussion.findMany({
+    const discussions = await prisma.discussion.findMany({
       where,
       include: {
         author: {
@@ -30,8 +30,14 @@ export class DiscussionService {
           select: { comments: true },
         },
       },
-      orderBy: [{ isPinned: "desc" }, { createdAt: "desc" }],
+      orderBy: { createdAt: "desc" }, // Default sort
     });
+
+    if (sortBy === "popular") {
+      return discussions.sort((a, b) => b.likes.length - a.likes.length);
+    }
+
+    return discussions;
   }
 
   async getDiscussionById(id: string) {

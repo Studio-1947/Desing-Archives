@@ -12,6 +12,8 @@ export default function CommunityPage() {
         categoryCounts: { name: string; count: number }[];
     } | null>(null);
 
+    const [sortBy, setSortBy] = useState<"newest" | "popular">("newest");
+
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -74,12 +76,22 @@ export default function CommunityPage() {
                         <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200">
                             <h2 className="text-xl font-bold text-gray-900">Latest Discussions</h2>
                             <div className="flex gap-2">
-                                <button className="text-sm font-medium text-gray-900 underline">Newest</button>
+                                <button
+                                    onClick={() => setSortBy("newest")}
+                                    className={`text-sm font-medium transition-colors ${sortBy === "newest" ? "text-gray-900 underline" : "text-gray-500 hover:text-gray-900"}`}
+                                >
+                                    Newest
+                                </button>
                                 <span className="text-gray-300">|</span>
-                                <button className="text-sm font-medium text-gray-500 hover:text-gray-900">Popular</button>
+                                <button
+                                    onClick={() => setSortBy("popular")}
+                                    className={`text-sm font-medium transition-colors ${sortBy === "popular" ? "text-gray-900 underline" : "text-gray-500 hover:text-gray-900"}`}
+                                >
+                                    Popular
+                                </button>
                             </div>
                         </div>
-                        <DiscussionList />
+                        <DiscussionList sortBy={sortBy} />
                     </div>
 
                     {/* Sidebar */}

@@ -31,17 +31,17 @@ interface Discussion {
     };
 }
 
-export default function DiscussionList() {
+export default function DiscussionList({ sortBy = "newest" }: { sortBy?: string }) {
     const [discussions, setDiscussions] = useState<Discussion[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchDiscussions();
-    }, []);
+    }, [sortBy]);
 
     const fetchDiscussions = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions?sortBy=${sortBy}`);
             const data = await res.json();
             setDiscussions(data);
         } catch (error) {
