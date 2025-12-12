@@ -14,6 +14,7 @@ import workshopRoutes from "./routes/workshop.routes";
 import mailRoutes from "./routes/mail.routes";
 import archiveRoutes from "./routes/archive.routes";
 import contactRoutes from "./routes/contact.routes";
+import discussionRoutes from "./routes/discussion.routes";
 import prisma from "./config/prisma";
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/workshops", workshopRoutes);
 app.use("/api/mail", mailRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/discussions", discussionRoutes);
 
 // Error handling
 app.use(errorHandler);

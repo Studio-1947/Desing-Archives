@@ -1,0 +1,104 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { MessageSquare, Eye, Pin, ArrowRight } from "lucide-react";
+
+interface Discussion {
+    id: string;
+    title: string;
+    content: string;
+    author: {
+        name: string;
+        picture: string | null;
+    };
+    category: string;
+    views: number;
+    isPinned: boolean;
+    isLocked: boolean;
+    createdAt: string;
+    _count: {
+        comments: number;
+    };
+}
+
+export default function DiscussionList() {
+    const [discussions, setDiscussions] = useState<Discussion[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchDiscussions();
+    }, []);
+
+    const fetchDiscussions = async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions`);
+            const data = await res.json();
+            setDiscussions(data);
+        } catch (error) {
+            console.error("Error fetching discussions:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return <div className="text-center py-20 text-gray-500 uppercase tracking-wide text-sm">Loading discussions...</div>;
+    }
+
+    return (
+        <div className="space-y-4">
+            {discussions.map((discussion) => (
+                <Link
+                    key={discussion.id}
+                    href={`/community/${discussion.id}`}
+                    className="group block p-6 bg-white border border-gray-200 hover:border-gray-900 transition-all duration-300"
+                >
+                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                        <div className="space-y-3 flex-1">
+                            <div className="flex items-center gap-3">
+                                {discussion.isPinned && (
+                                    <span className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-gray-900 bg-gray-100 px-2 py-1">
+                                        <Pin className="w-3 h-3" /> Pinned
+                                    </span>
+                                )}
+                                <span className="text-xs font-bold uppercase tracking-wider text-gray-500 border border-gray-200 px-2 py-1">
+                                    {discussion.category}
+                                </span>
+                            </div>
+
+                            <div>
+                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-gray-600 transition-colors mb-2">
+                                    {discussion.title}
+                                </h3>
+                                <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">
+                                    {discussion.content}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-4 text-xs text-gray-500 uppercase tracking-wide pt-2">
+                                <span className="font-medium text-gray-900">
+                                    {discussion.author.name}
+                                </span>
+                                <span>•</span>
+                                <span>{new Date(discussion.createdAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-6 text-sm text-gray-500 border-t md:border-t-0 md:border-l border-gray-100 md:pl-6 pt-4 md:pt-0 mt-2 md:mt-0 min-w-[120px]">
+                            <div className="flex items-center gap-2">
+                                <MessageSquare className="w-4 h-4" />
+                                <span>{discussion._count.comments}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Eye className="w-4 h-4" />
+                                <span>{discussion.views}</span>
+                            </div>
+                            <ArrowRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1" />
+                        </div>
+                    </div>
+                </Link>
+            ))}
+        </div>
+    );
+}
