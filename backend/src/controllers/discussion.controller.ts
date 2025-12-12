@@ -1,0 +1,146 @@
+import { Request, Response } from "express";
+import { DiscussionService } from "../services/discussion.service";
+
+const discussionService = new DiscussionService();
+
+export class DiscussionController {
+  async getAllDiscussions(req: Request, res: Response) {
+    try {
+      const { category, sortBy, page, limit } = req.query;
+      const pageNum = page ? parseInt(page as string) : 1;
+      const limitNum = limit ? parseInt(limit as string) : 10;
+
+      const result = await discussionService.getAllDiscussions(
+        category as string,
+        sortBy as string,
+        pageNum,
+        limitNum
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching discussions", error });
+    }
+  }
+
+  async getDiscussionById(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const discussion = await discussionService.getDiscussionById(id);
+
+      if (!discussion) {
+        return res.status(404).json({ message: "Discussion not found" });
+      }
+
+      res.json(discussion);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching discussion", error });
+    }
+  }
+
+  async createDiscussion(req: Request, res: Response) {
+    try {
+      const discussion = await discussionService.createDiscussion(req.body);
+      res.status(201).json(discussion);
+    } catch (error) {
+      res.status(500).json({ message: "Error creating discussion", error });
+    }
+  }
+
+  async updateDiscussion(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const discussion = await discussionService.updateDiscussion(id, req.body);
+      res.json(discussion);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating discussion", error });
+    }
+  }
+
+  async deleteDiscussion(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      await discussionService.deleteDiscussion(id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting discussion", error });
+    }
+  }
+
+  async addComment(req: Request, res: Response) {
+    try {
+      const { id } = req.params; // discussionId
+      const comment = await discussionService.addComment({
+        ...req.body,
+        discussionId: id,
+      });
+      res.status(201).json(comment);
+    } catch (error) {
+      res.status(500).json({ message: "Error adding comment", error });
+    }
+  }
+
+  async deleteComment(req: Request, res: Response) {
+    try {
+      const { commentId } = req.params;
+      await discussionService.deleteComment(commentId);
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting comment", error });
+    }
+  }
+
+  async incrementViews(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      await discussionService.incrementViews(id);
+      res.status(200).send();
+    } catch (error) {
+      res.status(500).json({ message: "Error incrementing views", error });
+    }
+  }
+
+  async toggleLikeDiscussion(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { userId } = req.body; // Assuming userId is passed in body for now
+      const result = await discussionService.toggleLikeDiscussion(id, userId);
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: "Error toggling like", error });
+    }
+  }
+
+  async toggleLikeComment(req: Request, res: Response) {
+    try {
+      const { commentId } = req.params;
+      const { userId } = req.body; // Assuming userId is passed in body for now
+      const result = await discussionService.toggleLikeComment(
+        commentId,
+        userId
+      );
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: "Error toggling like", error });
+    }
+  }
+
+  async updateComment(req: Request, res: Response) {
+    try {
+      const { commentId } = req.params;
+      const { content } = req.body;
+      const comment = await discussionService.updateComment(commentId, content);
+      res.json(comment);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating comment", error });
+    }
+  }
+
+  async getStats(req: Request, res: Response) {
+    try {
+      const stats = await discussionService.getCommunityStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching stats", error });
+    }
+  }
+}
