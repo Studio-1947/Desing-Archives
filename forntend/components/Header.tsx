@@ -127,12 +127,12 @@ export default function Header() {
                         <div className="hidden sm:block">
                             <LoginButton />
                         </div>
-                        <Link
+                        {/* <Link
                             href="/submit"
                             className="hidden md:block px-5 py-2 border-2 border-gray-900 text-gray-900 text-sm font-medium tracking-wide hover:bg-gray-900 hover:text-white transition-all duration-300 uppercase whitespace-nowrap"
                         >
                             Submit Work
-                        </Link>
+                        </Link> */}
 
                         <button
                             className="p-2 lg:hidden hover:bg-gray-100 transition-colors duration-200"
