@@ -9,6 +9,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import InteractiveGridBackground from '@/components/InteractiveGridBackground';
 import AnimatedLogo from '@/components/AnimatedLogo';
 import BackButton from '@/components/BackButton';
+import ResponsiveGoogleLogin from '@/components/ResponsiveGoogleLogin';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -90,14 +91,9 @@ export default function LoginPage() {
 
                 <div className="space-y-6 mb-8">
                     <div className="w-full">
-                        <GoogleLogin
+                        <ResponsiveGoogleLogin
                             onSuccess={handleGoogleSuccess}
                             onError={() => setError('Google Login Failed')}
-                            useOneTap
-                            theme="outline"
-                            shape="rectangular"
-                            width="100%"
-                            text="continue_with"
                         />
                     </div>
                 </div>
