@@ -15,11 +15,32 @@ export default function ArchivesPage() {
     const [archives, setArchives] = useState<Archive[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [debouncedSearch, setDebouncedSearch] = useState('');
+
+    // Debounce search query
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearch(searchQuery);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [searchQuery]);
 
     useEffect(() => {
         const fetchArchives = async () => {
+            setLoading(true);
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives`);
+                const params = new URLSearchParams();
+                if (activeCategory !== 'All') {
+                    // Map frontend categories to potential backend types
+                    // 'Crafts' -> 'craft', 'Stories' -> 'story', etc.
+                    const type = activeCategory.toLowerCase().replace(/s$/, '');
+                    params.append('type', type);
+                }
+                if (debouncedSearch) {
+                    params.append('search', debouncedSearch);
+                }
+
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives?${params.toString()}`);
                 if (res.ok) {
                     const data = await res.json();
                     setArchives(data);
@@ -32,14 +53,10 @@ export default function ArchivesPage() {
         };
 
         fetchArchives();
-    }, []);
+    }, [activeCategory, debouncedSearch]);
 
-    const filteredItems = archives.filter(item => {
-        const matchesCategory = activeCategory === 'All' || item.type.toLowerCase() === activeCategory.toLowerCase();
-        const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.description.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
-    });
+    // Use archives directly as they are filtered by the backend
+    const filteredItems = archives;
 
     return (
         <div className="min-h-screen flex flex-col bg-white">

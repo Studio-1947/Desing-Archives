@@ -37,7 +37,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB limit
+    fileSize: 50 * 1024 * 1024, // 50MB limit
   },
 });
 
@@ -48,7 +48,7 @@ export const uploadMiddleware = (req: Request, res: Response, next: any) => {
         if (err.code === "LIMIT_FILE_SIZE") {
           return res
             .status(400)
-            .json({ message: "File too large. Maximum size is 10MB." });
+            .json({ message: "File too large. Maximum size is 50MB." });
         }
         return res
           .status(400)

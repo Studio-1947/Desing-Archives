@@ -1,8 +1,26 @@
 import prisma from "../config/prisma";
 
 export class ArchiveService {
-  async getAllArchives() {
+  async getAllArchives(filters?: { type?: string; search?: string }) {
+    const where: any = {};
+
+    if (filters?.type && filters.type !== "All") {
+      where.type = {
+        equals: filters.type.toLowerCase(),
+        mode: "insensitive",
+      };
+    }
+
+    if (filters?.search) {
+      where.OR = [
+        { title: { contains: filters.search, mode: "insensitive" } },
+        { description: { contains: filters.search, mode: "insensitive" } },
+        { content: { contains: filters.search, mode: "insensitive" } },
+      ];
+    }
+
     return prisma.archive.findMany({
+      where,
       orderBy: {
         createdAt: "desc",
       },

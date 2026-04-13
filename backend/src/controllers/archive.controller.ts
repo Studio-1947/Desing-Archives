@@ -6,7 +6,11 @@ const archiveService = new ArchiveService();
 export class ArchiveController {
   async getAllArchives(req: Request, res: Response) {
     try {
-      const archives = await archiveService.getAllArchives();
+      const { type, search } = req.query;
+      const archives = await archiveService.getAllArchives({
+        type: type as string,
+        search: search as string,
+      });
       res.json(archives);
     } catch (error) {
       res.status(500).json({ message: "Error fetching archives", error });
