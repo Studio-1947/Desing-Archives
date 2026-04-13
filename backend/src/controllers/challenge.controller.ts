@@ -6,11 +6,16 @@ const challengeService = new ChallengeService();
 export class ChallengeController {
   async getAllChallenges(req: Request, res: Response) {
     try {
-      const { type } = req.query;
-      const challenges = await challengeService.getAllChallenges(
-        type as string
+      const { type, page, limit } = req.query;
+      const pageNum = page ? parseInt(page as string) : 1;
+      const limitNum = limit ? parseInt(limit as string) : 9;
+
+      const result = await challengeService.getAllChallenges(
+        type as string,
+        pageNum,
+        limitNum
       );
-      res.json(challenges);
+      res.json(result);
     } catch (error) {
       res.status(500).json({ message: "Error fetching challenges", error });
     }

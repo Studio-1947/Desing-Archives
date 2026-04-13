@@ -1,12 +1,25 @@
 import prisma from "../config/prisma";
 
 export class ArchiveService {
-  async getAllArchives() {
-    return prisma.archive.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+  async getAllArchives(page: number = 1, limit: number = 9) {
+    const skip = (page - 1) * limit;
+
+    const [archives, total] = await Promise.all([
+      prisma.archive.findMany({
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      prisma.archive.count(),
+    ]);
+
+    return {
+      archives,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+    };
   }
 
   async getArchiveById(id: string) {

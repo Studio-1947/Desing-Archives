@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { MessageSquare, Eye, Pin, ArrowRight } from "lucide-react";
+import Pagination from "@/components/ui/Pagination";
 
 interface Discussion {
     id: string;
@@ -181,28 +182,11 @@ export default function DiscussionList({ sortBy = "newest" }: { sortBy?: string 
             </div>
 
             {/* Pagination Controls */}
-            {totalPages > 1 && (
-                <div className="flex justify-center gap-2 pt-8">
-                    <button
-                        onClick={() => setPage(p => Math.max(1, p - 1))}
-                        disabled={page === 1}
-                        className="px-4 py-2 text-sm font-medium uppercase tracking-wide border border-gray-200 hover:border-gray-900 disabled:opacity-50 disabled:hover:border-gray-200 transition-colors"
-                    >
-                        Previous
-                    </button>
-                    <div className="flex items-center gap-2 px-4">
-                        <span className="text-sm font-bold text-gray-900">Page {page}</span>
-                        <span className="text-sm text-gray-400">of {totalPages}</span>
-                    </div>
-                    <button
-                        onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                        disabled={page === totalPages}
-                        className="px-4 py-2 text-sm font-medium uppercase tracking-wide border border-gray-200 hover:border-gray-900 disabled:opacity-50 disabled:hover:border-gray-200 transition-colors"
-                    >
-                        Next
-                    </button>
-                </div>
-            )}
+            <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+            />
         </div>
     );
 }

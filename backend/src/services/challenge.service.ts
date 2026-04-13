@@ -3,10 +3,24 @@ import { Challenge } from "../types/challenge.types";
 import { getIO } from "../socket";
 
 export class ChallengeService {
-  async getAllChallenges(type?: string): Promise<Challenge[]> {
+  async getAllChallenges(type?: string, page: number = 1, limit: number = 9) {
     const where: any = type ? { type } : {};
-    const challenges = await prisma.challenge.findMany({ where });
-    return challenges as unknown as Challenge[];
+    const skip = (page - 1) * limit;
+
+    const [challenges, total] = await Promise.all([
+      prisma.challenge.findMany({
+        where,
+        skip,
+        take: limit,
+      }),
+      prisma.challenge.count({ where }),
+    ]);
+
+    return {
+      challenges: challenges as unknown as Challenge[],
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+    };
   }
 
   async getChallengeById(id: string): Promise<Challenge | undefined> {

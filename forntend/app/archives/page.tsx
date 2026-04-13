@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Search, Loader2 } from 'lucide-react';
 import { Archive } from '@/types/archive';
+import Pagination from '@/components/ui/Pagination';
 
 const CATEGORIES = ['All', 'Crafts', 'Innovations', 'Stories', 'Tools'];
 
@@ -15,14 +16,22 @@ export default function ArchivesPage() {
     const [archives, setArchives] = useState<Archive[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         const fetchArchives = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives?page=${page}&limit=9`);
                 if (res.ok) {
                     const data = await res.json();
-                    setArchives(data);
+                    if (data.archives) {
+                        setArchives(data.archives);
+                        setTotalPages(data.totalPages);
+                    } else {
+                        // Fallback for old API response
+                        setArchives(data);
+                    }
                 }
             } catch (error) {
                 console.error('Failed to fetch archives:', error);
@@ -32,7 +41,7 @@ export default function ArchivesPage() {
         };
 
         fetchArchives();
-    }, []);
+    }, [page]);
 
     const filteredItems = archives.filter(item => {
         const matchesCategory = activeCategory === 'All' || item.type.toLowerCase() === activeCategory.toLowerCase();
@@ -185,6 +194,13 @@ export default function ArchivesPage() {
                             )}
                         </div>
                     )}
+
+                    {/* Pagination */}
+                    <Pagination
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageChange={setPage}
+                    />
                 </section>
             </main>
             <Footer />

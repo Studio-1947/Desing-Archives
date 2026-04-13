@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ChallengeCard from '@/components/ChallengeCard';
 import { Search } from 'lucide-react';
 import { Challenge, ChallengeStatus, ChallengeCategory } from '@/types';
+import Pagination from '@/components/ui/Pagination';
 
 export default function ChallengesPage({ searchParams }: { searchParams: { type?: string } }) {
     const [challenges, setChallenges] = useState<Challenge[]>([]);
@@ -13,14 +14,22 @@ export default function ChallengesPage({ searchParams }: { searchParams: { type?
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedStatus, setSelectedStatus] = useState<ChallengeStatus | 'all'>('all');
     const [selectedCategory, setSelectedCategory] = useState<ChallengeCategory | 'all'>('all');
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
         const fetchChallenges = async () => {
             try {
                 const typeParam = searchParams?.type ? `?type=${searchParams.type}` : '';
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges${typeParam}`);
+                const separator = typeParam ? '&' : '?';
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges${typeParam}${separator}page=${page}&limit=9`);
                 const data = await res.json();
-                if (Array.isArray(data)) {
+
+                if (data.challenges) {
+                    setChallenges(data.challenges);
+                    setTotalPages(data.totalPages);
+                } else if (Array.isArray(data)) {
+                    // Fallback
                     setChallenges(data);
                 } else {
                     console.error('Expected array of challenges but got:', data);
@@ -34,7 +43,7 @@ export default function ChallengesPage({ searchParams }: { searchParams: { type?
         };
 
         fetchChallenges();
-    }, [searchParams?.type]);
+    }, [searchParams?.type, page]);
 
     const categories: (ChallengeCategory | 'all')[] = [
         'all',
@@ -158,6 +167,13 @@ export default function ChallengesPage({ searchParams }: { searchParams: { type?
                         </p>
                     </div>
                 )}
+
+                {/* Pagination */}
+                <Pagination
+                    currentPage={page}
+                    totalPages={totalPages}
+                    onPageChange={setPage}
+                />
             </main>
 
             <Footer />

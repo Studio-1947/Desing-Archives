@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Archive } from '@/types/archive';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import Modal from '@/components/ui/Modal';
+import Pagination from '@/components/ui/Pagination';
 import { useToast } from '@/context/ToastContext';
 
 export default function AdminArchivesPage() {
@@ -12,14 +13,23 @@ export default function AdminArchivesPage() {
     const [loading, setLoading] = useState(true);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [archiveToDelete, setArchiveToDelete] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const { showToast } = useToast();
 
     useEffect(() => {
         const fetchArchives = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives?page=${page}&limit=10`);
                 const data = await res.json();
-                setArchives(data);
+
+                if (data.archives) {
+                    setArchives(data.archives);
+                    setTotalPages(data.totalPages);
+                } else {
+                    // Fallback
+                    setArchives(data);
+                }
             } catch (error) {
                 console.error('Error fetching archives:', error);
                 showToast('Failed to fetch archives', 'error');
@@ -29,7 +39,7 @@ export default function AdminArchivesPage() {
         };
 
         fetchArchives();
-    }, [showToast]);
+    }, [showToast, page]);
 
     const confirmDelete = (id: string) => {
         setArchiveToDelete(id);
@@ -134,6 +144,12 @@ export default function AdminArchivesPage() {
                     </tbody>
                 </table>
             </div>
+
+            <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+            />
 
             <Modal
                 isOpen={isDeleteModalOpen}

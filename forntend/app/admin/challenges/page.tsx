@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Challenge } from '@/types';
 import { Plus, Edit, Trash2, Eye, CheckCircle } from 'lucide-react';
 import Modal from '@/components/ui/Modal';
+import Pagination from '@/components/ui/Pagination';
 import { useToast } from '@/context/ToastContext';
 
 export default function AdminChallengesPage() {
@@ -12,14 +13,24 @@ export default function AdminChallengesPage() {
     const [loading, setLoading] = useState(true);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [challengeToDelete, setChallengeToDelete] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const { showToast } = useToast();
 
     useEffect(() => {
         const fetchChallenges = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges?page=${page}&limit=10`);
                 const data = await res.json();
-                setChallenges(data);
+
+                if (data.challenges) {
+                    setChallenges(data.challenges);
+                    setTotalPages(data.totalPages);
+                } else if (Array.isArray(data)) {
+                    setChallenges(data);
+                } else {
+                    setChallenges([]);
+                }
             } catch (error) {
                 console.error('Error fetching challenges:', error);
                 showToast('Failed to fetch challenges', 'error');
@@ -29,7 +40,7 @@ export default function AdminChallengesPage() {
         };
 
         fetchChallenges();
-    }, [showToast]);
+    }, [showToast, page]);
 
     const confirmDelete = (id: string) => {
         setChallengeToDelete(id);
@@ -138,6 +149,12 @@ export default function AdminChallengesPage() {
                     </tbody>
                 </table>
             </div>
+
+            <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                onPageChange={setPage}
+            />
 
             <Modal
                 isOpen={isDeleteModalOpen}

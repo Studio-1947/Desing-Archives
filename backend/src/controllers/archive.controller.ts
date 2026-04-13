@@ -6,8 +6,12 @@ const archiveService = new ArchiveService();
 export class ArchiveController {
   async getAllArchives(req: Request, res: Response) {
     try {
-      const archives = await archiveService.getAllArchives();
-      res.json(archives);
+      const { page, limit } = req.query;
+      const pageNum = page ? parseInt(page as string) : 1;
+      const limitNum = limit ? parseInt(limit as string) : 9;
+
+      const result = await archiveService.getAllArchives(pageNum, limitNum);
+      res.json(result);
     } catch (error) {
       res.status(500).json({ message: "Error fetching archives", error });
     }
