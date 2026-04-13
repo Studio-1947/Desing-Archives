@@ -43,7 +43,7 @@ export default function SettingsPage() {
         if (!isAuthenticated && !isLoading) {
             router.push('/login');
         }
-    }, [isAuthenticated, router]);
+    }, [isAuthenticated, router, isLoading]);
 
     useEffect(() => {
         if (user) {
@@ -341,7 +341,7 @@ export default function SettingsPage() {
                                                 <Bell className="w-5 h-5 text-blue-600 flex-shrink-0" />
                                                 <div>
                                                     <p className="text-sm font-medium text-blue-900">Notification settings are currently being optimized.</p>
-                                                    <p className="text-xs text-blue-700 mt-1">We'll save your preferences locally for now. Global sync coming soon.</p>
+                                                    <p className="text-xs text-blue-700 mt-1">We&apos;ll save your preferences locally for now. Global sync coming soon.</p>
                                                 </div>
                                             </div>
                                         </div>

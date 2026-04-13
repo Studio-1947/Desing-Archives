@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import {
     MessageSquare,
@@ -83,16 +84,11 @@ export default function DiscussionDetail({ id }: { id: string }) {
     const { user } = useAuth();
     const router = useRouter();
 
-    useEffect(() => {
-        fetchDiscussion();
-        incrementViews();
-    }, [id]);
-
     const showToast = (message: string, type: ToastType) => {
         setToast({ message, type });
     };
 
-    const fetchDiscussion = async () => {
+    const fetchDiscussion = useCallback(async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions/${id}`);
             if (res.ok) {
@@ -109,9 +105,9 @@ export default function DiscussionDetail({ id }: { id: string }) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
 
-    const incrementViews = async () => {
+    const incrementViews = useCallback(async () => {
         try {
             await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions/${id}/view`, {
                 method: "POST",
@@ -119,7 +115,12 @@ export default function DiscussionDetail({ id }: { id: string }) {
         } catch (error) {
             console.error("Error incrementing views:", error);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        fetchDiscussion();
+        incrementViews();
+    }, [fetchDiscussion, incrementViews]);
 
     const handlePostComment = async (e: React.FormEvent, parentId?: string) => {
         e.preventDefault();
@@ -339,7 +340,13 @@ export default function DiscussionDetail({ id }: { id: string }) {
                         {coverImage.match(/\.(mp4|mov|webm)$/i) ? (
                             <video src={coverImage} controls className="w-full h-full object-cover" />
                         ) : (
-                            <img src={coverImage} alt={discussion.title} className="w-full h-full object-cover" />
+                            <Image 
+                                src={coverImage} 
+                                alt={discussion.title} 
+                                fill 
+                                className="object-cover" 
+                                unoptimized
+                            />
                         )}
                     </div>
                 )}
@@ -484,7 +491,13 @@ export default function DiscussionDetail({ id }: { id: string }) {
                                         {url.match(/\.(mp4|mov|webm)$/i) ? (
                                             <video src={url} controls className="w-full h-full object-cover" />
                                         ) : (
-                                            <img src={url} alt={`Attachment ${idx + 2}`} className="w-full h-full object-cover" />
+                                            <Image 
+                                                src={url} 
+                                                alt={`Attachment ${idx + 2}`} 
+                                                fill 
+                                                className="object-cover" 
+                                                unoptimized
+                                            />
                                         )}
                                     </div>
                                 ))}
@@ -580,11 +593,13 @@ const UserAvatar = ({ user, className = "w-8 h-8" }: { user: { name: string; pic
     return (
         <div className={`${className} bg-gray-100 border border-gray-200 flex items-center justify-center font-bold text-gray-900 flex-shrink-0`}>
             {user.picture && !error ? (
-                <img
+                <Image
                     src={user.picture}
                     alt={user.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     onError={() => setError(true)}
+                    unoptimized
                 />
             ) : (
                 user.name.charAt(0).toUpperCase()
@@ -710,7 +725,13 @@ const CommentItem = ({
                                 {url.match(/\.(mp4|mov|webm)$/i) ? (
                                     <video src={url} controls className="w-full h-full object-cover" />
                                 ) : (
-                                    <img src={url} alt="Attachment" className="w-full h-full object-cover" />
+                                    <Image 
+                                        src={url} 
+                                        alt="Attachment" 
+                                        fill 
+                                        className="object-cover" 
+                                        unoptimized
+                                    />
                                 )}
                             </div>
                         ))}

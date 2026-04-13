@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import { Upload, X, FileVideo, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { useToast } from '@/context/ToastContext';
 
@@ -98,7 +99,13 @@ export default function FileUpload({
                         {isVideo(url) ? (
                             <video src={url} className="w-full h-full object-cover" controls />
                         ) : (
-                            <img src={url} alt={`Uploaded ${index + 1}`} className="w-full h-full object-cover" />
+                            <Image 
+                                src={url} 
+                                alt={`Uploaded ${index + 1}`} 
+                                fill 
+                                className="object-cover" 
+                                unoptimized
+                            />
                         )}
                         <button
                             type="button"

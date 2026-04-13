@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MessageSquare, Eye, Pin, ArrowRight } from "lucide-react";
 
 interface Discussion {
@@ -37,15 +38,7 @@ export default function DiscussionList({ sortBy = "newest" }: { sortBy?: string 
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    useEffect(() => {
-        setPage(1); // Reset to page 1 when sort changes
-    }, [sortBy]);
-
-    useEffect(() => {
-        fetchDiscussions();
-    }, [sortBy, page]);
-
-    const fetchDiscussions = async () => {
+    const fetchDiscussions = useCallback(async () => {
         setLoading(true);
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/discussions?sortBy=${sortBy}&page=${page}&limit=5`);
@@ -64,7 +57,15 @@ export default function DiscussionList({ sortBy = "newest" }: { sortBy?: string 
         } finally {
             setLoading(false);
         }
-    };
+    }, [sortBy, page]);
+
+    useEffect(() => {
+        setPage(1); // Reset to page 1 when sort changes
+    }, [sortBy]);
+
+    useEffect(() => {
+        fetchDiscussions();
+    }, [fetchDiscussions]);
 
     if (loading && page === 1) {
         return <div className="text-center py-20 text-gray-500 uppercase tracking-wide text-sm">Loading discussions...</div>;
@@ -86,7 +87,13 @@ export default function DiscussionList({ sortBy = "newest" }: { sortBy?: string 
                                     discussion.mediaUrls[0].match(/\.(mp4|mov|webm)$/i) ? (
                                         <video src={discussion.mediaUrls[0]} className="w-full h-full object-cover" muted />
                                     ) : (
-                                        <img src={discussion.mediaUrls[0]} alt={discussion.title} className="w-full h-full object-cover" />
+                                        <Image 
+                                            src={discussion.mediaUrls[0]} 
+                                            alt={discussion.title} 
+                                            fill 
+                                            className="object-cover" 
+                                            unoptimized
+                                        />
                                     )
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-300">
@@ -157,14 +164,12 @@ export default function DiscussionList({ sortBy = "newest" }: { sortBy?: string 
                                             {discussion.comments.map((comment, idx) => (
                                                 <div key={idx} className="inline-block h-6 w-6 rounded-full ring-2 ring-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-900 border border-gray-200">
                                                     {comment.author.picture ? (
-                                                        <img
+                                                        <Image
                                                             src={comment.author.picture}
                                                             alt={comment.author.name}
-                                                            className="h-full w-full rounded-full object-cover"
-                                                            onError={(e) => {
-                                                                e.currentTarget.style.display = 'none';
-                                                                e.currentTarget.parentElement!.innerText = comment.author.name.charAt(0).toUpperCase();
-                                                            }}
+                                                            fill
+                                                            className="rounded-full object-cover"
+                                                            unoptimized
                                                         />
                                                     ) : (
                                                         comment.author.name.charAt(0).toUpperCase()

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import DiscussionList from "@/components/community/DiscussionList";
 import Link from "next/link";
 import { Plus, MessageSquare, Users, Search } from "lucide-react";
@@ -89,10 +90,12 @@ export default function CommunityPage() {
                                     >
                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors z-10" />
                                         {discussion.mediaUrls?.[0] ? (
-                                            <img
+                                            <Image
                                                 src={discussion.mediaUrls[0]}
                                                 alt={discussion.title}
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                                fill
+                                                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                                unoptimized
                                             />
                                         ) : (
                                             <div className="w-full h-full bg-gray-50 flex items-center justify-center">

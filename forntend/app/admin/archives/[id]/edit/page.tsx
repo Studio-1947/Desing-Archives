@@ -54,7 +54,7 @@ export default function EditArchivePage({ params }: { params: { id: string } }) 
                     parts.shift();
                 }
 
-                parts.forEach(part => {
+                parts.forEach((part: string) => {
                     const lines = part.split('\n');
                     const title = lines[0].trim();
                     const content = lines.slice(1).join('\n').trim();
