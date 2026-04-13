@@ -16,6 +16,7 @@ import archiveRoutes from "./routes/archive.routes";
 import contactRoutes from "./routes/contact.routes";
 import discussionRoutes from "./routes/discussion.routes";
 import prisma from "./config/prisma";
+import { setupSwagger } from "./config/swagger";
 
 dotenv.config();
 
@@ -24,14 +25,36 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false, // Required for Swagger UI if using helmet
+}));
 app.use(morgan("dev"));
 
+setupSwagger(app);
+
 // Routes
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Root endpoint to check if backend is running
+ *     responses:
+ *       200:
+ *         description: Backend is running
+ */
 app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 
+/**
+ * @swagger
+ * /api/health:
+ *   get:
+ *     summary: API health check
+ *     responses:
+ *       200:
+ *         description: API is healthy
+ */
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
