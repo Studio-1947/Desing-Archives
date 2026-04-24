@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import InteractiveGridBackground from '@/components/InteractiveGridBackground';
-import { ArrowRight, CheckCircle2, Users, Lightbulb, PenTool, Presentation, Share2, Calendar, Globe, Clock } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Users, Lightbulb, PenTool, Presentation, Share2, Calendar, Globe, Clock, Sparkles, Smartphone, MessageSquare, Layers } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import TimeFeatureCard from '@/components/TimeFeatureCard';
@@ -204,6 +204,108 @@ export default function WorkshopPage() {
                                 className="inline-block px-12 py-4 border border-gray-900 rounded-full text-gray-900 font-medium hover:bg-gray-900 hover:text-white transition-all duration-300"
                             >
                                 Know More
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Workshop Modules/Pillars Section */}
+                <section className="py-32 relative z-10 bg-white">
+                    <div className="container mx-auto px-6">
+                        <div className="max-w-4xl mb-20">
+                            <span className="text-sm font-bold tracking-widest uppercase text-red-500 mb-4 block">Our Specialization</span>
+                            <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+                                Our Learning <span className="italic font-serif font-light underline decoration-red-500/20 underline-offset-8">Pillars</span>
+                            </h2>
+                            <p className="text-xl text-gray-600 leading-relaxed max-w-2xl">
+                                A comprehensive ecosystem of workshops designed to empower creators, researchers, and changemakers with future-ready skills.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:h-[800px]">
+                            {/* Design Thinking - Large Vertical */}
+                            <Link href="/workshops/design-thinking" className="md:col-span-6 lg:col-span-4 group relative overflow-hidden bg-slate-50 border border-gray-100 p-10 flex flex-col justify-between hover:border-gray-900 transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 block">
+                                <div className="relative z-10">
+                                    <div className="w-16 h-16 border border-gray-900 flex items-center justify-center mb-10 bg-white group-hover:bg-gray-900 group-hover:text-white transition-all duration-500 transform group-hover:rotate-12">
+                                        <Lightbulb className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">Design Thinking & <br/>Problem Solving</h3>
+                                    <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                                        Master the human-centric approach to innovation. Identify real needs and build impactful solutions through empathy, ideation, and rapid prototyping.
+                                    </p>
+                                </div>
+                                <div className="relative z-10">
+                                    <div className="flex flex-wrap gap-2 mb-10">
+                                        {['Empathy Mapping', 'Ideation', 'Prototyping'].map((item) => (
+                                            <span key={item} className="text-xs font-bold uppercase tracking-widest text-gray-400 px-3 py-1 border border-gray-200 rounded-full">{item}</span>
+                                        ))}
+                                    </div>
+                                    <div className="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-xs border-b-2 border-gray-900 pb-1 group-hover:gap-4 transition-all w-fit">
+                                        Learn More <ArrowRight className="w-4 h-4" />
+                                    </div>
+                                </div>
+                                <div className="absolute -bottom-10 -right-10 text-[200px] font-bold text-black/[0.03] select-none pointer-events-none group-hover:text-black/[0.05] transition-colors leading-none">
+                                    01
+                                </div>
+                            </Link>
+
+                            {/* Digital Literacy - Top Wide */}
+                            <Link href="/workshops/digital-literacy" className="md:col-span-6 lg:col-span-8 group relative overflow-hidden bg-gray-50 border border-gray-100 p-10 flex flex-col md:flex-row gap-10 hover:border-gray-900 transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 block">
+                                <div className="flex-1 relative z-10">
+                                    <div className="w-16 h-16 border border-gray-900 flex items-center justify-center mb-10 bg-white group-hover:bg-gray-900 group-hover:text-white transition-all duration-500">
+                                        <Smartphone className="w-8 h-8" />
+                                    </div>
+                                    <h3 className="text-3xl font-bold text-gray-900 mb-6">Digital Literacy <br/><span className="text-red-500/80 font-serif italic text-2xl font-normal">(Basics to Social Media)</span></h3>
+                                    <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+                                        Navigating the digital landscape with confidence. From mastering essential software to crafting strategic social media narratives that resonate.
+                                    </p>
+                                </div>
+                                <div className="md:w-1/3 flex flex-col justify-end items-start md:items-end relative z-10">
+                                    <div className="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-xs border-b-2 border-gray-900 pb-1 group-hover:gap-4 transition-all w-fit">
+                                        Explore Scope <ArrowRight className="w-4 h-4" />
+                                    </div>
+                                </div>
+                                <div className="absolute -top-10 right-20 text-[240px] font-bold text-black/[0.03] select-none pointer-events-none leading-none">
+                                    02
+                                </div>
+                            </Link>
+
+                            {/* AI Literacy - Bottom Left */}
+                            <Link href="/workshops/ai-literacy" className="md:col-span-6 lg:col-span-4 group relative overflow-hidden bg-amber-50/30 border border-gray-100 p-10 flex flex-col justify-between hover:border-gray-900 transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 block">
+                                <div className="relative z-10">
+                                    <div className="w-14 h-14 border border-gray-900 flex items-center justify-center mb-8 bg-white group-hover:bg-gray-900 group-hover:text-white transition-all duration-500 transform group-hover:rotate-[-12deg]">
+                                        <Sparkles className="w-7 h-7" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">AI Literacy</h3>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        The future belongs to those who co-create with intelligence. Learn ethics, prompt engineering, and AI-driven design workflows.
+                                    </p>
+                                </div>
+                                <div className="relative z-10 inline-flex items-center gap-2 font-bold uppercase tracking-widest text-xs border-b-2 border-gray-900 pb-1 group-hover:gap-4 transition-all w-fit pointer-events-auto">
+                                    Join the Future <ArrowRight className="w-4 h-4" />
+                                </div>
+                                <div className="absolute -bottom-8 right-8 text-[120px] font-bold text-black/[0.03] select-none pointer-events-none leading-none">
+                                    03
+                                </div>
+                            </Link>
+
+                            {/* Strategy - Bottom Right */}
+                            <Link href="/workshops/strategy-storytelling" className="md:col-span-6 lg:col-span-4 group relative overflow-hidden bg-emerald-50/20 border border-gray-100 p-10 flex flex-col justify-between hover:border-gray-900 transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 block">
+                                <div className="relative z-10">
+                                    <div className="w-14 h-14 border border-gray-900 flex items-center justify-center mb-8 bg-white group-hover:bg-gray-900 group-hover:text-white transition-all duration-500">
+                                        <Presentation className="w-7 h-7" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Strategy & Storytelling</h3>
+                                    <p className="text-gray-600 leading-relaxed">
+                                        Design is silent without a story. Craft compelling narratives and strategic frameworks that drive action and build brands.
+                                    </p>
+                                </div>
+                                <div className="relative z-10 inline-flex items-center gap-2 font-bold uppercase tracking-widest text-xs border-b-2 border-gray-900 pb-1 group-hover:gap-4 transition-all w-fit pointer-events-auto">
+                                    Master Narrative <ArrowRight className="w-4 h-4" />
+                                </div>
+                                <div className="absolute -bottom-8 right-8 text-[120px] font-bold text-black/[0.03] select-none pointer-events-none leading-none">
+                                    04
+                                </div>
                             </Link>
                         </div>
                     </div>
