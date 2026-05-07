@@ -273,9 +273,31 @@ export default function ArchiveDetailPage({ params }: { params: Promise<{ id: st
 
                                     const flushParagraph = (idx: number) => {
                                         if (currentParagraph.length > 0) {
-                                            elements.push(
-                                                <p key={`p-${idx}`} dangerouslySetInnerHTML={{ __html: currentParagraph.join(' ') }} />
-                                            );
+                                            // Join with newline to preserve HTML structure if it's block HTML
+                                            const content = currentParagraph.join('\n');
+
+                                            // More robust block level detection
+                                            const isBlockHTML = /^\s*<(blockquote|div|ul|ol|figure|table|section|hr|p|video|img|h[1-6])/i.test(content.trim());
+
+                                            if (isBlockHTML) {
+                                                elements.push(
+                                                    <div
+                                                        key={`html-${idx}`}
+                                                        dangerouslySetInnerHTML={{ __html: content }}
+                                                        className="mb-8 last:mb-0"
+                                                    />
+                                                );
+                                            } else {
+                                                // For normal text, we can join with space or keep newlines as <br/>
+                                                // Joining with space handles the "too much gap" issue while forming a paragraph
+                                                elements.push(
+                                                    <p
+                                                        key={`p-${idx}`}
+                                                        className="mb-6 last:mb-0 leading-relaxed text-gray-700"
+                                                        dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, ' ') }}
+                                                    />
+                                                );
+                                            }
                                             currentParagraph = [];
                                         }
                                     };
@@ -285,7 +307,7 @@ export default function ArchiveDetailPage({ params }: { params: Promise<{ id: st
 
                                         // Heading detection
                                         const hMatch = trimmed.match(/^(#{1,3})\s+(.+)$/);
-                                        const isAllCapsHeading = trimmed.length > 3 && trimmed === trimmed.toUpperCase() && !trimmed.match(/[0-9]/);
+                                        const isAllCapsHeading = trimmed.length > 3 && trimmed === trimmed.toUpperCase() && !trimmed.match(/[0-9]/) && !trimmed.startsWith('<');
 
                                         if (hMatch || isAllCapsHeading) {
                                             flushParagraph(idx);
@@ -293,14 +315,14 @@ export default function ArchiveDetailPage({ params }: { params: Promise<{ id: st
                                             const level = hMatch ? hMatch[1].length : 2;
                                             const Tag = level === 1 ? 'h2' : level === 2 ? 'h3' : 'h4' as any;
                                             elements.push(
-                                                <section key={`sec-${idx}`} id={`section-${idx}`} className="scroll-mt-32">
-                                                    <Tag dangerouslySetInnerHTML={{ __html: text }} />
+                                                <section key={`sec-${idx}`} id={`section-${idx}`} className="scroll-mt-32 mb-12">
+                                                    <Tag className="font-bold text-gray-900 tracking-tight" dangerouslySetInnerHTML={{ __html: text }} />
                                                 </section>
                                             );
                                         } else if (trimmed === '') {
                                             flushParagraph(idx);
                                         } else {
-                                            currentParagraph.push(trimmed);
+                                            currentParagraph.push(line); // Keep original line with indentation
                                         }
                                     });
 
