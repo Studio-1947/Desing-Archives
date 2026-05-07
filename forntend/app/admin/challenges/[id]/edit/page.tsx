@@ -1,22 +1,21 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import ChallengeForm from '@/components/admin/ChallengeForm';
 import { Challenge } from '@/types';
-import { useParams } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
-export default function EditChallengePage() {
-    const params = useParams();
+export default function EditChallengePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
     const [challenge, setChallenge] = useState<Challenge | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (params.id) {
-            fetchChallenge(params.id as string);
+        if (id) {
+            fetchChallenge(id);
         }
-    }, [params.id]);
+    }, [id]);
 
     const fetchChallenge = async (id: string) => {
         try {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/context/ToastContext';
 import { ArrowLeft, Plus, Trash2, GripVertical, Info } from 'lucide-react';
@@ -12,7 +12,8 @@ interface ArchiveSection {
     content: string;
 }
 
-export default function EditArchivePage({ params }: { params: { id: string } }) {
+export default function EditArchivePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
     const router = useRouter();
     const { showToast } = useToast();
     const [loading, setLoading] = useState(true);
@@ -29,7 +30,7 @@ export default function EditArchivePage({ params }: { params: { id: string } }) 
     useEffect(() => {
         const fetchArchive = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives/${params.id}`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives/${id}`);
                 if (!res.ok) throw new Error('Failed to fetch archive');
                 const data = await res.json();
                 
@@ -79,7 +80,7 @@ export default function EditArchivePage({ params }: { params: { id: string } }) 
         };
 
         fetchArchive();
-    }, [params.id, router, showToast]);
+    }, [id, router, showToast]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -125,7 +126,7 @@ export default function EditArchivePage({ params }: { params: { id: string } }) 
         };
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives/${params.id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
