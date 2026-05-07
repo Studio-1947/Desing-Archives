@@ -74,11 +74,6 @@
     @apply mb-8;
   }
 
-  .post-body p:first-of-type::first-letter {
-    @apply float-left text-7xl font-bold mr-4 mt-1 text-gray-900;
-    line-height: 0.8;
-  }
-
   /* Pull Quote Style */
   .post-body blockquote {
     @apply relative my-16 py-12 px-12 bg-gray-50 border-l-4 border-gray-900 italic text-2xl text-gray-900 font-medium;
