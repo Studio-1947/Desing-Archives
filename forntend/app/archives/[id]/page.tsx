@@ -266,33 +266,47 @@ export default function ArchiveDetailPage({ params }: { params: Promise<{ id: st
                             )}
 
                             <div id="documentation" className="selection:bg-gray-900 selection:text-white">
-                                {archive.content.split('\n').map((line, idx) => {
-                                    const trimmed = line.trim();
-                                    if (!trimmed) return null;
+                                {(() => {
+                                    const lines = archive.content.split('\n');
+                                    const elements: React.ReactNode[] = [];
+                                    let currentParagraph: string[] = [];
 
-                                    const hMatch = trimmed.match(/^(#{1,3})\s+(.+)$/);
+                                    const flushParagraph = (idx: number) => {
+                                        if (currentParagraph.length > 0) {
+                                            elements.push(
+                                                <p key={`p-${idx}`} dangerouslySetInnerHTML={{ __html: currentParagraph.join(' ') }} />
+                                            );
+                                            currentParagraph = [];
+                                        }
+                                    };
 
-                                    if (hMatch) {
-                                        const level = hMatch[1].length;
-                                        const text = hMatch[2];
-                                        const Tag = level === 1 ? 'h2' : level === 2 ? 'h3' : 'h4';
-                                        return (
-                                            <section key={idx} id={`section-${idx}`} className="scroll-mt-32">
-                                                <Tag dangerouslySetInnerHTML={{ __html: text }} />
-                                            </section>
-                                        );
-                                    }
+                                    lines.forEach((line, idx) => {
+                                        const trimmed = line.trim();
 
-                                    if (trimmed.length > 3 && trimmed === trimmed.toUpperCase() && !trimmed.match(/[0-9]/)) {
-                                        return (
-                                            <section key={idx} id={`section-${idx}`} className="scroll-mt-32">
-                                                <h2 dangerouslySetInnerHTML={{ __html: trimmed }} />
-                                            </section>
-                                        );
-                                    }
+                                        // Heading detection
+                                        const hMatch = trimmed.match(/^(#{1,3})\s+(.+)$/);
+                                        const isAllCapsHeading = trimmed.length > 3 && trimmed === trimmed.toUpperCase() && !trimmed.match(/[0-9]/);
 
-                                    return <p key={idx} dangerouslySetInnerHTML={{ __html: line }} />;
-                                })}
+                                        if (hMatch || isAllCapsHeading) {
+                                            flushParagraph(idx);
+                                            const text = hMatch ? hMatch[2] : trimmed;
+                                            const level = hMatch ? hMatch[1].length : 2;
+                                            const Tag = level === 1 ? 'h2' : level === 2 ? 'h3' : 'h4' as any;
+                                            elements.push(
+                                                <section key={`sec-${idx}`} id={`section-${idx}`} className="scroll-mt-32">
+                                                    <Tag dangerouslySetInnerHTML={{ __html: text }} />
+                                                </section>
+                                            );
+                                        } else if (trimmed === '') {
+                                            flushParagraph(idx);
+                                        } else {
+                                            currentParagraph.push(trimmed);
+                                        }
+                                    });
+
+                                    flushParagraph(lines.length);
+                                    return elements;
+                                })()}
                             </div>
 
                             {/* 6. FOOTER OF POST */}

@@ -71,7 +71,7 @@
   }
 
   .post-body p {
-    @apply mb-8;
+    @apply mb-5;
   }
 
   /* Pull Quote Style */
