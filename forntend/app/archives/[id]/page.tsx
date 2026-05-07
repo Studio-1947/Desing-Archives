@@ -199,9 +199,7 @@ export default function ArchiveDetailPage() {
                                     <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-[0.9] tracking-tighter">
                                         {archive.title}
                                     </h1>
-                                    <p className="text-2xl text-gray-500 leading-relaxed font-light">
-                                        {archive.description}
-                                    </p>
+                                    <p className="text-2xl text-gray-500 leading-relaxed font-light" dangerouslySetInnerHTML={{ __html: archive.description }} />
                                 </header>
 
                                 {archive.coverImage && (
@@ -227,9 +225,7 @@ export default function ArchiveDetailPage() {
                                             const text = hMatch[2];
                                             const Tag = level === 1 ? 'h2' : level === 2 ? 'h3' : 'h4';
                                             return (
-                                                <Tag key={idx} id={`section-${idx}`} className="font-bold text-gray-900 mt-12 mb-6 tracking-tight uppercase">
-                                                    {text}
-                                                </Tag>
+                                                <Tag key={idx} id={`section-${idx}`} className="font-bold text-gray-900 mt-12 mb-6 tracking-tight uppercase" dangerouslySetInnerHTML={{ __html: text }} />
                                             );
                                         }
 
@@ -241,7 +237,7 @@ export default function ArchiveDetailPage() {
                                             );
                                         }
 
-                                        return <p key={idx} className="mb-6 leading-relaxed text-gray-700">{line}</p>;
+                                        return <p key={idx} className="mb-6 leading-relaxed text-gray-700" dangerouslySetInnerHTML={{ __html: line }} />;
                                     })}
                                 </div>
 
