@@ -63,6 +63,62 @@
   .section-divider {
     @apply border-t border-gray-200 my-16;
   }
+
+  /* Editorial Typography & Layout */
+  .post-body {
+    @apply text-gray-800 leading-relaxed;
+    font-size: 1.05rem;
+  }
+
+  .post-body p {
+    @apply mb-8 last:mb-0;
+  }
+
+  /* Pull Quote Style */
+  .post-body blockquote, .pull-quote {
+    @apply relative my-16 py-12 px-12 bg-gray-50 border-l-4 border-gray-900 italic text-2xl text-gray-900 font-medium;
+  }
+
+  .post-body blockquote::before, .pull-quote::before {
+    content: '"';
+    @apply absolute top-4 left-4 text-8xl text-gray-200 font-serif leading-none;
+  }
+
+  /* Named Section Divider Style */
+  .post-body h2 {
+    @apply flex items-center gap-6 my-16 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-400;
+  }
+
+  .post-body h2::after {
+    content: '';
+    @apply flex-1 h-px bg-gray-100;
+  }
+
+  .post-body h3 {
+    @apply text-2xl font-bold text-gray-900 mt-20 mb-8 tracking-tight uppercase;
+  }
+
+  /* Callout Box */
+  .callout {
+    @apply flex gap-6 p-8 my-12 bg-gray-50 border border-gray-100 text-sm leading-relaxed text-gray-600;
+  }
+
+  /* Sidenote Wrapper */
+  .sidenote-wrap {
+    @apply grid grid-cols-1 min-[1100px]:grid-cols-[1fr_200px] gap-12 my-12;
+  }
+
+  .sidenote {
+    @apply text-[11px] text-gray-400 italic leading-relaxed pt-4 border-t border-gray-100 min-[1100px]:border-t-0 min-[1100px]:pt-0 min-[1100px]:border-l min-[1100px]:pl-8;
+  }
+
+  .section-divider {
+    @apply border-0 border-t border-gray-100 my-16 h-px w-full;
+  }
+
+  .plate-label {
+    @apply text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mt-4 mb-8;
+  }
 }
 
 @layer utilities {

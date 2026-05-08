@@ -3,6 +3,7 @@ export const ARCHIVE_ITEMS = [
     id: "01",
     title: "JAGDISH",
     category: "Crafts",
+    
     image:
       "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800&q=80", // Hands/Craft
     location: "West Bengal",

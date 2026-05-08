@@ -31,8 +31,9 @@ import ChallengeStats from '@/components/ChallengeStats';
 
 // ... (imports remain the same)
 
-export default async function ChallengePage({ params }: { params: { id: string } }) {
-    const challenge = await getChallenge(params.id);
+export default async function ChallengePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const challenge = await getChallenge(id);
 
     if (!challenge) {
         notFound();

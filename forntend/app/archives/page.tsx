@@ -175,9 +175,7 @@ export default function ArchivesPage() {
                                             <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
                                                 {item.title}
                                             </h3>
-                                            <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                                                {item.description}
-                                            </p>
+                                            <p className="text-sm text-gray-500 mt-1 line-clamp-2" dangerouslySetInnerHTML={{ __html: item.description }} />
                                         </div>
                                         <div className="w-8 h-8 border border-gray-200 flex items-center justify-center rounded-full group-hover:bg-gray-900 group-hover:border-gray-900 transition-all shrink-0 ml-4">
                                             <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-white" />
