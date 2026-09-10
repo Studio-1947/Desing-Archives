@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Twitter, Linkedin, Instagram, Mail } from 'lucide-react';
+import ComingSoonBadge from './ComingSoonBadge';
 
 interface FooterProps {
     className?: string;
@@ -52,10 +53,9 @@ export default function Footer({ className }: FooterProps) {
                     <div>
                         <h4 className="text-sm font-semibold text-gray-900 mb-6 tracking-wide uppercase">Platform</h4>
                         <ul className="space-y-3">
-                            <li>
-                                <Link href="/challenges" className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200">
-                                    Browse Challenges
-                                </Link>
+                            <li className="flex items-center gap-2">
+                                <span className="text-sm text-gray-400">Browse Challenges</span>
+                                <ComingSoonBadge />
                             </li>
                             <li>
                                 <Link href="/archives" className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200">

@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import LoginButton from './LoginButton';
+import ComingSoonBadge from './ComingSoonBadge';
 
 const words = ['Community', 'Archives', 'Workshops', 'Challenges'];
 
@@ -12,7 +13,6 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeTextIndex, setActiveTextIndex] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
-    const [isChallengesOpen, setIsChallengesOpen] = useState(false);
 
 
 
@@ -72,28 +72,10 @@ export default function Header() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-                        <div className="relative group">
-                            <button
-                                className="flex items-center gap-1 text-sm font-medium tracking-wide text-gray-700 hover:text-gray-900 transition-colors duration-200 uppercase"
-                            >
-                                Challenges
-                                <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-200" />
-                            </button>
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white border border-gray-200 shadow-lg rounded-sm py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                <Link
-                                    href="/challenges"
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 uppercase tracking-wide"
-                                >
-                                    All Challenges
-                                </Link>
-                                <Link
-                                    href="/challenges?type=student"
-                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 uppercase tracking-wide"
-                                >
-                                    Student
-                                </Link>
-                            </div>
-                        </div>
+                        <span className="flex items-center gap-2 text-sm font-medium tracking-wide text-gray-400 uppercase cursor-default">
+                            Challenges
+                            <ComingSoonBadge />
+                        </span>
 
                         <Link
                             href="/workshops"
@@ -152,32 +134,9 @@ export default function Header() {
                 {isMenuOpen && (
                     <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 py-6 px-6 shadow-lg animate-fade-in">
                         <div className="flex flex-col gap-6">
-                            <div className="space-y-4">
-                                <button
-                                    onClick={() => setIsChallengesOpen(!isChallengesOpen)}
-                                    className="flex items-center justify-between w-full text-lg font-medium tracking-wide text-gray-900 hover:text-gray-600 transition-colors duration-200 uppercase"
-                                >
-                                    Challenges
-                                    <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${isChallengesOpen ? 'rotate-180' : ''}`} />
-                                </button>
-                                {isChallengesOpen && (
-                                    <div className="pl-4 flex flex-col gap-4 border-l border-gray-100 ml-1">
-                                        <Link
-                                            href="/challenges"
-                                            className="text-base font-medium tracking-wide text-gray-600 hover:text-gray-900 uppercase"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            All Challenges
-                                        </Link>
-                                        <Link
-                                            href="/challenges?type=student"
-                                            className="text-base font-medium tracking-wide text-gray-600 hover:text-gray-900 uppercase"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            Student
-                                        </Link>
-                                    </div>
-                                )}
+                            <div className="flex items-center justify-between w-full text-lg font-medium tracking-wide text-gray-400 uppercase">
+                                Challenges
+                                <ComingSoonBadge />
                             </div>
                             <Link
                                 href="/workshops"

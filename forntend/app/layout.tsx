@@ -11,12 +11,12 @@ const inter = Inter({
 
 export const metadata: Metadata = {
     title: "Local Design - Community & Archives",
-    description: "Join design challenges, showcase your work, and connect with the creative community. Rooted in local wisdom, designed for global impact.",
-    keywords: ["Design", "Challenges", "Portfolio", "Community", "Graphic Design", "UI/UX", "Brand Identity"],
+    description: "Explore a growing archive of local design work, showcase your own, and connect with the creative community. Rooted in local wisdom, designed for global impact.",
+    keywords: ["Design", "Archive", "Portfolio", "Community", "Graphic Design", "UI/UX", "Brand Identity"],
     authors: [{ name: "Studio 1947" }],
     openGraph: {
         title: "Design Archives by Studio 1947",
-        description: "Design challenges and community platform",
+        description: "A design archive and community platform",
         type: "website",
     },
     icons: {

@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Trophy, Clock, CheckCircle, Calendar, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ComingSoonBadge from '@/components/ComingSoonBadge';
 
 interface Participation {
     id: string;
@@ -51,11 +52,14 @@ export default function ProfileHistory() {
     if (participations.length === 0) {
         return (
             <div className="text-center py-16 border-2 border-dashed border-gray-200 bg-gray-50">
-                <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide mb-2">No challenges yet</h3>
-                <p className="text-gray-500 mb-8 max-w-md mx-auto">You have not participated in any challenges yet. Start your journey today.</p>
-                <Link href="/challenges" className="btn-primary-minimal inline-flex items-center gap-2">
-                    Browse Challenges
+                <Trophy className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <div className="mb-2 flex items-center justify-center gap-2">
+                    <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wide">Design Challenges</h3>
+                    <ComingSoonBadge />
+                </div>
+                <p className="text-gray-500 mb-8 max-w-md mx-auto">Challenge participation history will show up here once the first challenge cycle launches.</p>
+                <Link href="/archives" className="btn-primary-minimal inline-flex items-center gap-2">
+                    Explore the Archive
                     <ArrowRight size={16} />
                 </Link>
             </div>
