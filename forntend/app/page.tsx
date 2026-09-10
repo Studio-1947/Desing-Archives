@@ -3,50 +3,42 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import ChallengeCard from '@/components/ChallengeCard';
-import { ArrowRight, Users, Eye, Award, Sparkles, Target, TrendingUp } from 'lucide-react';
+import ComingSoonBadge from '@/components/ComingSoonBadge';
+import { ArrowRight, Users, Award, Archive, Sparkles, Target, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
-    const [challenges, setChallenges] = useState<any[]>([]);
+    const [archives, setArchives] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchChallenges();
+        fetchArchives();
     }, []);
 
-    const fetchChallenges = async () => {
+    const fetchArchives = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/challenges`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/archives`);
             const data = await res.json();
             if (Array.isArray(data)) {
-                setChallenges(data);
+                setArchives(data);
             } else {
-                console.error('Expected array of challenges but got:', data);
-                setChallenges([]);
+                console.error('Expected array of archives but got:', data);
+                setArchives([]);
             }
         } catch (error) {
-            console.error('Error fetching challenges:', error);
+            console.error('Error fetching archives:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    const activeChallenges = challenges.filter(c => c.status === 'active');
-    const featuredChallenges = activeChallenges.slice(0, 3);
-
-    const totalParticipants = challenges.reduce((sum, c) => sum + (c.totalParticipants || 0), 0);
-    const totalViews = challenges.reduce((sum, c) => sum + (c.totalViews || 0), 0);
-    const totalPrizes = challenges.reduce((sum, c) => sum + (c.prizePool || 0), 0);
+    const archiveCount = archives.length;
+    const featuredArchive = archives[0];
 
     return (
         <div className="min-h-screen flex flex-col bg-white">
             <Header />
-            {/* DEBUG BANNER */}
-            {/* <div className="bg-yellow-100 p-2 text-center text-xs font-mono text-yellow-800 border-b border-yellow-200">
-                API: {process.env.NEXT_PUBLIC_API_URL} | Count: {challenges.length} | Loading: {loading.toString()}
-            </div> */}
 
             <main className="flex-1">
                 {/* Hero Section - Two Column Layout */}
@@ -72,10 +64,10 @@ export default function Home() {
 
                             <div className="flex flex-col sm:flex-row gap-4 mb-12">
                                 <Link
-                                    href="/challenges"
+                                    href="/archives"
                                     className="btn-primary-minimal inline-flex items-center justify-center gap-2"
                                 >
-                                    <span>Explore the Challenge</span>
+                                    <span>Explore the Archive</span>
                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </Link>
                                 <Link
@@ -94,18 +86,17 @@ export default function Home() {
                             </div> */}
 
                             {/* Quick Stats */}
-                            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
+                            <div className="grid grid-cols-2 gap-6 pt-8 border-t border-gray-200">
                                 <div>
-                                    <p className="text-3xl font-bold text-gray-900">{activeChallenges.length}+</p>
-                                    <p className="text-xs text-gray-600 uppercase tracking-wide mt-1">Active</p>
+                                    <p className="text-3xl font-bold text-gray-900">{archiveCount}+</p>
+                                    <p className="text-xs text-gray-600 uppercase tracking-wide mt-1">Archive Entries</p>
                                 </div>
                                 <div>
-                                    <p className="text-3xl font-bold text-gray-900">{(totalParticipants / 1000).toFixed(1)}K+</p>
-                                    <p className="text-xs text-gray-600 uppercase tracking-wide mt-1">Designers</p>
-                                </div>
-                                <div>
-                                    <p className="text-3xl font-bold text-gray-900">₹{(totalPrizes / 1000).toFixed(0)}K+</p>
-                                    <p className="text-xs text-gray-600 uppercase tracking-wide mt-1">Prizes</p>
+                                    <p className="text-3xl font-bold text-gray-300">—</p>
+                                    <p className="text-xs text-gray-600 uppercase tracking-wide mt-1 flex items-center gap-2">
+                                        Challenges
+                                        <ComingSoonBadge />
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +113,8 @@ export default function Home() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500" />
                                 <div className="absolute bottom-0 left-0 right-0 p-6 md:pl-64 text-white transform translate-y-0 opacity-100 md:translate-y-full md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
-                                    <p className="text-xs uppercase tracking-extra-wide mb-2">Featured Challenge</p>
-                                    <h3 className="text-xl font-bold">Sustainable Brand Identity 2024</h3>
+                                    <p className="text-xs uppercase tracking-extra-wide mb-2">From the Archive</p>
+                                    <h3 className="text-xl font-bold">{featuredArchive?.title || 'Local Design Wisdom'}</h3>
                                 </div>
                             </div>
 
@@ -131,11 +122,11 @@ export default function Home() {
                             <div className="relative mt-4 md:absolute md:mt-0 md:-bottom-8 md:-left-8 bg-white border-2 border-gray-900 p-6 shadow-lg animate-scale-in hover-lift w-full md:w-auto">
                                 <div className="flex items-center gap-3">
                                     <div className="p-3 border border-gray-900">
-                                        <Users className="w-6 h-6 text-gray-900" />
+                                        <Archive className="w-6 h-6 text-gray-900" />
                                     </div>
                                     <div>
-                                        <p className="text-2xl font-bold text-gray-900">847</p>
-                                        <p className="text-xs text-gray-600 uppercase tracking-wide">Participants</p>
+                                        <p className="text-2xl font-bold text-gray-900">{archiveCount}</p>
+                                        <p className="text-xs text-gray-600 uppercase tracking-wide">Archive Entries</p>
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +137,8 @@ export default function Home() {
                                         <Award className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <p className="text-2xl font-bold">₹25K</p>
-                                        <p className="text-xs uppercase tracking-wide opacity-80">Prize Pool</p>
+                                        <p className="text-sm font-bold">Challenges</p>
+                                        <ComingSoonBadge className="border-white/40 text-white/80 mt-1" />
                                     </div>
                                 </div>
                             </div>
@@ -168,49 +159,24 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Featured Challenges */}
+                {/* Design Challenges */}
                 <section className="container mx-auto px-6 py-24">
-                    <div className="mb-12">
-                        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-                            <div className="max-w-2xl">
-                                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                                    Featured Challenges
-                                </h2>
-                                <p className="text-gray-600 leading-relaxed">
-                                    Explore our curated design challenges that celebrate creativity,
-                                    cultural heritage, and innovative thinking. Each challenge is designed
-                                    to push boundaries while honoring tradition.
-                                </p>
-                            </div>
-                            <Link
-                                href="/challenges"
-                                className="btn-underline hidden md:flex whitespace-nowrap"
-                            >
-                                <span>View All</span>
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {featuredChallenges.map((challenge, index) => (
-                            <div
-                                key={challenge.id}
-                                className="animate-fade-in"
-                                style={{ animationDelay: `${index * 0.1}s` }}
-                            >
-                                <ChallengeCard challenge={challenge} />
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="text-center mt-12 md:hidden">
+                    <div className="border-2 border-dashed border-gray-300 px-8 py-16 md:px-16 flex flex-col items-center text-center gap-4">
+                        <ComingSoonBadge className="text-xs px-3 py-1" />
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                            Design Challenges
+                        </h2>
+                        <p className="text-gray-600 leading-relaxed max-w-xl">
+                            We&apos;re building a real challenge cycle — timed briefs, submissions,
+                            and a leaderboard. Nothing&apos;s live yet, so there&apos;s nothing to show here.
+                            In the meantime, explore what&apos;s already in the Archive.
+                        </p>
                         <Link
-                            href="/challenges"
-                            className="btn-secondary-minimal inline-flex items-center gap-2"
+                            href="/archives"
+                            className="btn-underline mt-2"
                         >
-                            <span>View All Challenges</span>
-                            <ArrowRight className="w-4 h-4" />
+                            <span>Explore the Archive</span>
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
                 </section>
@@ -265,28 +231,16 @@ export default function Home() {
 
                             {/* Right - Stats Grid */}
                             <div className="grid grid-cols-2 gap-6">
-                                <div className="border-2 border-gray-900 p-8 text-center hover:bg-gray-900 hover:text-white transition-all duration-300 group hover-lift">
-                                    <Award className="w-8 h-8 mx-auto mb-4 text-gray-900 group-hover:text-white" />
-                                    <p className="text-4xl font-bold mb-2">{activeChallenges.length}</p>
-                                    <p className="text-xs uppercase tracking-wide opacity-60">Active Challenges</p>
-                                </div>
-
-                                <div className="border-2 border-gray-200 p-8 text-center hover:border-gray-900 transition-all duration-300 hover-lift">
-                                    <Users className="w-8 h-8 text-gray-900 mx-auto mb-4" />
-                                    <p className="text-4xl font-bold text-gray-900 mb-2">{totalParticipants.toLocaleString()}</p>
-                                    <p className="text-xs text-gray-600 uppercase tracking-wide">Community Members</p>
-                                </div>
-
-                                <div className="border-2 border-gray-200 p-8 text-center hover:border-gray-900 transition-all duration-300 hover-lift">
-                                    <Eye className="w-8 h-8 text-gray-900 mx-auto mb-4" />
-                                    <p className="text-4xl font-bold text-gray-900 mb-2">{totalViews.toLocaleString()}</p>
-                                    <p className="text-xs text-gray-600 uppercase tracking-wide">Total Views</p>
-                                </div>
-
                                 <div className="border-2 border-gray-900 bg-gray-900 text-white p-8 text-center hover:bg-gray-800 transition-all duration-300 hover-lift">
-                                    <Award className="w-8 h-8 mx-auto mb-4" />
-                                    <p className="text-4xl font-bold mb-2">₹{(totalPrizes / 1000).toFixed(0)}K</p>
-                                    <p className="text-xs uppercase tracking-wide opacity-80">Total Prizes</p>
+                                    <Archive className="w-8 h-8 mx-auto mb-4" />
+                                    <p className="text-4xl font-bold mb-2">{archiveCount}</p>
+                                    <p className="text-xs uppercase tracking-wide opacity-80">Archive Entries</p>
+                                </div>
+
+                                <div className="border-2 border-gray-200 p-8 text-center hover:border-gray-900 transition-all duration-300 hover-lift flex flex-col items-center justify-center gap-3">
+                                    <Award className="w-8 h-8 text-gray-300" />
+                                    <p className="text-sm font-bold text-gray-900">Design Challenges</p>
+                                    <ComingSoonBadge />
                                 </div>
                             </div>
                         </div>
@@ -500,15 +454,15 @@ export default function Home() {
                                     Ready to Showcase Your Design?
                                 </h2>
                                 <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-                                    Join our community of designers and participate in challenges that
-                                    celebrate creativity and cultural authenticity.
+                                    Join our community of designers, explore the Archive, and share
+                                    work that celebrates creativity and cultural authenticity.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                     <Link
-                                        href="/challenges"
+                                        href="/archives"
                                         className="btn-ripple inline-flex items-center justify-center"
                                     >
-                                        <span>Browse Challenges</span>
+                                        <span>Explore the Archive</span>
                                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                     <Link

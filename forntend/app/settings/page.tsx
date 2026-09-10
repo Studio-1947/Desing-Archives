@@ -320,7 +320,7 @@ export default function SettingsPage() {
                                         
                                         <div className="space-y-6">
                                             {[
-                                                { title: 'Email Notifications', desc: 'Receive updates about new challenges and workshops.', checked: true },
+                                                { title: 'Email Notifications', desc: 'Receive updates about new archive entries and workshops.', checked: true },
                                                 { title: 'Community Activity', desc: 'Get notified when someone replies to your discussions.', checked: true },
                                                 { title: 'Marketing Emails', desc: 'Stay informed about our latest initiatives and project news.', checked: false },
                                             ].map((item, i) => (
